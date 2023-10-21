@@ -1,4 +1,4 @@
-package artAuctions.auxiliar;
+package artAuctions.auxiliarForTesting;
 
 public class AuxNumeric {
 

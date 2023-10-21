@@ -1,6 +1,6 @@
 import dataStructures.*;
 import artAuctions.*;
-import artAuctions.auxiliar.*;
+import artAuctions.auxiliarForTesting.*;
 import artAuctions.enums.*;
 import java.io.*;
 
