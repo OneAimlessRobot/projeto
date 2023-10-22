@@ -2,16 +2,23 @@ package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
+import artAuctions.exceptions.AuctionEmptyException;
+import artAuctions.exceptions.AuctionExistsException;
 import artAuctions.exceptions.NoSuchArtistException;
+import artAuctions.exceptions.NoSuchAuctionException;
 import artAuctions.exceptions.NoSuchUserException;
 import artAuctions.exceptions.TooYoungException;
 import artAuctions.exceptions.UserExistsException;
+import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
+import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
+import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.Collector;
 import artAuctions.exceptions.NoSuchWorkException;
+import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
 import dataStructures.DoubleList;
@@ -22,13 +29,14 @@ import dataStructures.Vector;
 public class AuctionManagerClass implements Serializable, AuctionManager {
 
 	private static final long serialVersionUID = 1L;
-
-	public List<Work> works;
-	public List<User> users;
-	public List<Collector> collectors;
-	public List<Artist> artists;
-	public List<Auction> auctions;
+	
+	private List<Work> works;
+	private List<User> users;
+	private List<Collector> collectors;
+	private List<Artist> artists;
+	private List<Auction> auctions;
 	private static final int MIN_AGE= 18;
+	private static final int MIN_BID= 50;
 
 	public AuctionManagerClass() {
 //		
@@ -71,9 +79,16 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	}
 	
 	@Override
-	public void addAuction(int id) {
+	public void addAuction(int id) throws AuctionExistsException {
+		Auction decoy= new AuctionClass(id);
+		int pos=auctions.find(decoy);
+		if(pos>=0) {
+
+			throw new AuctionExistsException();
+		}
 		
-		auctions.addFirst((Auction)new AuctionClass(id));
+		
+		auctions.addFirst(decoy);
 		
 	}
 	@Override
@@ -137,6 +152,48 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		return artist.toString();
 		
 	}
+	
+	@Override
+	public void addBidToWork(int auctionid,int workid,String collectorlogin,int value) throws NoSuchUserException, NoSuchWorkInAuctionException, NoSuchWorkException, NoSuchAuctionException, WeakBidException{
+		Work work= new WorkClass(workid, null, value, null);
+		Auction auction=new AuctionClass(auctionid);
+		User decoy= new CollectorClass(collectorlogin," ",0," ");
+		int pos=users.find(decoy),
+				workpos=works.find(work),
+				auctionpos=auctions.find(auction);
+		if(pos<0) {
+
+			throw new NoSuchUserException();
+		}
+		if(workpos<0) {
+			
+			throw new NoSuchWorkException();
+			
+		}
+		if(auctionpos<0) {
+			
+			throw new NoSuchAuctionException();
+		}
+		auction=auctions.get(auctionpos);
+		work=works.get(workpos);
+		if(!workExistsInAuction(auction,work)) {
+			
+			throw new NoSuchWorkInAuctionException();
+			
+		}
+		if(value<MIN_BID) {
+			
+			throw new WeakBidException();
+			
+		}
+		work.setSoldAmmount(value);
+		Collector collector=(Collector)users.get(pos);
+		Bid bid= new BidClass(collector, work, value);
+		collector.addBid(bid);
+		work.addBid(bid);
+		
+		
+	}
 	@Override
 	public String getUserInfo(String login) throws NoSuchUserException  {
 		User decoy= new CollectorClass(login," ",0," ");
@@ -145,7 +202,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 
 				throw new NoSuchUserException();
 			}
-		Collector collector=collectors.get(pos);
+			Collector collector=(Collector)users.get(pos);
 		return collector.toString();
 		
 	}
@@ -161,6 +218,8 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		return result.toString();
 			
 	}
+	
+	
 	@Override
 	public String users() {
 		return users.toString();
@@ -176,6 +235,94 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		return result;
 		
 		
+	}
+	@Override
+
+	public void addWorkToAuction(int auctionid, int workid,int minValue) throws NoSuchWorkException, NoSuchAuctionException, WorkExistsInAuctionException {
+		Work work= new WorkClass(workid, null, minValue, null);
+		Auction auction=new AuctionClass(auctionid);
+		int workpos=works.find(work),auctionpos=auctions.find(auction);
+		if(workpos<0) {
+			
+			throw new NoSuchWorkException();
+			
+		}
+		if(auctionpos<0) {
+			
+			throw new NoSuchAuctionException();
+		}
+		work=works.get(workpos);
+		work.setSoldAmmount(minValue);
+		auction=auctions.get(auctionpos);
+if(workExistsInAuction(auction,work)) {
+			
+			throw new WorkExistsInAuctionException();
+			
+		}
+		auctions.get(auctionpos).addWork(works.get(workpos));
+		
+	}
+	@Override
+	public Iterator<Bid> getBidsFromAuctionWork(int auctionid,int workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException {
+
+		Work work= new WorkClass(workid, null, 0, null);
+		Auction auction=new AuctionClass(auctionid);
+		int workpos=works.find(work),auctionpos=auctions.find(auction);
+		if(workpos<0) {
+			
+			throw new NoSuchWorkException();
+			
+		}
+		if(auctionpos<0) {
+			
+			throw new NoSuchAuctionException();
+		}
+		auction=auctions.get(auctionpos);
+		if(!workExistsInAuction(auction,work)) {
+			
+			throw new NoSuchWorkInAuctionException();
+			
+		}
+		work=works.get(workpos);
+		return work.bids();
+		
+	}
+	private static boolean workExistsInAuction(Auction auction,Work work) {
+		
+		boolean result=false;
+		Iterator<Work> auctionWorkIt= auction.listWorks();
+		Work curr= null;
+		while(auctionWorkIt.hasNext()) {
+			curr=auctionWorkIt.next();
+			if(work.equals(curr)) {
+				
+				return true;
+			}
+			
+		}
+		if(curr==null) {
+			
+			return false;
+			
+		}
+		return result;
+	}
+	@Override
+	public Iterator<Work> getAuctionWorks(int auctionid) throws NoSuchAuctionException, AuctionEmptyException {
+		Auction auction=new AuctionClass(auctionid);
+		int auctionpos=auctions.find(auction);
+		
+		if(auctionpos<0) {
+			
+			throw new NoSuchAuctionException();
+		}
+		auction=auctions.get(auctionpos);
+		if(auction.getNumOfWorks()==0) {
+			
+			throw new AuctionEmptyException();
+			
+		}
+		return auction.listWorks();
 	}
 
 }

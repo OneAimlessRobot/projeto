@@ -10,19 +10,19 @@ public class AuctionClass implements Serializable, Auction {
 
 	private static final long serialVersionUID = 1L;
 	
-	public int id;
-	public List<Work> works;
-	public List<User> users;
-	public List<Collector> collectors;
-	public List<Artist> artists;
+	private int id;
+	private List<Work> works;
+//	public List<User> users;
+//	public List<Collector> collectors;
+//	public List<Artist> artists;
 
 	public AuctionClass(int id) {
 		
 		this.id=id;
 		works= new Vector<>();
-		users= new Vector<>();
-		collectors= new Vector<>();
-		artists= new Vector<>();
+//		users= new Vector<>();
+//		collectors= new Vector<>();
+//		artists= new Vector<>();
 	}
 
 	@Override
@@ -31,26 +31,39 @@ public class AuctionClass implements Serializable, Auction {
 		return works.iterator();
 	}
 
-	@Override
-	public void AddWork() {
-		return;
+	public boolean equals(Object auction) {
+		boolean result=false;
+
+		if(!(auction instanceof Auction)) {
+
+			return false;
+			
+		}
+		else {
+		result= ((Auction)auction).getId()==this.getId();
+		}
+		return result;
+		
+		
 		
 	}
-
 	@Override
-	public void AddArtist(String login,String name,String artsyName,int age,String email) {
-		artists.addFirst((Artist)new ArtistClass(login,name,artsyName,age,email));
+	public void addWork(Work addedWork) {
+		works.addFirst(addedWork);
 	}
 
-	@Override
-	public void AddUser() {
+	public String toString() {
 		
-		
+		return ""+getId()+"\nWorks: "+works.toString();
 	}
-
+	
 	@Override
 	public int getId() {
 		return id;
+	}
+
+	public int getNumOfWorks() {
+		return works.size();
 	}
 	
 	

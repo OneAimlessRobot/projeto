@@ -4,15 +4,22 @@ import java.util.Scanner;
 import artAuctions.enums.CommandResponse;
 import artAuctions.enums.FilePath;
 import artAuctions.enums.MenuOption;
-import artAuctions.enums.TestFilePath;
+import artAuctions.exceptions.AuctionEmptyException;
+import artAuctions.exceptions.AuctionExistsException;
 import artAuctions.exceptions.NoSuchArtistException;
+import artAuctions.exceptions.NoSuchAuctionException;
 import artAuctions.exceptions.NoSuchUserException;
 import artAuctions.exceptions.NoSuchWorkException;
+import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.exceptions.TooYoungException;
 import artAuctions.exceptions.UserExistsException;
+import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
+import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
 import artAuctions.specificADTs.interfaces.AuctionManager;
+import artAuctions.specificADTs.interfaces.Bid;
+import artAuctions.specificADTs.interfaces.Work;
 
 import java.io.*;
 
@@ -113,7 +120,7 @@ public class Main {
 			listBidsWork(input,mgr);
 			break;
 		case LISTWORKSBYVALUE:
-			listWorksByValue(input,mgr);
+			//listWorksByValue(input,mgr);
 			break;
 		case PRINTMENU:
 			input.nextLine();
@@ -270,55 +277,131 @@ public class Main {
 		catch(NoSuchWorkException e) {
 			
 			System.out.println(CommandResponse.NOSUCHWORK.getResponse());
-		}
+			}
 		
 		
 	}
 	private static void addWorkAuction(Scanner input,AuctionManager mgr) {
-		
-		//TODO
-		
+		int auctionid=input.nextInt(),
+				workid=input.nextInt(),
+				value=input.nextInt();
+		input.nextLine();
+		input.nextLine();
+		try {
+			mgr.addWorkToAuction(auctionid, workid, value);	
+			System.out.println(CommandResponse.WORKPOSTEDTOAUCTION.getResponse());
+			
+		} catch (NoSuchWorkException e) {
+			System.out.println(CommandResponse.NOSUCHWORK.getResponse());
+		} catch (NoSuchAuctionException e) {
+			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse());
+		} catch (WorkExistsInAuctionException e) {
+			System.out.println(CommandResponse.WORKPOSTEDTOAUCTION.getResponse());
+		}
 	}
 	private static void bid(Scanner input,AuctionManager mgr) {
-		//TODO
-		
+
+				int auctionid= input.nextInt(),
+						workid=input.nextInt();
+				String login= input.next();
+				int value= input.nextInt();
+				input.nextLine();
+				input.nextLine();
+			try {
+				mgr.addBidToWork(auctionid, workid, login, value);
+				System.out.println(CommandResponse.BIDMADE.getResponse());
+				
+			} catch (NoSuchUserException e) {
+				System.out.println(CommandResponse.NOSUCHUSER.getResponse());
+			} catch (NoSuchWorkInAuctionException e) {
+				System.out.println(CommandResponse.NOSUCHWORKHERE.getResponse());
+			} catch (NoSuchWorkException e) {
+				System.out.println(CommandResponse.NOSUCHWORK.getResponse());	
+			} catch (NoSuchAuctionException e) {
+				System.out.println(CommandResponse.NOSUCHAUCTION.getResponse());
+			} catch (WeakBidException e) {
+				System.out.println(CommandResponse.BIDTOOCHEAP.getResponse());
+			}
 		
 	}
-	private static void closeAuction(Scanner input,AuctionManager mgr) {
+	private static void removeUser(Scanner input,AuctionManager mgr) {
+		
 		
 		//TODO
-		
+	}
+	private static void closeAuction(Scanner input,AuctionManager mgr) {
+		//TODO
 	}
 
 	private static void createAuction(Scanner input,AuctionManager mgr){
 		
-		//TODO	
+				int auctionid=input.nextInt();
+				input.nextLine();
+				input.nextLine();
+				try {
+					mgr.addAuction(auctionid);	
+					System.out.println(CommandResponse.AUCTIONSTARTSUCCESS.getResponse());
+					
+				} catch (AuctionExistsException e) {
+					System.out.println(CommandResponse.AUCTIONALREADYUP.getResponse());
+				}
+				
 			
-		}
+	}
 	private static void printSystem(AuctionManager mgr) {
 		
 		System.out.println(mgr);
 		
 	}
-	private static void listArtistWorks(Scanner input,AuctionManager mgr){
-		/*NOT THIS VERSION*/
-		//TODO	
-			
-		}
+//	private static void listArtistWorks(Scanner input,AuctionManager mgr){
+//		/*NOT THIS VERSION*/
+//			
+//			
+//		}
 	private static void listAuctionWorks(Scanner input,AuctionManager mgr) {
+		int auctionid= input.nextInt();
+		input.nextLine();
+		input.nextLine();
+		try {
+			Iterator<Work> workIt= mgr.getAuctionWorks(auctionid);
+			while(workIt.hasNext()) {
+				
+				Work curr= workIt.next();
+				System.out.println(curr);
+				
+			}
+		} catch (NoSuchAuctionException e) {
+			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse());
+		} catch (AuctionEmptyException e) {	
+			
+			System.out.println(CommandResponse.AUCTIONEMPTY.getResponse());
 		
-	//TODO	
-		
+		}
 	}
 	private static void listBidsWork(Scanner input,AuctionManager mgr) {
-		
-		//TODO
+		int auctionid=input.nextInt(),workid=input.nextInt();
+		input.nextLine();
+		input.nextLine();
+		try {
+			Iterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
+			while(workBids.hasNext()) {
+				Bid curr= workBids.next();
+				System.out.println(curr);
+				
+			}
+		} catch (NoSuchWorkException e) {
+			System.out.println(CommandResponse.NOSUCHWORK.getResponse());
+		} catch (NoSuchAuctionException e) {
+			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse());
+		} catch (NoSuchWorkInAuctionException e) {
+			System.out.println(CommandResponse.NOSUCHWORKHERE.getResponse());
+		}
 		
 		
 	}
 	private static void testSave(AuctionManager mgr) {
 		
-		ObjectSaverLoader<AuctionManager> loader= new ObjectSaverLoader<>(FilePath.SYSTEMSTATE.getValue());	//TODO	
+		ObjectSaverLoader<AuctionManager> loader= new ObjectSaverLoader<>(FilePath.SYSTEMSTATE.getValue());
 		loader.save(mgr);
 	}
 	private static AuctionManager testLoad() {
@@ -327,12 +410,12 @@ public class Main {
 			
 		
 	}
-		private static void listWorksByValue(Scanner input,AuctionManager mgr) {
-			/*NOT THIS VERSION*/
-			//TODO
-			
-			
-		}
+//		private static void listWorksByValue(Scanner input,AuctionManager mgr) {
+//			/*NOT THIS VERSION*/
+//			
+//			
+//			
+//		}
 	private static void printMenu() {
 		for(MenuOption option: MenuOption.values()) {
 			

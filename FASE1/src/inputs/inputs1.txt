@@ -1,0 +1,71 @@
+addUser eu sou
+19 mau
+
+addArtist eu mijo
+ola bom dia
+19 nas calcas
+
+addArtist tirem_me_daqui_!_de_onde_?_destecorpo lllll
+vivemos numa realidade
+19 despondentYoungster@gmail.com
+
+
+printMenu
+
+
+addUser eu sou
+19 mau
+
+addArtist eu mijo
+ola bom dia
+19 nas calcas
+
+addArtist tirem_me_daqui_!_de_onde_?_destecorpo lllll
+vivemos numa realidade
+19 despondentYoungster@gmail.com
+
+
+printMenu
+
+
+addArtist humberto delgado
+kill everything
+16 iWantToDie
+
+addArtist humberto delgado
+kill everything
+36 iWantToDie
+
+addArtist roberto delgado
+kill everything
+15 iWantToLive
+
+addArtist roberto delgado
+kill nothing live all
+18 iWantToLive
+
+addwork 1997 robert 1997 1997
+
+addwork 1997 roberto 1997 1997
+
+addwork 2023 hubbert 2023 myYearOfReflection
+
+addwork 2026 humberto 2032 EnteringReality
+
+createAuction 1
+
+addworkAuction 1 1997 100
+
+addworkAuction 1 2023 100
+
+printSystem
+
+addworkauction 1 2026 100
+
+addworkauction 1 1997 200
+
+printsystem
+
+bid 1 2026 o 100
+
+printsystem

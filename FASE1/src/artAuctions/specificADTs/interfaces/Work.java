@@ -2,8 +2,14 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
+import dataStructures.Iterator;
+
 public interface Work extends Serializable{
 
+	Iterator<Bid> bids();
+	
+	void addBid(Bid addedBid);
+	
 	int getYear();
 
 	void setYear(int year);
@@ -14,6 +20,8 @@ public interface Work extends Serializable{
 
 	int getId();
 
+	int getNumOfBids();
+	
 	void setId(int id);
 
 	Artist getAuthor();

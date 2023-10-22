@@ -22,9 +22,21 @@ public class CollectorClass extends UserClass implements Serializable, Collector
 
 	public String toString() {
 		
-			return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail();
+			return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail()+"\nBids:"+collectorBids.toString();
 			
 			
+		
+	}
+	@Override
+	public int numOfBids() {
+		
+		
+		return collectorBids.size();
+	}
+	@Override
+	public void addBid(Bid addedBid) {
+		
+		collectorBids.addFirst(addedBid);
 		
 	}
 }

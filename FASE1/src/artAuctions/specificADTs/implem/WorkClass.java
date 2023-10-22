@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
 import dataStructures.DoubleList;
+import dataStructures.Iterator;
 import dataStructures.List;
-import artAuctions.specificADTs.implem.*;
 
 public class WorkClass implements Serializable, Work {
 
+	private static final long serialVersionUID = 1L;
 	private static final int minBidAmmount=50;
 	private int id,year,lastSoldPrice;
 	private Artist author;
@@ -70,10 +71,13 @@ public class WorkClass implements Serializable, Work {
 		this.name = name;
 	}
 	public String toString() {
-		//idObra nome ano valorVendaMaisAlto loginAutor nomeAutor
-		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
+		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName()+"\nBids: "+workBids.toString();
 		
-	}
+	}	
+//	public String toString() {
+//		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
+//		
+//	}
 	public boolean equals(Object work) {
 		boolean result=false;
 
@@ -89,6 +93,18 @@ public class WorkClass implements Serializable, Work {
 		
 		
 		
+	}
+	@Override
+	public Iterator<Bid> bids() {
+		return workBids.iterator();
+	}
+	@Override
+	public void addBid(Bid addedBid) {
+		workBids.addFirst(addedBid);
+		
+	}
+	public int getNumOfBids() {
+		return workBids.size();
 	}
 	
 }

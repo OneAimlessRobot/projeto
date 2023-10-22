@@ -6,17 +6,14 @@ import dataStructures.Iterator;
 public interface Auction extends Serializable{
 
 
+	int getNumOfWorks();
+	
 
 	Iterator<Work> listWorks();
 	
-	void AddWork();
-	
-	
-	void AddUser();
-	
 	int getId();
 
-	void AddArtist(String login, String name, String artsyName,int age, String email);
-	
+	void addWork(Work addedWork);
+
 	
 }

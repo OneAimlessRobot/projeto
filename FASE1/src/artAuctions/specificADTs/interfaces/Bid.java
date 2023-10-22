@@ -8,4 +8,6 @@ public interface Bid extends Serializable {
 	Collector getCollector();
 	
 	Work getWork();
+
+	int getBidAmmount();
 }
