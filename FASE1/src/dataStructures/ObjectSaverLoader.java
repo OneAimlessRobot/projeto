@@ -8,8 +8,6 @@ public class ObjectSaverLoader<E> {
 	public ObjectSaverLoader(String filepath) {
 		
 		this.filepath=filepath;
-		System.out.println(filepath);
-		
 		
 	}
 	

@@ -94,9 +94,34 @@ public class Vector<T> implements List<T> {
 			
 		return arr[index];
 	}
+	public String toString() {
+    	
+    	String result="[";
+    	Iterator<T> it=iterator();
+    	while(it.hasNext()) {
+    		T elem= it.next();
+    		if(elem==null) {
+    			
+    			result= result+"null";
+    		}
+    		else {
+    			
+    			result+=" "+elem.toString()+" ";
+    			
+    		}
+    		
+    		
+    	}
+    	result=result+"]";
+    	
+    	return result;
+    	
+    	
+    	
+    }
 	@Override
 	public void add(int index,T elem) {
-		if(index<0||index>currPos-1) {
+		if(index<0||index>currPos+1) {
 			throw new InvalidPositionException();
 		}
 		if(isFull()) {

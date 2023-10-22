@@ -315,7 +315,7 @@ public class DoubleList<E> implements List<E>
     public String toString() {
     	
     	String result="[";
-    	Iterator<E> it=new DoubleListIterator<>(head,tail);
+    	Iterator<E> it=iterator();
     	while(it.hasNext()) {
     		E elem= it.next();
     		if(elem==null) {
@@ -324,10 +324,9 @@ public class DoubleList<E> implements List<E>
     		}
     		else {
     			
-    			result=result+elem.toString();
+    			result+=" "+elem.toString()+" ";
     			
     		}
-    		result=result+" ";
     		
     		
     	}

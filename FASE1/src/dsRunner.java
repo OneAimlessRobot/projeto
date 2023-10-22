@@ -1,5 +1,4 @@
 import dataStructures.*;
-import artAuctions.*;
 import artAuctions.auxiliarForTesting.*;
 import artAuctions.enums.*;
 import java.io.*;
@@ -8,32 +7,25 @@ public class dsRunner {
 	
 	public static void main(String[] args) throws IOException, EmptyQueueException {
 
+		initFiles();
 		Integer[] nums= CollectionAlgorithms.randIntArrAux(0, 100, 10);
-
-		InvertibleQueue<Integer> queueTwo,queueThree;
-		queueTwo=new InvertibleQueueInList<>();
-		queueThree=new InvertibleQueueInList<>();
-
+		List<Integer> list= new Vector<>();
+		List<Integer> list2;
 		for(int i=0;i<nums.length;i++) {
 			
-			queueTwo.enqueue(nums[i]);
+			list.addFirst(nums[i]);
 		}
-
-		for(int i=0;i<nums.length;i++) {
-			
-			queueThree.enqueue(nums[i]);
-		}
-
-		
-		
-		System.out.println(queueTwo);
-		queueThree.invert();
-		System.out.println("Invertida!:\n"+queueThree);
+		ObjectSaverLoader<List<Integer>> loader1=new ObjectSaverLoader<>(TestFilePath.VECTORFILE.getValue());
+	    loader1.save(list);
+	    list2=loader1.load();
+		System.out.println(list);
+		System.out.println(list2);
+	
 	}
 	
 	private static void initFiles() {
 		
-		for(FilePath filepath: FilePath.values()) {
+		for(TestFilePath filepath: TestFilePath.values()) {
 			
 			File file= new File(filepath.getValue());
 			try {
@@ -52,7 +44,7 @@ public class dsRunner {
 
 	private static void deleteFiles() {
 		
-		for(FilePath filepath: FilePath.values()) {
+		for(TestFilePath filepath: TestFilePath.values()) {
 			
 			File file= new File(filepath.getValue());
 

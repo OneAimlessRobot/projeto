@@ -1,8 +1,11 @@
 package artAuctions.enums;
 
-public enum FilePath {
+public enum TestFilePath {
 
-	SYSTEMSTATE("systemstate.res");
+	QUEUEFILE("ola.res"),
+	QUEUEFILETWO("bomDia.res"),
+	VECTORFILE("vetor1.res"),
+	VECTORFILETWO("vetor2.res");
 	
 //Usa a adequada
 
@@ -13,7 +16,7 @@ private String resourcesPath=System.getProperty("user.dir")+"/resources/"; //Lin
 	
 	private String value; 
 
-	FilePath(String filename) {
+	TestFilePath(String filename) {
 		
 		value=resourcesPath+filename;
 		

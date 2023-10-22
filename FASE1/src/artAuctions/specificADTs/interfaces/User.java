@@ -9,5 +9,8 @@ import java.io.Serializable;
 public interface User extends Serializable {
 	
 
+	String getName();
 	String getLogin();
+	String getEmail();
+	int getAge();
 }

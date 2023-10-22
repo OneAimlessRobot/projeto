@@ -4,16 +4,21 @@ import dataStructures.*;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
+import artAuctions.specificADTs.interfaces.Work;
 
 public class AuctionClass implements Serializable, Auction {
 
 	private static final long serialVersionUID = 1L;
-
-	public Vector<Work> works,users,collectors,artists;
 	
-	public AuctionClass() {
-		
+	public int id;
+	public List<Work> works;
+	public List<User> users;
+	public List<Collector> collectors;
+	public List<Artist> artists;
 
+	public AuctionClass(int id) {
+		
+		this.id=id;
 		works= new Vector<>();
 		users= new Vector<>();
 		collectors= new Vector<>();
@@ -33,15 +38,19 @@ public class AuctionClass implements Serializable, Auction {
 	}
 
 	@Override
-	public void AddArtist() {
-		// TODO Auto-generated method stub
-		
+	public void AddArtist(String login,String name,String artsyName,int age,String email) {
+		artists.addFirst((Artist)new ArtistClass(login,name,artsyName,age,email));
 	}
 
 	@Override
 	public void AddUser() {
-		// TODO Auto-generated method stub
 		
+		
+	}
+
+	@Override
+	public int getId() {
+		return id;
 	}
 	
 	

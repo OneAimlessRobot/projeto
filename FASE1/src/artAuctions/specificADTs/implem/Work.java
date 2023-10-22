@@ -1,8 +1,8 @@
-package artAuctions.specificADTs.interfaces;
+package artAuctions.specificADTs.implem;
 
-import java.io.Serializable;
+import artAuctions.specificADTs.interfaces.Artist;
 
-public interface Work extends Serializable{
+public interface Work {
 
 	int getYear();
 

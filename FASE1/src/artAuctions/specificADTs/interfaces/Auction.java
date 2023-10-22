@@ -11,9 +11,12 @@ public interface Auction extends Serializable{
 	
 	void AddWork();
 	
-	void AddArtist();
 	
 	void AddUser();
+	
+	int getId();
+
+	void AddArtist(String login, String name, String artsyName,int age, String email);
 	
 	
 }
