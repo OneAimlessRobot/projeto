@@ -9,13 +9,22 @@ import dataStructures.List;
 
 public class CollectorClass extends UserClass implements Serializable, Collector {
 
+	private static final long serialVersionUID = 1L;
 	private List<Bid> collectorBids;
 	public CollectorClass(String login,String name,int age,String email) {
 		
-		super(login,email,age, email);
+		super(login,name,age, email);
 		collectorBids=new DoubleList<>();
 		
 		
+		
+	}
+
+	public String toString() {
+		
+			return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail();
+			
+			
 		
 	}
 }

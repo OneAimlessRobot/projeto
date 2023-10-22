@@ -8,9 +8,9 @@ public interface Work extends Serializable{
 
 	void setYear(int year);
 
-	void setMinBidAmmount(int value);
+	void setSoldAmmount(int value);
 
-	int getMinBidAmmount();
+	int getBidAmmount();
 
 	int getId();
 

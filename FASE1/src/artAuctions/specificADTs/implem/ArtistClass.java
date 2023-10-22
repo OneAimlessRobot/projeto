@@ -19,16 +19,12 @@ public class ArtistClass extends UserClass implements Serializable,Artist {
 		return artsyName;
 	}
 
-	public boolean equals(Artist artist) {
-		boolean result=false;
-		if(login==null) {
-			if(artist.getLogin()==null) {
-				result=!result;
-			}
-			return result;
-		}
-		return artist.getLogin().equals(this.getLogin());
+	public String toString() {
+		
+		return getLogin()+" "+ getName()+ " "+ getArtsyName()+ " "+ getAge()+" "+getEmail();
 		
 		
-	}
+		
+		
+}
 }

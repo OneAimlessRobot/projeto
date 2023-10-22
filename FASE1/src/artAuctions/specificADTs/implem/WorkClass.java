@@ -3,16 +3,17 @@ package artAuctions.specificADTs.implem;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
-import artAuctions.specificADTs.interfaces.Work;
 import dataStructures.DoubleList;
 import dataStructures.List;
 import artAuctions.specificADTs.implem.*;
 
 public class WorkClass implements Serializable, Work {
 
-	private int id,year,minBidAmmount;
+	private static final int minBidAmmount=50;
+	private int id,year,lastSoldPrice;
 	private Artist author;
 	private String name;
+	
 	private List<Bid> workBids;
 	
 	public WorkClass(int id,Artist author,int year,String name) {
@@ -22,6 +23,8 @@ public class WorkClass implements Serializable, Work {
 		this.setYear(year);
 		this.setName(name);
 		workBids=new DoubleList<>();
+		lastSoldPrice=0;
+		
 		
 	}
 	@Override
@@ -33,12 +36,14 @@ public class WorkClass implements Serializable, Work {
 		this.year = year;
 	}
 	@Override
-	public void setMinBidAmmount(int value) {
-		minBidAmmount = value;
+	public void setSoldAmmount(int value) {
+		if(value>lastSoldPrice&&value>minBidAmmount) {
+		lastSoldPrice = value;
+		}
 	}
 	@Override
-	public int getMinBidAmmount() {
-		return minBidAmmount;
+	public int getBidAmmount() {
+		return lastSoldPrice;
 	}
 	@Override
 	public int getId() {
@@ -65,8 +70,24 @@ public class WorkClass implements Serializable, Work {
 		this.name = name;
 	}
 	public String toString() {
+		//idObra nome ano valorVendaMaisAlto loginAutor nomeAutor
+		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
 		
-		return "";
+	}
+	public boolean equals(Object work) {
+		boolean result=false;
+
+		if(!(work instanceof Work)) {
+
+			return false;
+			
+		}
+		else {
+		result= ((Work)work).getId()==this.getId();
+		}
+		return result;
+		
+		
 		
 	}
 	

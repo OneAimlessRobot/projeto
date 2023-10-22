@@ -2,7 +2,6 @@ package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
-import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.User;
 
 public abstract class UserClass implements User, Serializable {
@@ -46,24 +45,32 @@ public abstract class UserClass implements User, Serializable {
 	}
 	public String toString() {
 		
-		return "";
+		return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail();
 		
+		
+	
 	}
-
-	public boolean equals(User user) {
+	public boolean equals(Object user) {
 		boolean result=false;
+
+		if(!(user instanceof User)) {
+
+			return false;
+			
+		}
 		if(login==null) {
-			if(user.getLogin()==null) {
+			if(((User)user).getLogin()==null) {
+
 				result=true;
 			}
 		}
-		else if(user.getLogin()==null) {
+		else if(((User)user).getLogin()==null) {
 			
 			result=false;
 			
 		}
 		else {
-		result= user.getLogin().equals(this.getLogin());
+		result= ((User)user).getLogin().equals(this.getLogin());
 		}
 		return result;
 		

@@ -1,7 +1,9 @@
 package dataStructures;
 
+import java.io.Serializable;
 
-public class Vector<T> implements List<T> {
+
+public class Vector<T> implements List<T>,Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static class VectorIterator<T> implements TwoWayIterator<T>{
@@ -87,7 +89,7 @@ public class Vector<T> implements List<T> {
 	}
 	@Override
 	public T get(int index) {
-		if(index >= this.size()|| index < 0) {
+		if(index<0||index>currPos) {
 			
 			throw new IndexOutOfBoundsException();
 		}
@@ -159,15 +161,18 @@ public class Vector<T> implements List<T> {
 	}
 	@Override
 	public int find(T elem) {
-		if(isEmpty()) {
+		if(isEmpty()) {	
+			
 			return -1;
 		}
-		int i=0;
-		for(;i<currPos&&!get(i).equals(elem);i++);
-		if(arr[i]==null) {
-			return -1;
+		int i=-1;
+		for(;i<currPos;) {
+			i++;
+		if(elem.equals(get(i))) {
+			return i;
 		}
-		return i;
+		}
+		return -1;
 	}
 	@Override
 	public T getLast() throws EmptyListException {
