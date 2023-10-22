@@ -5,6 +5,12 @@ import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
 import artAuctions.specificADTs.interfaces.Work;
+/**
+* @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
+* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
+*/
+
+
 
 public class AuctionClass implements Serializable, Auction {
 

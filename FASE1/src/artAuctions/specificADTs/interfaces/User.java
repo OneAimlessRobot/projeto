@@ -1,11 +1,12 @@
 package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
-
 /**
-* @author Adriano Antonio Campos Valente (NUMEROALUNO1) emailALUNO1
-* @author Pedro Assuncao (NUMEROALUNO2) 
+* @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
+* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
 */
+
+
 public interface User extends Serializable {
 	
 

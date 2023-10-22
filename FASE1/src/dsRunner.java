@@ -2,6 +2,11 @@ import dataStructures.*;
 import artAuctions.auxiliarForTesting.*;
 import artAuctions.enums.*;
 import java.io.*;
+/**
+* @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
+* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
+*/
+
 
 public class dsRunner {
 	

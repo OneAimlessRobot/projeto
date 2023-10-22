@@ -1,5 +1,7 @@
 package dataStructures;
 
+
+
 public class ConcatenableQueueInList<E> implements ConcatenableQueue<E> {
 
 	/**
