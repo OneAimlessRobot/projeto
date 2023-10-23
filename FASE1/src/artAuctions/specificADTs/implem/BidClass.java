@@ -10,17 +10,17 @@ package artAuctions.specificADTs.implem;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.Bid;
-import artAuctions.specificADTs.interfaces.Collector;
+import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
 
 public class BidClass implements Serializable, Bid {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Collector collector;
+	private User collector;
 	private Work work;
 	private int bidAmmount;
-	public BidClass(Collector collector,Work work,int bidAmmount) {
+	public BidClass(User collector,Work work,int bidAmmount) {
 		
 		this.collector=collector;
 		this.work=work;
@@ -28,7 +28,7 @@ public class BidClass implements Serializable, Bid {
 		
 	}
 	@Override
-	public Collector getCollector() {
+	public User getCollector() {
 		
 		return collector;
 	}

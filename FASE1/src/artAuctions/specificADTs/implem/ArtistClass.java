@@ -4,42 +4,43 @@ package artAuctions.specificADTs.implem;
 * @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
 */
 
-
-
-
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
+import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
 import dataStructures.Vector;
-public class ArtistClass extends UserClass implements Serializable,Artist {
+
+public class ArtistClass extends UserClass implements Serializable, Artist {
 
 	private static final long serialVersionUID = 1L;
+
 	private String artsyName;
 	private List<Work> works;
-	public ArtistClass(String login,String name,String artsyName,int age,String email) {
-		
-		super(login,name,age,email);
-		this.artsyName=artsyName;
+	
+	public ArtistClass(String login, String name, int age, String email) {
+		super(login, name, age, email);
+//		works=new DoubleList <>();
 		works=new Vector<>();
 	}
 	@Override
-	public String getArtsyName() {
+	public String printArtist() {
 		
-		
-		return artsyName;
-	}
-
-	public String toString() {
-		
-		return getLogin()+" "+ getName()+ " "+ getArtsyName()+ " "+ getAge()+" "+getEmail();
+		return getLogin()+" "+ getName()+ " "+ getArtsyName()+ " "+ getAge()+" "+getEmail()+"\nBids: "+collectorBids.toString()+"\nWorks: "+works.toString();
 		
 		
 		
 		
 }
+	@Override
+	public void setArtsyName(String newName) {
+		
+		
+		artsyName=newName;
+	}
+
 	@Override
 	public int getNumOfWorks() {
 		
@@ -54,4 +55,9 @@ public class ArtistClass extends UserClass implements Serializable,Artist {
 	public Iterator<Work> works() {
 		return works.iterator();
 	}
+	@Override
+	public String getArtsyName() {
+		return artsyName;
+	}
+
 }

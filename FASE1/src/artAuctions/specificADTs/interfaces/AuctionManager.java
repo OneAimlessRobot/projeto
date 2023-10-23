@@ -7,6 +7,7 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
+import artAuctions.exceptions.ArtistHasWorksException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;
 import artAuctions.exceptions.NoSuchArtistException;
@@ -16,6 +17,7 @@ import artAuctions.exceptions.NoSuchWorkException;
 import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.exceptions.TooYoungException;
 import artAuctions.exceptions.UserExistsException;
+import artAuctions.exceptions.UserHasBidsException;
 import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
@@ -32,17 +34,21 @@ public interface AuctionManager extends Serializable{
 
 	String getUserInfo(String login) throws NoSuchUserException;
 
-	String getWorkInfo(int id) throws NoSuchWorkException;
+	String getWorkInfo(String id) throws NoSuchWorkException;
 
-	void addWorkToAuction(int auctionid,int workid,int minValue) throws NoSuchWorkException, NoSuchAuctionException, WorkExistsInAuctionException;
+	void addWorkToAuction(String auctionid,String workid,int minValue) throws NoSuchWorkException, NoSuchAuctionException, WorkExistsInAuctionException;
 	
-	Iterator<Work> getAuctionWorks(int auctionid) throws NoSuchAuctionException, AuctionEmptyException;
-	Iterator<Bid> getBidsFromAuctionWork(int auctionid,int workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException;
+	Iterator<Work> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException;
+	Iterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException;
 	void addUser(String login, String name, int age, String email) throws UserExistsException, TooYoungException;
 
-	void addAuction(int id) throws AuctionExistsException;
+	void removeUser(String login) throws NoSuchUserException, UserHasBidsException, ArtistHasWorksException;
 
-	void addWork(int id, String login, int year, String name) throws NoSuchArtistException, NoSuchUserException, WorkExistsException;
+	void addAuction(String id) throws AuctionExistsException;
 
-	void addBidToWork(int auctionid,int workid,String collectorlogin,int value) throws NoSuchUserException, NoSuchWorkInAuctionException, NoSuchWorkException, NoSuchAuctionException, WeakBidException;
+	void addWork(String id, String login, int year, String name) throws NoSuchArtistException, NoSuchUserException, WorkExistsException;
+
+	void addBidToWork(String auctionid,String workid,String collectorlogin,int value) throws NoSuchUserException, NoSuchWorkInAuctionException, NoSuchWorkException, NoSuchAuctionException, WeakBidException;
+	
+	Auction closeAuction(String auctionid) throws NoSuchAuctionException;
 }

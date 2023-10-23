@@ -10,9 +10,10 @@ import java.io.Serializable;
 public interface Bid extends Serializable {
 
 	
-	Collector getCollector();
+	User getCollector();
 	
 	Work getWork();
 
 	int getBidAmmount();
+	
 }

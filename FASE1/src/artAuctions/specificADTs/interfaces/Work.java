@@ -23,11 +23,11 @@ public interface Work extends Serializable{
 
 	int getBidAmmount();
 
-	int getId();
+	String getId();
 
 	int getNumOfBids();
 	
-	void setId(int id);
+	void setId(String id);
 
 	Artist getAuthor();
 

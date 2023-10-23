@@ -16,7 +16,7 @@ public class CollectorClass extends UserClass implements Serializable, Collector
 
 	private static final long serialVersionUID = 1L;
 	private List<Bid> collectorBids;
-	public CollectorClass(String login,String name,int age,String email) {
+	public CollectorClass(String login,String name,String artsyName,int age,String email) {
 		
 		super(login,name,age, email);
 		collectorBids=new DoubleList<>();

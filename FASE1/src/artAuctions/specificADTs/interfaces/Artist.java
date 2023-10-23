@@ -17,5 +17,9 @@ public interface Artist extends User {
 	void addWork(Work work);
 	
 	Iterator<Work> works();
+
+	String printArtist();
+	
+	void setArtsyName(String newName);
 }
 

@@ -4,7 +4,6 @@ import dataStructures.*;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
-import artAuctions.specificADTs.interfaces.Work;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
@@ -16,19 +15,14 @@ public class AuctionClass implements Serializable, Auction {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
+	private String id;
 	private List<Work> works;
-//	public List<User> users;
-//	public List<Collector> collectors;
-//	public List<Artist> artists;
 
-	public AuctionClass(int id) {
+	public AuctionClass(String id) {
 		
 		this.id=id;
+//		works= new DoubleList<>();
 		works= new Vector<>();
-//		users= new Vector<>();
-//		collectors= new Vector<>();
-//		artists= new Vector<>();
 	}
 
 	@Override
@@ -45,12 +39,21 @@ public class AuctionClass implements Serializable, Auction {
 			return false;
 			
 		}
+		if(id==null) {
+			if(((Auction)auction).getId()==null) {
+
+				result=true;
+			}
+		}
+		else if(((Auction)auction).getId()==null) {
+			
+			result=false;
+			
+		}
 		else {
-		result= ((Auction)auction).getId()==this.getId();
+		result= ((Auction)auction).getId().equals(this.getId());
 		}
 		return result;
-		
-		
 		
 	}
 	@Override
@@ -60,11 +63,11 @@ public class AuctionClass implements Serializable, Auction {
 
 	public String toString() {
 		
-		return ""+getId()+"\nWorks: "+works.toString();
+		return getId()+"\nWorks: "+works.toString();
 	}
 	
 	@Override
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 

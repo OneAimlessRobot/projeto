@@ -1,4 +1,8 @@
 package dataStructures;
+/**
+* @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
+* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
+*/
 
 import java.io.Serializable;
 
@@ -203,8 +207,9 @@ public class Vector<T> implements List<T>,Serializable {
 	@Override
 	public boolean remove(T element) {
 		boolean result;
-		if(find(element)>=0) {
-			remove(element);
+		int pos;
+		if((pos=find(element))>=0) {
+			remove(pos);
 			result=true;
 		}
 		else {

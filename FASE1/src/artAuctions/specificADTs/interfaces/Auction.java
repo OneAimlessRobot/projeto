@@ -16,7 +16,7 @@ public interface Auction extends Serializable{
 
 	Iterator<Work> listWorks();
 	
-	int getId();
+	String getId();
 
 	void addWork(Work addedWork);
 

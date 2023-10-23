@@ -1,112 +1,1413 @@
-Utilizador existente.
-Utilizador existente.
+
 Registo de utilizador executado.
-addUser - insercao de novo utilizador (coleccionador)
-Params:
-
-addUser login nome
-idade email
-
-addArtist - insercao de novo artista
-Params:
-
-addArtist login nome
-nomeArtistico
-idade email
-
-removeUser - remocao de um utilizador
-Params:
-
-removeUser login
-
-addWork - insercao de nova obra de arte
-Params:
-
-addWork idObra loginAutor ano nome
-
-infoUser - informacao sobre um utilizador generico
-Params:
-
-infoUser login
-
-infoArtist - informacao sobre um artista
-Params:
-
-infoArtist login
-
-infoWork - informacao sobre uma obra de arte
-Params:
-
-infoWork id
-
-createAuction - criacao de Leilao
-Params:
-
-createAuction id
-
-addWorkAuction - adiciona obra de arte a leilao
-Params:
-
-addWorkAuction idLeilao idObra valorMinimo
-
-bid - submissao de proposta de compra de uma obra num leilao
-Params:
-
-bid idLeilao idObra login valor
-
-closeAuction - encerramento de leilao
-Params:
-
-closeAuction idLeilao
-
-listAuctionWorks - listagem das obras para venda em leilao
-Params:
-
-listAuctionWorks idLeilao
-
-listArtistWorks - listagem das obras de um artista
-Params:
 
 
-
-listBidsWork - listagem de propostas de compra de obra em leilao
-Params:
-
-listBidsWork idLeilao idObra
-
-ListWorksByValue - listagem de obras ja vendidas por valor maximo de venda
-Params:
+Registo de utilizador executado.
 
 
-
-printmenu - Imprime menu
-Params:
+Registo de utilizador executado.
 
 
-
- - 
-Params:
+Registo de utilizador executado.
 
 
-
-quit - termina a execucao do programa
-Params:
+Registo de utilizador executado.
 
 
-
-save - termina a execucao do programa e salva o programa
-Params:
+Registo de utilizador executado.
 
 
-
-load - carrega o estado anterior
-Params:
+Registo de utilizador executado.
 
 
+Registo de utilizador executado.
 
-printsystem - mostra a informaçao sobre o sistema atual
-Params:
 
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Utilizador existente.
+
+
+Registo de utilizador executado.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Registo de utilizador executado.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Registo de utilizador executado.
+
+
+Registo de utilizador executado.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Registo de utilizador executado.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Registo de artista executado.
+
+
+Utilizador existente.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Registo de artista executado.
+
+
+Registo de artista executado.
+
+
+Utilizador existente.
+
+
+Registo de artista executado.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Registo de artista executado.
+
+
+Utilizador existente.
+
+
+Registo de artista executado.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Registo de artista executado.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Utilizador existente.
+
+
+Idade inferior a 18 anos.
+
+
+Idade inferior a 18 anos.
+
+
+Remocao de utilizador executada.
+
+
+Utilizador inexistente.
+
+
+Remocao de utilizador executada.
+
+
+Remocao de utilizador executada.
+
+
+Remocao de utilizador executada.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Remocao de utilizador executada.
+
+
+Remocao de utilizador executada.
+
+
+Remocao de utilizador executada.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
+
+
+Utilizador inexistente.
 
 
 Goodnight world.
+

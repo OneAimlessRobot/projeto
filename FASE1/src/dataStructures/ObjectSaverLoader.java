@@ -1,5 +1,9 @@
 package dataStructures;
 import java.io.*;
+/**
+* @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
+* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
+*/
 
 public class ObjectSaverLoader<E> {
 
@@ -25,17 +29,10 @@ public class ObjectSaverLoader<E> {
 		catch (IOException e) {
 			
 			
-			
-			System.out.println("Non existing serialization file: Creatin new Object.");
-
 			return null;
 		}
 		catch (ClassNotFoundException e) {
 			
-			
-			
-			System.out.println("Problems with class (maybe diferent versions or non existant: Creatin new Object.");
-
 			return null;
 		}
 		

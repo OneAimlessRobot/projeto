@@ -9,6 +9,7 @@ import java.util.Scanner;
 import artAuctions.enums.CommandResponse;
 import artAuctions.enums.FilePath;
 import artAuctions.enums.MenuOption;
+import artAuctions.exceptions.ArtistHasWorksException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;
 import artAuctions.exceptions.NoSuchArtistException;
@@ -18,10 +19,13 @@ import artAuctions.exceptions.NoSuchWorkException;
 import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.exceptions.TooYoungException;
 import artAuctions.exceptions.UserExistsException;
+import artAuctions.exceptions.UserHasBidsException;
 import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
+import artAuctions.specificADTs.implem.BidClass;
+import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.Work;
@@ -48,7 +52,7 @@ public class Main {
 		
 	}
 	public static void main(String[] args) {
-		//deleteFiles(); 
+		deleteFiles(); 
 	//Se começar a dar ClassNotFoundException ou wtvr, descomenta esta linha. Vai reiniciar os dados do disco
 		initFiles();
 		Scanner input= new Scanner(System.in);
@@ -58,7 +62,7 @@ public class Main {
 		MenuReturnPOJO helper=new MenuReturnPOJO(null,"");
 		if((mgr=sysloader.load())==null) {
 			mgr=new AuctionManagerClass();
-			System.out.println("Default manager loaded. No previous version exists");
+			//System.out.println("Default manager loaded. No previous version exists");
 		}
 		do {
 			helper=menuFunction(input,mgr,sysloader);
@@ -134,7 +138,8 @@ public class Main {
 		case QUIT:
 			input.nextLine();
 			input.nextLine();
-			System.out.println("Goodnight world.");
+			System.out.println("\nGoodnight world.\n");
+			testSave(mgr);
 			break;
 		case TESTSAVE:
 			testSave(mgr);
@@ -146,6 +151,7 @@ public class Main {
 			printSystem(mgr);
 			break;
 		case REMOVEUSER:
+			removeUser(input,mgr);
 			break;
 		default:
 			break;
@@ -164,96 +170,94 @@ public class Main {
 		
 	}
 	private static void addUser(Scanner input,AuctionManager mgr) {
-		String login= input.next(),name=input.next();
-		input.nextLine();
+		String login= input.next(),name=input.nextLine();
 		int age= input.nextInt();
 		String email=input.next();
 		input.nextLine();
 		input.nextLine();
 		try {
 			mgr.addUser(login, name, age, email);
-			System.out.println(CommandResponse.ADDUSERSUCCEESS.getResponse());
+			System.out.println("\n"+CommandResponse.ADDUSERSUCCEESS.getResponse()+"\n");
 			
 		} 
 		catch(UserExistsException e) {
 			
-			System.out.println(CommandResponse.USEREXISTS.getResponse());
+			System.out.println("\n"+CommandResponse.USEREXISTS.getResponse()+"\n");
 			
 			
 		}
 		catch (TooYoungException e) {
 			
-			System.out.println(CommandResponse.TOOYOUNG.getResponse());
+			System.out.println("\n"+CommandResponse.TOOYOUNG.getResponse()+"\n");
 			
 		}
 	}
 	private static void addArtist(Scanner input,AuctionManager mgr) {
-		String login= input.next(),name=input.next();
-		input.nextLine();
+		String login= input.next(),name=input.nextLine();
 		String artsyName= input.nextLine();
 		int age= input.nextInt();
 		String email=input.next();
-		input.nextLine();
-		input.nextLine();
+		//input.nextLine();
+		//input.nextLine();
 		try {
 			mgr.addArtist(login, name,artsyName, age, email);
-			System.out.println(CommandResponse.ADDUSERSUCCEESS.getResponse());
+			System.out.println("\n"+CommandResponse.ADDARTISTSUCCESS.getResponse()+"\n");
 			
 		} 
 		catch(UserExistsException e) {
 			
-			System.out.println(CommandResponse.USEREXISTS.getResponse());
+			System.out.println("\n"+CommandResponse.USEREXISTS.getResponse()+"\n");
 			
 			
 		}
 		catch (TooYoungException e) {
 			
-			System.out.println(CommandResponse.TOOYOUNG.getResponse());
+			System.out.println("\n"+CommandResponse.TOOYOUNG.getResponse()+"\n");
 			
 		}
 		
 	}
 	private static void addWork(Scanner input,AuctionManager mgr) {
-		int id=input.nextInt();
-		String login= input.next();
+		String id=input.next(),
+				login= input.next();
 		int year=input.nextInt();
-		String workName=input.next();
-		input.nextLine();
-		input.nextLine();
+		String workName=input.nextLine();
+		//input.nextLine();
+		//input.nextLine();
 		try {
 			mgr.addWork(id, login, year, workName);
-			System.out.println(CommandResponse.WORKPOSTED.getResponse());
+			System.out.println("\n"+CommandResponse.WORKPOSTED.getResponse()+"\n");
 			
 		} 
 		catch(NoSuchUserException e) {
 
-			System.out.println(CommandResponse.NOSUCHUSER.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 			
 			
 		} 
 		catch (NoSuchArtistException e) {
 
-			System.out.println(CommandResponse.NOSUCHUSER.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 			
 		}
 		catch (WorkExistsException e) {
 			
-			System.out.println(CommandResponse.UNORIGINALPOST.getResponse());
+			System.out.println("\n"+CommandResponse.UNORIGINALPOST.getResponse()+"\n");
 			
 		}
 		
 	}
 	private static void infoArtist(Scanner input,AuctionManager mgr) {
 		String userLogin=input.next();
-		input.nextLine();
-		input.nextLine();
+		//input.nextLine();
+		//input.nextLine();
 		try {
-			System.out.println(mgr.getArtistInfo(userLogin));
+			System.out.println("\n"+mgr.getArtistInfo(userLogin)+"\n");
 		} catch (NoSuchUserException e) {
 			
-			System.out.println(CommandResponse.NOSUCHUSER.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 			} catch (NoSuchArtistException e) {
-				System.out.println(CommandResponse.NOSUCHUSER.getResponse());
+				System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 				
 			}
 		
@@ -261,94 +265,140 @@ public class Main {
 	}
 	private static void infoUser(Scanner input,AuctionManager mgr) {
 		String userLogin=input.next();
-		input.nextLine();
-		input.nextLine();
+		//input.nextLine();
+		//input.nextLine();
 		try {
-			System.out.println(mgr.getUserInfo(userLogin));
+			System.out.println("\n"+mgr.getUserInfo(userLogin)+"\n");
 		} catch (NoSuchUserException e) {
 			
-			System.out.println(CommandResponse.NOSUCHUSER.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 		}
 		
 		
 	}
 	private static void infoWork(Scanner input,AuctionManager mgr) {
-		int id=input.nextInt();
-		input.nextLine();
-		input.nextLine();
+		String id=input.next();
+		//input.nextLine();
+		//input.nextLine();
 		try {
-			System.out.println(mgr.getWorkInfo(id));
+			
+			System.out.println("\n"+mgr.getWorkInfo(id)+"\n");
 		} 
 		catch(NoSuchWorkException e) {
 			
-			System.out.println(CommandResponse.NOSUCHWORK.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
 			}
 		
 		
 	}
 	private static void addWorkAuction(Scanner input,AuctionManager mgr) {
-		int auctionid=input.nextInt(),
-				workid=input.nextInt(),
-				value=input.nextInt();
-		input.nextLine();
-		input.nextLine();
+		String auctionid=input.next(),
+				workid=input.next();
+				int value=input.nextInt();
+		//input.nextLine();
+		//input.nextLine();
 		try {
 			mgr.addWorkToAuction(auctionid, workid, value);	
-			System.out.println(CommandResponse.WORKPOSTEDTOAUCTION.getResponse());
+			System.out.println("\n"+CommandResponse.WORKPOSTEDTOAUCTION.getResponse()+"\n");
 			
 		} catch (NoSuchWorkException e) {
-			System.out.println(CommandResponse.NOSUCHWORK.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
 		} catch (NoSuchAuctionException e) {
-			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (WorkExistsInAuctionException e) {
-			System.out.println(CommandResponse.WORKPOSTEDTOAUCTION.getResponse());
+			System.out.println("\n"+CommandResponse.WORKPOSTEDTOAUCTION.getResponse()+"\n");
 		}
 	}
 	private static void bid(Scanner input,AuctionManager mgr) {
 
-				int auctionid= input.nextInt(),
-						workid=input.nextInt();
-				String login= input.next();
+				String auctionid= input.next(),
+						workid=input.next(),
+						login= input.next();
 				int value= input.nextInt();
-				input.nextLine();
-				input.nextLine();
+				//input.nextLine();
+				//input.nextLine();
 			try {
 				mgr.addBidToWork(auctionid, workid, login, value);
-				System.out.println(CommandResponse.BIDMADE.getResponse());
+				System.out.println("\n"+CommandResponse.BIDMADE.getResponse()+"\n");
 				
 			} catch (NoSuchUserException e) {
-				System.out.println(CommandResponse.NOSUCHUSER.getResponse());
+				System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 			} catch (NoSuchWorkInAuctionException e) {
-				System.out.println(CommandResponse.NOSUCHWORKHERE.getResponse());
+				System.out.println("\n"+CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
 			} catch (NoSuchWorkException e) {
-				System.out.println(CommandResponse.NOSUCHWORK.getResponse());	
+				System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");	
 			} catch (NoSuchAuctionException e) {
-				System.out.println(CommandResponse.NOSUCHAUCTION.getResponse());
+				System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 			} catch (WeakBidException e) {
-				System.out.println(CommandResponse.BIDTOOCHEAP.getResponse());
+				System.out.println("\n"+CommandResponse.BIDTOOCHEAP.getResponse()+"\n");
 			}
 		
 	}
 	private static void removeUser(Scanner input,AuctionManager mgr) {
-		
-		
-		//TODO
+		//removeUser login
+		String login=input.next();
+		//input.nextLine();
+		//input.nextLine();
+		try {
+			mgr.removeUser(login);
+			System.out.println("\n"+CommandResponse.REMOVESUCCESS.getResponse()+"\n");
+		} catch (NoSuchUserException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
+		} catch (UserHasBidsException e) {
+			System.out.println("\n"+CommandResponse.USERBIDDED.getResponse()+"\n");
+		} catch (ArtistHasWorksException e) {
+			System.out.println("\n"+CommandResponse.ARTISTPOSTED.getResponse()+"\n");
+		}
 	}
 	private static void closeAuction(Scanner input,AuctionManager mgr) {
-		//TODO
+		String auctionid= input.next();
+		//input.nextLine();
+		//input.nextLine();
+		try {
+			System.out.println();
+			Auction defunct=mgr.closeAuction(auctionid);
+			Iterator<Work> workIt= defunct.listWorks();
+			while(workIt.hasNext()) {
+				Work currWork= workIt.next();
+				if(currWork.getNumOfBids()==0) {
+					
+					System.out.println(CommandResponse.NOUSERWANTSTHIS.getResponse());
+				
+				}
+				else {
+					Iterator<Bid> currBidIt= currWork.bids();
+					Bid maxBid=new BidClass(null,null,-1);
+					while(currBidIt.hasNext()) {
+						Bid currBid=currBidIt.next();
+						if(currBid.getBidAmmount()>maxBid.getBidAmmount()) {
+							
+							maxBid=currBid;
+						}
+						
+					}
+					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getYear()+" "+maxBid.getBidAmmount()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName());
+					
+				}
+				
+			}
+			System.out.println();
+		} catch (NoSuchAuctionException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
+		}
+		
 	}
 
 	private static void createAuction(Scanner input,AuctionManager mgr){
 		
-				int auctionid=input.nextInt();
-				input.nextLine();
-				input.nextLine();
+				String auctionid=input.next();
+				//input.nextLine();
+				//input.nextLine();
 				try {
 					mgr.addAuction(auctionid);	
-					System.out.println(CommandResponse.AUCTIONSTARTSUCCESS.getResponse());
+					System.out.println("\n"+CommandResponse.AUCTIONSTARTSUCCESS.getResponse()+"\n");
 					
 				} catch (AuctionExistsException e) {
-					System.out.println(CommandResponse.AUCTIONALREADYUP.getResponse());
+					System.out.println("\n"+CommandResponse.AUCTIONALREADYUP.getResponse()+"\n");
 				}
 				
 			
@@ -364,42 +414,42 @@ public class Main {
 //			
 //		}
 	private static void listAuctionWorks(Scanner input,AuctionManager mgr) {
-		int auctionid= input.nextInt();
-		input.nextLine();
-		input.nextLine();
+		String auctionid= input.next();
+		//input.nextLine();
+		//input.nextLine();
 		try {
 			Iterator<Work> workIt= mgr.getAuctionWorks(auctionid);
 			while(workIt.hasNext()) {
 				
 				Work curr= workIt.next();
-				System.out.println(curr);
+				System.out.println("\n"+curr+"\n");
 				
 			}
 		} catch (NoSuchAuctionException e) {
-			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (AuctionEmptyException e) {	
 			
-			System.out.println(CommandResponse.AUCTIONEMPTY.getResponse());
+			System.out.println("\n"+CommandResponse.AUCTIONEMPTY.getResponse()+"\n");
 		
 		}
 	}
 	private static void listBidsWork(Scanner input,AuctionManager mgr) {
-		int auctionid=input.nextInt(),workid=input.nextInt();
-		input.nextLine();
-		input.nextLine();
+		String auctionid=input.next(),workid=input.next();
+		//input.nextLine();
+		//input.nextLine();
 		try {
 			Iterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
 			while(workBids.hasNext()) {
 				Bid curr= workBids.next();
-				System.out.println(curr);
+				System.out.println("\n"+curr+"\n");
 				
 			}
 		} catch (NoSuchWorkException e) {
-			System.out.println(CommandResponse.NOSUCHWORK.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
 		} catch (NoSuchAuctionException e) {
-			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (NoSuchWorkInAuctionException e) {
-			System.out.println(CommandResponse.NOSUCHWORKHERE.getResponse());
+			System.out.println("\n"+CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
 		}
 		
 		

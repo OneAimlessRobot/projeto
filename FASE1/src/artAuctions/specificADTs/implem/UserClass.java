@@ -7,23 +7,52 @@ package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
+import artAuctions.specificADTs.interfaces.Artist;
+import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
+import dataStructures.DoubleList;
+import dataStructures.List;
+import dataStructures.Vector;
 
-public abstract class UserClass implements User, Serializable {
+public class UserClass implements User, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	protected String login,email,name;
 	protected int age;
+	protected List<Bid> collectorBids;
 	public UserClass(String login,String name,int age,String email) {
 		this.login=login;
 		this.email=email;
 		this.age=age;
 		this.name=name;
+//		collectorBids=new DoubleList<>();
+		collectorBids=new Vector<>();
 		
+	}
+
+	public String toString() {
+		
+		if((this instanceof ArtistClass)) {
+
+			return ((Artist)this).printArtist();
+			/*
+			Artist c=new UserClass("","",0,"");
+			User d=new UserClass("","",0,"");
+			c=d__;*/
+			
+		}
+		return printUser();
+
 		
 	}
 	@Override
-
+	public String printUser() {
+		
+		return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail()+"\nBids:"+collectorBids.toString();
+		
+		
+}
+	@Override
 	public String getName() {
 		
 		return name;
@@ -47,13 +76,6 @@ public abstract class UserClass implements User, Serializable {
 		
 		
 		return age;
-	}
-	public String toString() {
-		
-		return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail();
-		
-		
-	
 	}
 	public boolean equals(Object user) {
 		boolean result=false;
@@ -81,5 +103,18 @@ public abstract class UserClass implements User, Serializable {
 		
 		
 	}
+	@Override
+	public int numOfBids() {
+		
+		
+		return collectorBids.size();
+	}
+	@Override
+	public void addBid(Bid addedBid) {
+		
+		collectorBids.addFirst(addedBid);
+		
+	}
+
 
 }

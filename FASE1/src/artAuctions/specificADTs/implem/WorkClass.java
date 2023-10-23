@@ -11,24 +11,26 @@ import artAuctions.specificADTs.interfaces.*;
 import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
+import dataStructures.Vector;
 
 public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
 	private static final int minBidAmmount=50;
-	private int id,year,lastSoldPrice;
+	private int year,lastSoldPrice;
 	private Artist author;
-	private String name;
+	private String name,id;
 	
 	private List<Bid> workBids;
 	
-	public WorkClass(int id,Artist author,int year,String name) {
+	public WorkClass(String id,Artist author,int year,String name) {
 		
 		this.setId(id);
 		this.setAuthor(author);
 		this.setYear(year);
 		this.setName(name);
-		workBids=new DoubleList<>();
+//		workBids=new DoubleList<>();
+		workBids=new Vector<>();
 		lastSoldPrice=0;
 		
 		
@@ -52,11 +54,11 @@ public class WorkClass implements Serializable, Work {
 		return lastSoldPrice;
 	}
 	@Override
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	@Override
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	@Override
@@ -78,11 +80,7 @@ public class WorkClass implements Serializable, Work {
 	public String toString() {
 		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName()+"\nBids: "+workBids.toString();
 		
-	}	
-//	public String toString() {
-//		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
-//		
-//	}
+	}
 	public boolean equals(Object work) {
 		boolean result=false;
 
@@ -91,11 +89,21 @@ public class WorkClass implements Serializable, Work {
 			return false;
 			
 		}
+		if(id==null) {
+			if(((Work)work).getId()==null) {
+
+				result=true;
+			}
+		}
+		else if(((Work)work).getId()==null) {
+			
+			result=false;
+			
+		}
 		else {
-		result= ((Work)work).getId()==this.getId();
+		result= ((Work)work).getId().equals(this.getId());
 		}
 		return result;
-		
 		
 		
 	}
@@ -105,6 +113,10 @@ public class WorkClass implements Serializable, Work {
 	}
 	@Override
 	public void addBid(Bid addedBid) {
+		if(addedBid.getBidAmmount()<minBidAmmount) {
+			
+			return;
+		}
 		workBids.addFirst(addedBid);
 		
 	}
