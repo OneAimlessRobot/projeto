@@ -3,6 +3,7 @@ package artAuctions.specificADTs.implem;
 import java.io.Serializable;
 
 import artAuctions.exceptions.ArtistHasWorksException;
+import artAuctions.exceptions.ArtistHasWorksInAuctionException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;
 import artAuctions.exceptions.NoSuchArtistException;
@@ -46,12 +47,12 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 
 	public AuctionManagerClass() {
 //		
-		works= new Vector<>();
-		users= new Vector<>();
-		artists= new Vector<>();
-//		works= new DoubleList<>();
-//		users= new DoubleList<>();
-//		artists= new DoubleList<>();
+//		works= new Vector<>();
+//		users= new Vector<>();
+//		artists= new Vector<>();
+		works= new DoubleList<>();
+		users= new DoubleList<>();
+		artists= new DoubleList<>();
 		auctions= new DoubleList<>();
 		
 	}
@@ -60,26 +61,28 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		Artist decoy= new ArtistClass(login," ",0," ");
 		Work decoyWork= new WorkClass(id,null,0," ");
 		int pos=users.find(decoy),
-				artistPos=artists.find((Artist)decoy),
+				artistPos=artists.find(decoy),
 				workPos=works.find(decoyWork);
-				
-			if(pos<0) {
+
+		if(workPos>=0) {
+			
+			throw new WorkExistsException();
+			
+		}
+		if(pos<0) {
 
 				throw new NoSuchUserException();
 			}
-			else if(artistPos<0) {
+		if(artistPos<0) {
 				
 
 				throw new NoSuchArtistException();
 				
 			}
-			else if(workPos>=0) {
-				
-				throw new WorkExistsException();
-				
-			}
 		Artist user=artists.get(artistPos);
-		works.addFirst((Work)new WorkClass(id,user , year, name));
+		Work addedWork=new WorkClass(id,user , year, name);
+		works.addFirst(addedWork);
+		user.addWork(addedWork);
 	}
 	
 	@Override
@@ -240,13 +243,13 @@ if(age<MIN_AGE) {
 	}
 	@Override
 
-	public void addWorkToAuction(String auctionid, String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException {
+	public void addWorkToAuction(String auctionid, String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException, NoSuchWorkException {
 		Work work= new WorkClass(workid, null, minValue, null);
 		Auction auction=new AuctionClass(auctionid);
 		int workpos=works.find(work),auctionpos=auctions.find(auction);
-		if(workpos>=0) {
+		if(workpos<0) {
 			
-			throw new WorkExistsInAuctionException();
+			throw new NoSuchWorkException();
 			
 		}
 		if(auctionpos<0) {
@@ -309,6 +312,42 @@ if(workExistsInAuction(auction,work)) {
 		}
 		return result;
 	}
+	private void removeArtistWorks(Artist artist) {
+		
+		Iterator<Work> artistWorksIt=artist.works();
+
+//		while(artistWorksIt.hasNext()) {
+//			Work currArtistWork= artistWorksIt.next();
+//			works.remove(currArtistWork);
+//			artistWorksIt.rewind();
+//			}
+		while(artistWorksIt.hasNext()) {
+			Work currArtistWork= artistWorksIt.next();
+			works.remove(currArtistWork);
+			artist.removeWork(currArtistWork);
+			}
+
+		}
+	private boolean artistHasWorksInAuction(Artist artist) {
+		
+		boolean result=false;
+		Iterator<Auction> auctionIt= auctions.iterator();
+		while(auctionIt.hasNext()) {
+			Auction currAuction= auctionIt.next();
+			Iterator<Work> currAuctionWorksIt= currAuction.listWorks();
+			while(currAuctionWorksIt.hasNext()) {
+				Work currWorkInCurrAuction= currAuctionWorksIt.next();
+				if(currWorkInCurrAuction.getAuthor().equals(artist)) {
+					
+					return true;
+				}
+				
+			}
+			
+			
+		}
+		return result;
+	}
 	@Override
 	public Iterator<Work> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException {
 		Auction auction=new AuctionClass(auctionid);
@@ -328,9 +367,8 @@ if(workExistsInAuction(auction,work)) {
 	}
 	@Override
 	public void removeUser(String login)
-			throws NoSuchUserException,UserHasBidsException,ArtistHasWorksException {
-		Artist removedIfArtist,user;
-		user=new ArtistClass(login, "",0,"");
+			throws NoSuchUserException,UserHasBidsException, ArtistHasWorksInAuctionException {
+		Artist removedIfArtist,user=new ArtistClass(login, "",0,"");
 		User removedIfUser;
 		int artistpos=artists.find(user);
 		int userpos=users.find((User)user);
@@ -346,22 +384,24 @@ if(workExistsInAuction(auction,work)) {
 				
 				throw new UserHasBidsException();
 			}
-			users.remove(removedIfUser);
+			users.remove(userpos);
 		}
 		else {
 			
 			removedIfArtist=artists.get(artistpos);
-			if(removedIfArtist.getNumOfWorks()>0) {
+			if(this.artistHasWorksInAuction(removedIfArtist)) {
 				
-				throw new ArtistHasWorksException();
+				throw new ArtistHasWorksInAuctionException();
 			}
 			if(removedIfArtist.numOfBids()>0) {
 				
 				throw new UserHasBidsException();
 			}
-			
-			users.remove((User)removedIfArtist);
-			artists.remove(removedIfArtist);
+			if(removedIfArtist.getNumOfWorks()>0) {
+			removeArtistWorks(removedIfArtist);
+			}
+			users.remove(userpos);
+			artists.remove(artistpos);
 		}
 	}
 	@Override

@@ -470,7 +470,7 @@ public class DoubleList<E> implements List<E>
     protected DoubleListNode<E> findNode( E element )
     {
     	DoubleListNode<E> j=head;
-    	for(;!element.equals(j.getElement());j=j.getNext());
+    	for(;!j.getElement().equals(element);j=j.getNext());
     	return j;
     	
     }

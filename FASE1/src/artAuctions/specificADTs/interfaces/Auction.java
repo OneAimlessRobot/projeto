@@ -18,6 +18,10 @@ public interface Auction extends Serializable{
 	
 	String getId();
 
+	boolean hasWork(Work work);
+
+	void removeWork(Work work);
+
 	void addWork(Work addedWork);
 
 	

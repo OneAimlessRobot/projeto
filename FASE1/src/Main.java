@@ -9,7 +9,7 @@ import java.util.Scanner;
 import artAuctions.enums.CommandResponse;
 import artAuctions.enums.FilePath;
 import artAuctions.enums.MenuOption;
-import artAuctions.exceptions.ArtistHasWorksException;
+import artAuctions.exceptions.ArtistHasWorksInAuctionException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;
 import artAuctions.exceptions.NoSuchArtistException;
@@ -224,6 +224,11 @@ public class Main {
 			System.out.println("\n"+CommandResponse.WORKPOSTED.getResponse()+"\n");
 			
 		} 
+		catch (WorkExistsException e) {
+			
+			System.out.println("\n"+CommandResponse.UNORIGINALPOST.getResponse()+"\n");
+			
+		}
 		catch(NoSuchUserException e) {
 
 			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
@@ -232,12 +237,7 @@ public class Main {
 		} 
 		catch (NoSuchArtistException e) {
 
-			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
-			
-		}
-		catch (WorkExistsException e) {
-			
-			System.out.println("\n"+CommandResponse.UNORIGINALPOST.getResponse()+"\n");
+			System.out.println("\n"+CommandResponse.NOSUCHARTIST.getResponse()+"\n");
 			
 		}
 		
@@ -293,12 +293,15 @@ public class Main {
 			mgr.addWorkToAuction(auctionid, workid, value);	
 			System.out.println("\n"+CommandResponse.WORKPOSTEDTOAUCTION.getResponse()+"\n");
 			
+		}catch (NoSuchWorkException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
+			
 		} catch (NoSuchAuctionException e) {
 			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (WorkExistsInAuctionException e) {
 			System.out.println("\n"+CommandResponse.WORKPOSTEDTOAUCTION.getResponse()+"\n");
 		
-		}
+		} 
 		}
 	private static void bid(Scanner input,AuctionManager mgr) {
 
@@ -334,7 +337,7 @@ public class Main {
 			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 		} catch (UserHasBidsException e) {
 			System.out.println("\n"+CommandResponse.USERBIDDED.getResponse()+"\n");
-		} catch (ArtistHasWorksException e) {
+		} catch (ArtistHasWorksInAuctionException e) {
 			System.out.println("\n"+CommandResponse.ARTISTPOSTED.getResponse()+"\n");
 		}
 	}

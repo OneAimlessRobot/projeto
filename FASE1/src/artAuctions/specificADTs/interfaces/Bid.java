@@ -15,5 +15,9 @@ public interface Bid extends Serializable {
 	Work getWork();
 
 	int getBidAmmount();
+
+	void setCollector(User user);
+
+	void setWork(Work work);
 	
 }

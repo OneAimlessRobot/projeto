@@ -29,8 +29,8 @@ public class WorkClass implements Serializable, Work {
 		this.setAuthor(author);
 		this.setYear(year);
 		this.setName(name);
-//		workBids=new DoubleList<>();
-		workBids=new Vector<>();
+		workBids=new DoubleList<>();
+//		workBids=new Vector<>();
 		lastSoldPrice=0;
 		
 		

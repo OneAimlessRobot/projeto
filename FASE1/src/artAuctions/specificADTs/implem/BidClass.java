@@ -32,6 +32,16 @@ public class BidClass implements Serializable, Bid {
 		
 		return collector;
 	}
+	@Override
+	public void setCollector(User user) {
+		
+		collector=user;
+	}
+	@Override
+	public void setWork(Work work) {
+		
+		this.work=work;
+	}
 
 	@Override
 	public Work getWork() {

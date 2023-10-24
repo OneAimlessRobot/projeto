@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
+import dataStructures.DoubleList;
 //import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
@@ -22,8 +23,8 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
-//		works=new DoubleList <>();
-		works=new Vector<>();
+		works=new DoubleList <>();
+//		works=new Vector<>();
 	}
 	@Override
 	public String printArtist() {
@@ -59,5 +60,22 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	public String getArtsyName() {
 		return artsyName;
 	}
+
+	@Override
+	public boolean hasWork(Work work) {
+
+		return works.find(work)>=0;
+		
+	}
+	@Override
+	public void removeWork(Work work) {
+		
+		if(hasWork(work)) {
+			
+			works.remove(work);
+		}
+		
+	}
+	
 
 }

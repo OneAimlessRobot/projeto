@@ -75,5 +75,20 @@ public class AuctionClass implements Serializable, Auction {
 		return works.size();
 	}
 	
-	
+
+	@Override
+	public boolean hasWork(Work work) {
+
+		return works.find(work)>=0;
+		
+	}
+	@Override
+	public void removeWork(Work work) {
+		
+		if(hasWork(work)) {
+			
+			works.remove(work);
+		}
+		
+	}
 }

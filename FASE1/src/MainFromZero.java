@@ -9,7 +9,7 @@ import java.util.Scanner;
 import artAuctions.enums.CommandResponse;
 import artAuctions.enums.FilePath;
 import artAuctions.enums.MenuOption;
-import artAuctions.exceptions.ArtistHasWorksException;
+import artAuctions.exceptions.ArtistHasWorksInAuctionException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;
 import artAuctions.exceptions.NoSuchArtistException;
@@ -293,7 +293,10 @@ public class MainFromZero {
 			mgr.addWorkToAuction(auctionid, workid, value);	
 			System.out.println("\n"+CommandResponse.WORKPOSTEDTOAUCTION.getResponse()+"\n");
 			
-		} catch (NoSuchAuctionException e) {
+		}catch (NoSuchWorkException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
+			
+		}  catch (NoSuchAuctionException e) {
 			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (WorkExistsInAuctionException e) {
 			System.out.println("\n"+CommandResponse.WORKPOSTEDTOAUCTION.getResponse()+"\n");
@@ -334,7 +337,7 @@ public class MainFromZero {
 			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 		} catch (UserHasBidsException e) {
 			System.out.println("\n"+CommandResponse.USERBIDDED.getResponse()+"\n");
-		} catch (ArtistHasWorksException e) {
+		} catch (ArtistHasWorksInAuctionException e) {
 			System.out.println("\n"+CommandResponse.ARTISTPOSTED.getResponse()+"\n");
 		}
 	}
