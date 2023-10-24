@@ -37,4 +37,6 @@ public interface Work extends Serializable{
 
 	void setName(String name);
 
+	void removeBidsByUser(User user);
+
 }

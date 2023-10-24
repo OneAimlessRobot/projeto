@@ -180,7 +180,7 @@ public class Vector<T> implements List<T>,Serializable {
 	}
 	@Override
 	public T getLast() throws EmptyListException {
-		return get(currPos);
+		return get(currPos+1);
 	}
 	@Override
 	public T getFirst() throws EmptyListException {
@@ -193,7 +193,7 @@ public class Vector<T> implements List<T>,Serializable {
 	}
 	@Override
 	public void addLast(T element) {
-		add(currPos,element);
+		add(currPos+1,element);
 		
 	}
 	@Override

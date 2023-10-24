@@ -58,7 +58,7 @@ public class AuctionClass implements Serializable, Auction {
 	}
 	@Override
 	public void addWork(Work addedWork) {
-		works.addFirst(addedWork);
+		works.addLast(addedWork);
 	}
 
 	public String toString() {

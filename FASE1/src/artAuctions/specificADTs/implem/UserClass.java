@@ -11,6 +11,7 @@ import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
+import dataStructures.DoubleList;
 import dataStructures.Iterator;
 //import dataStructures.DoubleList;
 import dataStructures.List;
@@ -118,19 +119,6 @@ public class UserClass implements User, Serializable {
 		
 	}
 	@Override
-	public void removeBidsByUser(User user) {
-		Iterator<Bid> bids= collectorBids.iterator();
-		while(bids.hasNext()) {
-			Bid currBid= bids.next();
-			if(user.equals(currBid.getCollector())) {
-
-				collectorBids.remove(currBid);
-				bids.rewind();
-			}
-		}
-		
-	}
-	@Override
 	public int numOfBids() {
 		
 		
@@ -139,7 +127,7 @@ public class UserClass implements User, Serializable {
 	@Override
 	public void addBid(Bid addedBid) {
 		
-		collectorBids.addFirst(addedBid);
+		collectorBids.addLast(addedBid);
 		
 	}
 

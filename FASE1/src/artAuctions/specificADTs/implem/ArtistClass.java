@@ -23,8 +23,8 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
-		works=new DoubleList <>();
-//		works=new Vector<>();
+//		works=new DoubleList <>();
+		works=new Vector<>();
 	}
 	@Override
 	public String printArtist() {
@@ -49,7 +49,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	}
 	@Override
 	public void addWork(Work work) {
-		works.addFirst(work);
+		works.addLast(work);
 		
 	}
 	@Override
@@ -75,6 +75,14 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 			works.remove(work);
 		}
 		
+	}
+	@Override
+	public void clearWorks() {
+		
+		while(!works.isEmpty()) {
+			
+			works.removeLast();
+		}
 	}
 	
 

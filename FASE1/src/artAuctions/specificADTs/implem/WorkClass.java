@@ -16,7 +16,7 @@ import dataStructures.Vector;
 public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
-	private static final int minBidAmmount=50;
+	private static final int minBidAmmount=100;
 	private int year,lastSoldPrice;
 	private Artist author;
 	private String name,id;
@@ -117,11 +117,24 @@ public class WorkClass implements Serializable, Work {
 			
 			return;
 		}
-		workBids.addFirst(addedBid);
+		workBids.addLast(addedBid);
 		
 	}
 	public int getNumOfBids() {
 		return workBids.size();
 	}
-	
+
+	@Override
+	public void removeBidsByUser(User user) {
+		Iterator<Bid> bids= workBids.iterator();
+		while(bids.hasNext()) {
+			Bid currBid= bids.next();
+			if(user.equals(currBid.getCollector())) {
+
+				workBids.remove(currBid);
+				bids.rewind();
+			}
+		}
+		
+	}
 }

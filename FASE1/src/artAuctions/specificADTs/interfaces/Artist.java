@@ -13,6 +13,8 @@ public interface Artist extends User {
 	String getArtsyName();
 	
 	int getNumOfWorks();
+	
+	void clearWorks();
 
 	void removeWork(Work work);
 	

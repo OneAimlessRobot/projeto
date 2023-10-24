@@ -47,12 +47,12 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 
 	public AuctionManagerClass() {
 //		
-//		works= new Vector<>();
-//		users= new Vector<>();
-//		artists= new Vector<>();
-		works= new DoubleList<>();
-		users= new DoubleList<>();
-		artists= new DoubleList<>();
+		works= new Vector<>();
+		users= new Vector<>();
+		artists= new Vector<>();
+//		works= new DoubleList<>();
+//		users= new DoubleList<>();
+//		artists= new DoubleList<>();
 		auctions= new DoubleList<>();
 		
 	}
@@ -81,7 +81,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 			}
 		Artist user=artists.get(artistPos);
 		Work addedWork=new WorkClass(id,user , year, name);
-		works.addFirst(addedWork);
+		works.addLast(addedWork);
 		user.addWork(addedWork);
 	}
 	
@@ -95,13 +95,13 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		}
 		
 		
-		auctions.addFirst(decoy);
+		auctions.addLast(decoy);
 		
 	}
 	@Override
 	public void addUser(String login,String name,int age,String email) throws UserExistsException, TooYoungException {
-		User decoy= new UserClass(login," ",0," ");
-		int pos=users.find(decoy);
+		User user= new UserClass(login,name,age,email);
+		int pos=users.find(user);
 if(age<MIN_AGE) {
 			
 
@@ -112,16 +112,16 @@ if(age<MIN_AGE) {
 
 			throw new UserExistsException();
 		}
-		User newUser=new UserClass(login,name,age,email);
-		users.addFirst(newUser);
+		users.addLast(user);
 		
 	}
 	
 
 	@Override
 	public void addArtist(String login,String name,String artsyName,int age,String email) throws UserExistsException, TooYoungException {
-		Artist decoy= new ArtistClass(login," ",0," ");
-		int pos=users.find(decoy);
+
+		Artist newUser=new ArtistClass(login,name,age,email);
+		int pos=users.find(newUser);
 if(age<MIN_AGE) {
 			
 
@@ -132,17 +132,16 @@ if(age<MIN_AGE) {
 
 			throw new UserExistsException();
 		}
-		Artist newUser=new ArtistClass(login,name,age,email);
 		newUser.setArtsyName(artsyName);
-		artists.addFirst(newUser);
-		users.addFirst((User)newUser);
+		artists.addLast(newUser);
+		users.addLast((User)newUser);
 	}
 
 	@Override
 	public String getArtistInfo(String login) throws NoSuchArtistException, NoSuchUserException  {
 		Artist decoy= new ArtistClass(login," ",0," ");
-		int pos=users.find(decoy),
-				artistPos=artists.find((Artist)decoy);
+		int pos=users.find((User)decoy),
+				artistPos=artists.find(decoy);
 			if(pos<0) {
 
 				throw new NoSuchUserException();
@@ -209,7 +208,7 @@ if(age<MIN_AGE) {
 				throw new NoSuchUserException();
 			}
 			User collector=users.get(pos);
-		return collector.printUser();
+		return ((UserClass)collector).printUser();
 		
 	}
 	@Override
@@ -247,19 +246,20 @@ if(age<MIN_AGE) {
 		Work work= new WorkClass(workid, null, minValue, null);
 		Auction auction=new AuctionClass(auctionid);
 		int workpos=works.find(work),auctionpos=auctions.find(auction);
+
+		if(auctionpos<0) {
+			
+			throw new NoSuchAuctionException();
+		}
 		if(workpos<0) {
 			
 			throw new NoSuchWorkException();
 			
 		}
-		if(auctionpos<0) {
-			
-			throw new NoSuchAuctionException();
-		}
 		work=works.get(workpos);
 		work.setSoldAmmount(minValue);
 		auction=auctions.get(auctionpos);
-if(workExistsInAuction(auction,work)) {
+		if(workExistsInAuction(auction,work)) {
 			
 			throw new WorkExistsInAuctionException();
 			
@@ -324,8 +324,8 @@ if(workExistsInAuction(auction,work)) {
 		while(artistWorksIt.hasNext()) {
 			Work currArtistWork= artistWorksIt.next();
 			works.remove(currArtistWork);
-			artist.removeWork(currArtistWork);
 			}
+		artist.clearWorks();
 
 		}
 	private boolean artistHasWorksInAuction(Artist artist) {

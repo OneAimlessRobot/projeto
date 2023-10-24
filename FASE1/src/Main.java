@@ -293,12 +293,12 @@ public class Main {
 			mgr.addWorkToAuction(auctionid, workid, value);	
 			System.out.println("\n"+CommandResponse.WORKPOSTEDTOAUCTION.getResponse()+"\n");
 			
+		}catch (NoSuchAuctionException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		}catch (NoSuchWorkException e) {
 			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
 			
-		} catch (NoSuchAuctionException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
-		} catch (WorkExistsInAuctionException e) {
+		}  catch (WorkExistsInAuctionException e) {
 			System.out.println("\n"+CommandResponse.WORKPOSTEDTOAUCTION.getResponse()+"\n");
 		
 		} 
@@ -345,15 +345,16 @@ public class Main {
 		String auctionid= input.next();
 		input.nextLine();
 		try {
-			System.out.println();
+			System.out.println(CommandResponse.AUCTIONOVER.getResponse());
+		
 			Auction defunct=mgr.closeAuction(auctionid);
 			Iterator<Work> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
 				Work currWork= workIt.next();
 				if(currWork.getNumOfBids()==0) {
 					
-					System.out.println(CommandResponse.NOUSERWANTSTHIS.getResponse());
-				
+					System.out.println(currWork+CommandResponse.NOUSERWANTSTHIS.getResponse());
+					
 				}
 				else {
 					Iterator<Bid> currBidIt= currWork.bids();
@@ -406,13 +407,15 @@ public class Main {
 		String auctionid= input.next();
 		input.nextLine();
 		try {
+			System.out.println();
 			Iterator<Work> workIt= mgr.getAuctionWorks(auctionid);
 			while(workIt.hasNext()) {
 				
 				Work curr= workIt.next();
-				System.out.println("\n"+curr+"\n");
+				System.out.println(curr);
 				
 			}
+			System.out.println();
 		} catch (NoSuchAuctionException e) {
 			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (AuctionEmptyException e) {	
