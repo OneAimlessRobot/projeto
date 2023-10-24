@@ -99,16 +99,15 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	public void addUser(String login,String name,int age,String email) throws UserExistsException, TooYoungException {
 		User decoy= new UserClass(login," ",0," ");
 		int pos=users.find(decoy);
-		if(pos>=0) {
-
-			throw new UserExistsException();
-		}
-		
-		else if(age<MIN_AGE) {
+if(age<MIN_AGE) {
 			
 
 			throw new TooYoungException();
-			
+}
+		
+		else if(pos>=0) {
+
+			throw new UserExistsException();
 		}
 		User newUser=new UserClass(login,name,age,email);
 		users.addFirst(newUser);
@@ -120,16 +119,15 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	public void addArtist(String login,String name,String artsyName,int age,String email) throws UserExistsException, TooYoungException {
 		Artist decoy= new ArtistClass(login," ",0," ");
 		int pos=users.find(decoy);
-		if(pos>=0) {
-
-			throw new UserExistsException();
-		}
-		
-		else if(age<MIN_AGE) {
+if(age<MIN_AGE) {
 			
 
 			throw new TooYoungException();
-			
+}
+		
+		else if(pos>=0) {
+
+			throw new UserExistsException();
 		}
 		Artist newUser=new ArtistClass(login,name,age,email);
 		newUser.setArtsyName(artsyName);
@@ -242,13 +240,13 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	}
 	@Override
 
-	public void addWorkToAuction(String auctionid, String workid,int minValue) throws NoSuchWorkException, NoSuchAuctionException, WorkExistsInAuctionException {
+	public void addWorkToAuction(String auctionid, String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException {
 		Work work= new WorkClass(workid, null, minValue, null);
 		Auction auction=new AuctionClass(auctionid);
 		int workpos=works.find(work),auctionpos=auctions.find(auction);
-		if(workpos<0) {
+		if(workpos>=0) {
 			
-			throw new NoSuchWorkException();
+			throw new WorkExistsInAuctionException();
 			
 		}
 		if(auctionpos<0) {

@@ -10,7 +10,7 @@ import java.io.Serializable;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
-import dataStructures.DoubleList;
+//import dataStructures.DoubleList;
 import dataStructures.List;
 import dataStructures.Vector;
 
@@ -48,7 +48,7 @@ public class UserClass implements User, Serializable {
 	@Override
 	public String printUser() {
 		
-		return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail()+"\nBids:"+collectorBids.toString();
+		return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail();
 		
 		
 }

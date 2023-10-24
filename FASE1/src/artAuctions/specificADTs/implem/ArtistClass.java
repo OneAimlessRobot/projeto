@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
-import dataStructures.DoubleList;
+//import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
 import dataStructures.Vector;
@@ -28,7 +28,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	@Override
 	public String printArtist() {
 		
-		return getLogin()+" "+ getName()+ " "+ getArtsyName()+ " "+ getAge()+" "+getEmail()+"\nBids: "+collectorBids.toString()+"\nWorks: "+works.toString();
+		return getLogin()+" "+ getName()+ " "+ getArtsyName()+ " "+ getAge()+" "+getEmail();
 		
 		
 		

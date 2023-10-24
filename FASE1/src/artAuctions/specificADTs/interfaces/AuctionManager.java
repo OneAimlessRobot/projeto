@@ -36,7 +36,7 @@ public interface AuctionManager extends Serializable{
 
 	String getWorkInfo(String id) throws NoSuchWorkException;
 
-	void addWorkToAuction(String auctionid,String workid,int minValue) throws NoSuchWorkException, NoSuchAuctionException, WorkExistsInAuctionException;
+	void addWorkToAuction(String auctionid,String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException;
 	
 	Iterator<Work> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException;
 	Iterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException;

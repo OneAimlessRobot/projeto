@@ -78,7 +78,7 @@ public class WorkClass implements Serializable, Work {
 		this.name = name;
 	}
 	public String toString() {
-		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName()+"\nBids: "+workBids.toString();
+		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
 		
 	}
 	public boolean equals(Object work) {
