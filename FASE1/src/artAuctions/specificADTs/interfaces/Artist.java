@@ -14,6 +14,8 @@ public interface Artist extends User {
 	
 	int getNumOfWorks();
 	
+	String getId();
+	
 	void clearWorks();
 
 	void removeWork(Work work);

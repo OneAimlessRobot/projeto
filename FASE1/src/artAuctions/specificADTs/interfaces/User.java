@@ -14,9 +14,9 @@ public interface User extends Serializable {
 	String getName();
 	String getLogin();
 	String getEmail();
+	int getAge();
 	void addBid(Bid addedBid);
 	void removeBidsByWork(Work work);
 	int numOfBids();
-	int getAge();
 	String printUser();
 }

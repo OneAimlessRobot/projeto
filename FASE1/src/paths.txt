@@ -29,8 +29,11 @@
 ./MainFromZero.java
 ./Main.java
 ./artAuctions/specificADTs/interfaces/Bid.java
+./artAuctions/specificADTs/interfaces/WorkGeneric.java
 ./artAuctions/specificADTs/interfaces/User.java
+./artAuctions/specificADTs/interfaces/BidGeneric.java
 ./artAuctions/specificADTs/interfaces/Artist.java
+./artAuctions/specificADTs/interfaces/AuctionGeneric.java
 ./artAuctions/specificADTs/interfaces/AuctionManager.java
 ./artAuctions/specificADTs/interfaces/Work.java
 ./artAuctions/specificADTs/interfaces/Auction.java

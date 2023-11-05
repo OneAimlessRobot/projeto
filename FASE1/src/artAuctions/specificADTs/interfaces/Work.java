@@ -5,45 +5,33 @@ package artAuctions.specificADTs.interfaces;
 */
 
 
-import java.io.Serializable;
+
 
 import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 
-public interface Work extends Serializable{
+public interface Work extends WorkGeneric{
 
 	Iterator<Bid> bids();
 	
 	void addBid(Bid addedBid);
-	
-	int getYear();
 
 	void setYear(int year);
 
 	void setSoldAmmount(int value);
 
-	int getBidAmmount();
-
-	String getId();
-
-	int getNumOfBids();
-	
-	int getNumOfBidsFromAuction(String auctionid);
-	
 	void setId(String id);
 
-	Artist getAuthor();
-
 	void setAuthor(Artist author);
-
-	String getName();
-
+	
 	void setName(String name);
 
 	public void setMinAmmount(int value);
 
 	void removeBidsByUser(User user);
 
-	FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionId);
+	int getNumOfBidsFromAuction(String auctionid);
+
+	FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionid);
 
 }

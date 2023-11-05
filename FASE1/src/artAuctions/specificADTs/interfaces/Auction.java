@@ -5,19 +5,13 @@ package artAuctions.specificADTs.interfaces;
 */
 
 
-import java.io.Serializable;
 
 import dataStructures.Iterator;
-public interface Auction extends Serializable{
+public interface Auction extends AuctionGeneric{
 
-
-	int getNumOfWorks();
-	
 
 	Iterator<Work> listWorks();
 	
-	String getId();
-
 	boolean hasWork(Work work);
 
 	void removeWork(Work work);

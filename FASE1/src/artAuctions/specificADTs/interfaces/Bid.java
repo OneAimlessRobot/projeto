@@ -5,19 +5,10 @@ package artAuctions.specificADTs.interfaces;
 */
 
 
-import java.io.Serializable;
 
-public interface Bid extends Serializable {
 
-	
-	User getCollector();
-	
-	Work getWork();
+public interface Bid extends  BidGeneric{
 
-	int getBidAmmount();
-
-	String getAuctionId();
-	
 	void setCollector(User user);
 
 	void setWork(Work work);
