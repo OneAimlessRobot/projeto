@@ -9,10 +9,20 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
+import dataStructures.Iterator;
+
 /**
  * Esta interface contém apenas os 'getters' .
  */
 public interface AuctionGeneric extends Serializable{
+	
 	int getNumOfWorks();
+	
 	String getId();
+	
+	boolean hasWork(Work work);
+	
+	Iterator<WorkGeneric> listWorks();
+	
+
 }

@@ -10,10 +10,6 @@ import dataStructures.Iterator;
 public interface Auction extends AuctionGeneric{
 
 
-	Iterator<Work> listWorks();
-	
-	boolean hasWork(Work work);
-
 	void removeWork(Work work);
 
 	void addWork(Work addedWork);

@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
+import artAuctions.specificADTs.interfaces.WorkGeneric;
 //import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
@@ -18,7 +19,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	private static final long serialVersionUID = 1L;
 
 	private String artsyName;
-	private List<Work> works;
+	private List<WorkGeneric> works;
 	
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
@@ -52,7 +53,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 		
 	}
 	@Override
-	public Iterator<Work> works() {
+	public Iterator<WorkGeneric> works() {
 		return works.iterator();
 	}
 	@Override

@@ -28,7 +28,9 @@ import artAuctions.specificADTs.implem.AuctionManagerClass;
 import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
+import artAuctions.specificADTs.interfaces.BidGeneric;
 import artAuctions.specificADTs.interfaces.Work;
+import artAuctions.specificADTs.interfaces.WorkGeneric;
 
 import java.io.*;
 
@@ -348,12 +350,12 @@ public class Main {
 		
 			Auction defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
-			Iterator<Work> workIt= defunct.listWorks();
+			Iterator<WorkGeneric> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
-				Work currWork= workIt.next();
+				WorkGeneric currWork= workIt.next();
 				if(currWork.getNumOfBidsFromAuction(auctionid)==0) {
 					
-					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
+					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse()+"\n");
 					
 				}
 				else {
@@ -367,7 +369,7 @@ public class Main {
 						}
 						
 					}*/
-					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName()+" "+currWork.getBidAmmount());
+					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName()+" "+currWork.getBidAmmount()+"\n");
 					
 				}
 				
@@ -408,20 +410,20 @@ public class Main {
 		String auctionid= input.next();
 		input.nextLine();
 		try {
-			System.out.println();
-			Iterator<Work> workIt= mgr.getAuctionWorks(auctionid);
+			Iterator<WorkGeneric> workIt= mgr.getAuctionWorks(auctionid);
 			while(workIt.hasNext()) {
-				
-				Work curr= workIt.next();
+
+				System.out.println();
+				WorkGeneric curr= workIt.next();
 				System.out.println(curr);
 				
 			}
 			System.out.println();
 		} catch (NoSuchAuctionException e) {
-			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
+			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (AuctionEmptyException e) {	
 			
-			System.out.println(CommandResponse.AUCTIONEMPTY.getResponse()+"\n");
+			System.out.println("\n"+CommandResponse.AUCTIONEMPTY.getResponse()+"\n");
 		
 		}
 	}
@@ -429,21 +431,22 @@ public class Main {
 		String auctionid=input.next(),workid=input.next();
 		input.nextLine();
 		try {
-			FilteredIterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
+			FilteredIterator<BidGeneric> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
+			System.out.printf("\n");
 			while(workBids.hasNext()) {
-				Bid curr= workBids.next();
+				BidGeneric curr= workBids.next();
 				System.out.println(curr);
 				
 			}
 			System.out.printf("\n");
-		} catch (NoSuchWorkException e) {
-			System.out.println(CommandResponse.NOSUCHWORK.getResponse()+"\n");
-		} catch (NoSuchAuctionException e) {
-			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (NoSuchWorkInAuctionException e) {
-			System.out.println(CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
-		} catch (WorkHasNoBidsInAuctionException e) {
-			System.out.println(CommandResponse.HERENOUSERWANTSTHIS.getResponse()+"\n");
+			System.out.println("\n"+CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
+		} catch (NoSuchAuctionException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
+		} catch (NoSuchWorkException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
+		}  catch (WorkHasNoBidsInAuctionException e) {
+			System.out.println("\n"+CommandResponse.HERENOUSERWANTSTHIS.getResponse()+"\n");
 		}
 		
 		

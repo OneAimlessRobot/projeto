@@ -28,7 +28,9 @@ import artAuctions.specificADTs.implem.AuctionManagerClass;
 import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
+import artAuctions.specificADTs.interfaces.BidGeneric;
 import artAuctions.specificADTs.interfaces.Work;
+import artAuctions.specificADTs.interfaces.WorkGeneric;
 
 import java.io.*;
 
@@ -348,9 +350,9 @@ public class MainFromZero {
 		
 			Auction defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
-			Iterator<Work> workIt= defunct.listWorks();
+			Iterator<WorkGeneric> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
-				Work currWork= workIt.next();
+				WorkGeneric currWork= workIt.next();
 				if(currWork.getNumOfBidsFromAuction(auctionid)==0) {
 					
 					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
@@ -409,10 +411,10 @@ public class MainFromZero {
 		input.nextLine();
 		try {
 			System.out.println();
-			Iterator<Work> workIt= mgr.getAuctionWorks(auctionid);
+			Iterator<WorkGeneric> workIt= mgr.getAuctionWorks(auctionid);
 			while(workIt.hasNext()) {
 				
-				Work curr= workIt.next();
+				WorkGeneric curr= workIt.next();
 				System.out.println(curr);
 				
 			}
@@ -429,9 +431,9 @@ public class MainFromZero {
 		String auctionid=input.next(),workid=input.next();
 		input.nextLine();
 		try {
-			FilteredIterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
+			FilteredIterator<BidGeneric> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
 			while(workBids.hasNext()) {
-				Bid curr= workBids.next();
+				BidGeneric curr= workBids.next();
 				System.out.println(curr);
 				
 			}

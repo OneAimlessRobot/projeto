@@ -9,6 +9,9 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
+import dataStructures.FilteredIterator;
+import dataStructures.Iterator;
+
 /**
  * Esta interface contém apenas os 'getters' .
  */
@@ -22,9 +25,16 @@ public interface WorkGeneric extends Serializable{
 
 	int getNumOfBids();
 	
-	Artist getAuthor();
+	ArtistGeneric getAuthor();
 
 	String getName();
+	
+	Iterator<BidGeneric> bids();
+	
+	int getNumOfBidsFromAuction(String auctionid);
+
+	FilteredIterator<BidGeneric> bidsFilteredByAuctionId(String auctionid);
+
 	
 	
 	

@@ -12,13 +12,14 @@ import java.io.Serializable;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
+import artAuctions.specificADTs.interfaces.WorkGeneric;
 
 public class BidClass implements Serializable,Comparable<Bid>, Bid {
 
 	private static final long serialVersionUID = 1L;
 	
 	private User collector;
-	private Work work;
+	private WorkGeneric work;
 	private String auctionId;
 	private int bidAmmount;
 	public BidClass(User collector,Work work,int bidAmmount,String auctionId) {
@@ -75,7 +76,7 @@ public class BidClass implements Serializable,Comparable<Bid>, Bid {
 	}
 
 	@Override
-	public Work getWork() {
+	public WorkGeneric getWork() {
 		
 		return work;
 	}

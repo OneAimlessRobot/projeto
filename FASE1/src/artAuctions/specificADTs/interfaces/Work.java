@@ -12,8 +12,6 @@ import dataStructures.Iterator;
 
 public interface Work extends WorkGeneric{
 
-	Iterator<Bid> bids();
-	
 	void addBid(Bid addedBid);
 
 	void setYear(int year);
@@ -29,9 +27,5 @@ public interface Work extends WorkGeneric{
 	public void setMinAmmount(int value);
 
 	void removeBidsByUser(User user);
-
-	int getNumOfBidsFromAuction(String auctionid);
-
-	FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionid);
 
 }

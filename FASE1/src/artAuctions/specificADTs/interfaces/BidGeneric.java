@@ -14,14 +14,12 @@ import java.io.Serializable;
  */
 public interface BidGeneric extends Serializable{
 	
-	User getCollector();
+	UserGeneric getCollector();
 	
-	Work getWork();
+	WorkGeneric getWork();
 
 	int getBidAmmount();
 	
 	String getAuctionId();
-	
-	Auction getAuctionWhereThisBidWasMade();
 
 }

@@ -16,7 +16,7 @@ public class AuctionClass implements Serializable, Auction {
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
-	private List<Work> works;
+	private List<WorkGeneric> works;
 
 	public AuctionClass(String id) {
 		
@@ -26,7 +26,7 @@ public class AuctionClass implements Serializable, Auction {
 	}
 
 	@Override
-	public Iterator<Work> listWorks() {
+	public Iterator<WorkGeneric> listWorks() {
 		
 		return works.iterator();
 	}

@@ -16,13 +16,18 @@ import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.interfaces.Artist;
+import artAuctions.specificADTs.interfaces.ArtistGeneric;
 import artAuctions.specificADTs.interfaces.Auction;
+import artAuctions.specificADTs.interfaces.AuctionGeneric;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
+import artAuctions.specificADTs.interfaces.BidGeneric;
 import artAuctions.exceptions.NoSuchWorkException;
 import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.specificADTs.interfaces.User;
+import artAuctions.specificADTs.interfaces.UserGeneric;
 import artAuctions.specificADTs.interfaces.Work;
+import artAuctions.specificADTs.interfaces.WorkGeneric;
 import dataStructures.DoubleList;
 import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
@@ -61,7 +66,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	public void addWork(String id, String login,int year,String name) throws NoSuchArtistException, NoSuchUserException, WorkExistsException {
 		Artist decoy= new ArtistClass(login," ",0," ");
 		Work decoyWork= new WorkClass(id,null,0," ");
-		int pos=users.find(decoy),
+		int pos=users.find((User)(UserGeneric)(ArtistGeneric)decoy),
 				artistPos=artists.find(decoy),
 				workPos=works.find(decoyWork);
 
@@ -122,7 +127,7 @@ if(age<MIN_AGE) {
 	public void addArtist(String login,String name,String artsyName,int age,String email) throws UserExistsException, TooYoungException {
 
 		Artist newUser=new ArtistClass(login,name,age,email);
-		int pos=users.find(newUser);
+		int pos=users.find((User)(UserGeneric)(ArtistGeneric)newUser);
 if(age<MIN_AGE) {
 			
 
@@ -271,12 +276,12 @@ if(age<MIN_AGE) {
 		
 	}
 	@Override
-	public FilteredIterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException ,WorkHasNoBidsInAuctionException{
+	public FilteredIterator<BidGeneric> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException ,WorkHasNoBidsInAuctionException{
 
 		Work work= new WorkClass(workid, null, 0, null);
 		Auction auction=new AuctionClass(auctionid);
 		int workpos=works.find(work),auctionpos=auctions.find(auction);
-		Work workinauction=null;
+		WorkGeneric workinauction=null;
 		if(workpos<0) {
 			
 			throw new NoSuchWorkException();
@@ -299,10 +304,10 @@ if(age<MIN_AGE) {
 		return workinauction.bidsFilteredByAuctionId(auctionid);
 		
 	}
-	private static Work getWorkInAuction(Auction auction,Work work) {
+	private static WorkGeneric getWorkInAuction(Auction auction,WorkGeneric work) {
 		
-		Iterator<Work> auctionWorkIt= auction.listWorks();
-		Work curr= null;
+		Iterator<WorkGeneric> auctionWorkIt= auction.listWorks();
+		WorkGeneric curr= null;
 		while(auctionWorkIt.hasNext()) {
 			curr=auctionWorkIt.next();
 			
@@ -320,7 +325,7 @@ if(age<MIN_AGE) {
 	}
 	private void removeArtistWorks(Artist artist) {
 		
-		Iterator<Work> artistWorksIt=artist.works();
+		Iterator<WorkGeneric> artistWorksIt=artist.works();
 
 //		while(artistWorksIt.hasNext()) {
 //			Work currArtistWork= artistWorksIt.next();
@@ -328,8 +333,8 @@ if(age<MIN_AGE) {
 //			artistWorksIt.rewind();
 //			}
 		while(artistWorksIt.hasNext()) {
-			Work currArtistWork= artistWorksIt.next();
-			works.remove(currArtistWork);
+			WorkGeneric currArtistWork= artistWorksIt.next();
+			works.remove((Work)currArtistWork);
 			}
 		artist.clearWorks();
 
@@ -340,9 +345,9 @@ if(age<MIN_AGE) {
 		Iterator<Auction> auctionIt= auctions.iterator();
 		while(auctionIt.hasNext()) {
 			Auction currAuction= auctionIt.next();
-			Iterator<Work> currAuctionWorksIt= currAuction.listWorks();
+			Iterator<WorkGeneric> currAuctionWorksIt= currAuction.listWorks();
 			while(currAuctionWorksIt.hasNext()) {
-				Work currWorkInCurrAuction= currAuctionWorksIt.next();
+				WorkGeneric currWorkInCurrAuction= currAuctionWorksIt.next();
 				if(currWorkInCurrAuction.getAuthor().equals(artist)) {
 					
 					return true;
@@ -355,7 +360,7 @@ if(age<MIN_AGE) {
 		return result;
 	}
 	@Override
-	public Iterator<Work> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException {
+	public Iterator<WorkGeneric> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException {
 		Auction auction=new AuctionClass(auctionid);
 		int auctionpos=auctions.find(auction);
 		

@@ -7,27 +7,22 @@ package artAuctions.specificADTs.interfaces;
 
 import dataStructures.Iterator;
 
-public interface Artist extends User {
+public interface Artist extends ArtistGeneric {
 
-	
-	String getArtsyName();
-	
-	int getNumOfWorks();
-	
-	String getId();
-	
-	void clearWorks();
 
 	void removeWork(Work work);
 	
-	boolean hasWork(Work work);
 	
 	void addWork(Work work);
 	
-	Iterator<Work> works();
 
-	String printArtist();
-	
+	Iterator<WorkGeneric> works();
+
 	void setArtsyName(String newName);
+
+	void clearWorks();
+	
+	
+
 }
 

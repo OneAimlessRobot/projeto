@@ -21,7 +21,7 @@ public class WorkClass implements Serializable, Work {
 	private Artist author;
 	private String name,id;
 	
-	private List<Bid> workBids;
+	private List<BidGeneric> workBids;
 	
 	public WorkClass(String id,Artist author,int year,String name) {
 		
@@ -112,7 +112,7 @@ public class WorkClass implements Serializable, Work {
 		
 	}
 	@Override
-	public Iterator<Bid> bids() {
+	public Iterator<BidGeneric> bids() {
 		return workBids.iterator();
 	}
 	@Override
@@ -132,7 +132,7 @@ public class WorkClass implements Serializable, Work {
 	@Override
 	public int getNumOfBidsFromAuction(String auctionId) {
 		Bid bid= new BidClass(null,null,0,auctionId);
-		FilteredIterator<Bid> fit=workBids.filteredIterator(bid);
+		FilteredIterator<BidGeneric> fit=workBids.filteredIterator(bid);
 		int count=0;
 		while(fit.hasNext()) {
 			fit.next();
@@ -141,7 +141,7 @@ public class WorkClass implements Serializable, Work {
 		return count;
 	}
 	@Override
-	public FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionId) {
+	public FilteredIterator<BidGeneric> bidsFilteredByAuctionId(String auctionId) {
 		Bid bid= new BidClass(null,null,0,auctionId);
 		return workBids.filteredIterator(bid);
 	}
@@ -150,9 +150,9 @@ public class WorkClass implements Serializable, Work {
 
 	@Override
 	public void removeBidsByUser(User user) {
-		Iterator<Bid> bids= workBids.iterator();
+		Iterator<BidGeneric> bids= workBids.iterator();
 		while(bids.hasNext()) {
-			Bid currBid= bids.next();
+			BidGeneric currBid= bids.next();
 			if(user.equals(currBid.getCollector())) {
 
 				workBids.remove(currBid);
