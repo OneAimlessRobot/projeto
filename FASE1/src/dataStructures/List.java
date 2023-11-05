@@ -15,7 +15,7 @@ import java.io.Serializable;
 public interface List<E> extends Serializable
 {
 
-    /**
+	/**
      * Returns true iff the list contains no elements.
      * @return true if list is empty
      */
@@ -32,6 +32,12 @@ public interface List<E> extends Serializable
      * @return Iterator of the elements in the list
      */
     Iterator<E> iterator( );
+    /**
+     *  Returns an iterator of the elements in the list (in proper sequence), which can
+     *  skip unwanted elements with methods skipEquals() and skipDifferent().
+     * @return Iterator of the elements in the list
+     */
+    FilteredIterator<E> filteredIterator( E elem);
 
     /**
      * Returns the first element of the list.

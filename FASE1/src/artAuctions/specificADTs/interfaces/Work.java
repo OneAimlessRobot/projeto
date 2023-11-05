@@ -7,6 +7,7 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
+import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 
 public interface Work extends Serializable{
@@ -27,6 +28,8 @@ public interface Work extends Serializable{
 
 	int getNumOfBids();
 	
+	int getNumOfBidsFromAuction(String auctionid);
+	
 	void setId(String id);
 
 	Artist getAuthor();
@@ -40,5 +43,7 @@ public interface Work extends Serializable{
 	public void setMinAmmount(int value);
 
 	void removeBidsByUser(User user);
+
+	FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionId);
 
 }

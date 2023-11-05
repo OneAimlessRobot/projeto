@@ -19,6 +19,8 @@
 ./dataStructures/InvertibleQueue.java
 ./dataStructures/NoSuchElementException.java
 ./dataStructures/ConcatenableQueue.java
+./dataStructures/DoubleListFilteredIterator.java
+./dataStructures/FilteredIterator.java
 ./dataStructures/TwoWayIterator.java
 ./dataStructures/MenuFuncs.java
 ./dataStructures/EmptyStackException.java
@@ -29,7 +31,6 @@
 ./artAuctions/specificADTs/interfaces/Bid.java
 ./artAuctions/specificADTs/interfaces/User.java
 ./artAuctions/specificADTs/interfaces/Artist.java
-./artAuctions/specificADTs/interfaces/Collector.java
 ./artAuctions/specificADTs/interfaces/AuctionManager.java
 ./artAuctions/specificADTs/interfaces/Work.java
 ./artAuctions/specificADTs/interfaces/Auction.java
@@ -51,6 +52,7 @@
 ./artAuctions/exceptions/ArtistHasWorksInAuctionException.java
 ./artAuctions/exceptions/WorkExistsException.java
 ./artAuctions/exceptions/WeakBidException.java
+./artAuctions/exceptions/WorkHasNoBidsInAuctionException.java
 ./artAuctions/exceptions/CollectorHasBidsException.java
 ./artAuctions/exceptions/NoSuchWorkException.java
 ./artAuctions/exceptions/WorkExistsInAuctionException.java

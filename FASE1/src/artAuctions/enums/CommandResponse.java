@@ -30,7 +30,7 @@ public enum CommandResponse {
 	BIDMADE("Proposta aceite."),
 	ARTISTMADENOTHING("Artista sem obras."),
 	AUCTIONOVER("Leilao encerrado."),
-	NOUSERWANTSTHIS("sem propostas de venda."),
+	HERENOUSERWANTSTHIS("sem propostas de venda."),
 	AUCTIONEMPTY("Leilao sem obras."),
 	NOSUCHWORKHERE("Obra inexistente no leilao."),
 	BIDTOOCHEAP("Valor proposto abaixo do valor minimo."),

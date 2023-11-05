@@ -21,6 +21,8 @@ import artAuctions.exceptions.UserHasBidsException;
 import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
+import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
+import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 
 public interface AuctionManager extends Serializable{
@@ -39,7 +41,7 @@ public interface AuctionManager extends Serializable{
 	void addWorkToAuction(String auctionid,String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException, NoSuchWorkException;
 	
 	Iterator<Work> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException;
-	Iterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException;
+	FilteredIterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException,WorkHasNoBidsInAuctionException;
 	void addUser(String login, String name, int age, String email) throws UserExistsException, TooYoungException;
 
 	void removeUser(String login) throws NoSuchUserException, UserHasBidsException,  ArtistHasWorksInAuctionException;

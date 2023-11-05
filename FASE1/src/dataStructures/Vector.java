@@ -10,18 +10,21 @@ import java.io.Serializable;
 public class Vector<T> implements List<T>,Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static class VectorIterator<T> implements TwoWayIterator<T>{
+private static class VectorIterator<T> implements TwoWayIterator<T>{
 		
 		private static final long serialVersionUID = 1L;
 		private Vector<T> support;
 		private int currPos;
 		public VectorIterator(Vector<T> support) {
 			this.support=support;
-			currPos=0;
+			rewind();
 			
 		}
 		@Override
 		public T next() {
+	        if ( !this.hasNext() )
+	            throw new NoSuchElementException();
+
 			return support.get(currPos++);
 		}
 		@Override
@@ -29,11 +32,9 @@ public class Vector<T> implements List<T>,Serializable {
 			return this.currPos!=support.size();
 		}
 		@Override
-		public void rewind() {
-			this.currPos=0;
-		}
-		@Override
 		public T previous() {
+	        if ( !this.hasPrevious() )
+	            throw new NoSuchElementException();
 			return support.get(currPos--);
 		}
 		@Override
@@ -44,9 +45,66 @@ public class Vector<T> implements List<T>,Serializable {
 		public boolean hasPrevious() {
 			return currPos!=-1;
 		}
+		@Override
+		public void rewind() {
+			this.currPos=0;
+			
+		}
 		
+}
+
+private static class VectorFilteredIterator<T> implements FilteredIterator<T>{
 		
-	}
+		private static final long serialVersionUID = 1L;
+		private Vector<T> support;
+		private int currPos;
+		private T filter;
+		public VectorFilteredIterator(Vector<T> support,T filter) {
+			this.support=support;
+			this.filter=filter;
+			rewind();
+			
+		}
+		@Override
+		public T next() {
+	        if ( !this.hasNext() )
+	            throw new NoSuchElementException();
+
+	        T result= support.get(currPos);
+	        advance();
+			nextEquals(filter);
+			return result;
+		}
+		
+		private void advance() {
+	        if ( !this.hasNext() )
+	            throw new NoSuchElementException();
+
+	        currPos++;
+			
+		}
+		@Override
+		public boolean hasNext() {
+			return this.currPos!=support.size();
+		}
+		@Override
+		public void rewind() {
+			this.currPos=0;
+			nextEquals(filter);
+		}
+		@Override
+		public void nextEquals(T elem) {
+
+			while(hasNext()){
+		
+				if(support.get(currPos).equals(elem)) {
+					return;
+				}
+				advance();
+			}
+			
+}
+}
 	private T[] arr;
 	private static final int INIT_SIZE=20000;
 	private int currPos,size;
@@ -222,5 +280,10 @@ public class Vector<T> implements List<T>,Serializable {
 	public void append(List<T> list) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public FilteredIterator<T> filteredIterator(T elem) {
+		// TODO Auto-generated method stub
+		return new VectorFilteredIterator<T>(this,elem);
 	}
 }

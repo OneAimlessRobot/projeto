@@ -511,6 +511,13 @@ public class DoubleList<E> implements List<E>
     }
 
 
+	@Override
+	public FilteredIterator<E> filteredIterator(E elem) {
+		
+		return new DoubleListFilteredIterator<>(head,tail,elem);
+	}
+
+
 }   
 
 

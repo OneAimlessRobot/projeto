@@ -8,8 +8,10 @@ package artAuctions.specificADTs.implem;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
-import dataStructures.DoubleList;
+//import dataStructures.DoubleList;
+import dataStructures.Vector;
 import dataStructures.Iterator;
+import dataStructures.FilteredIterator;
 import dataStructures.List;
 
 public class WorkClass implements Serializable, Work {
@@ -27,8 +29,8 @@ public class WorkClass implements Serializable, Work {
 		this.setAuthor(author);
 		this.setYear(year);
 		this.setName(name);
-		workBids=new DoubleList<>();
-//		workBids=new Vector<>();
+//		workBids=new DoubleList<>();
+		workBids=new Vector<>();
 		lastSoldPrice=0;
 		minBidAmmount=0;
 		
@@ -122,9 +124,29 @@ public class WorkClass implements Serializable, Work {
 		workBids.addLast(addedBid);
 		
 	}
+	@Override
 	public int getNumOfBids() {
 		return workBids.size();
 	}
+	
+	@Override
+	public int getNumOfBidsFromAuction(String auctionId) {
+		Bid bid= new BidClass(null,null,0,auctionId);
+		FilteredIterator<Bid> fit=workBids.filteredIterator(bid);
+		int count=0;
+		while(fit.hasNext()) {
+			fit.next();
+			count++;
+		}
+		return count;
+	}
+	@Override
+	public FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionId) {
+		Bid bid= new BidClass(null,null,0,auctionId);
+		return workBids.filteredIterator(bid);
+	}
+	
+	
 
 	@Override
 	public void removeBidsByUser(User user) {

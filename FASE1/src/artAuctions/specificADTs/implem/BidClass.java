@@ -48,6 +48,19 @@ public class BidClass implements Serializable,Comparable<Bid>, Bid {
 		
 		
 	}
+	public boolean equals(Object anotherBid) {
+		boolean result=false;
+		if(anotherBid instanceof BidClass) {
+			
+			result= ((Bid)anotherBid).getAuctionId().compareTo(auctionId)==0;
+				
+			
+		}
+		return result;
+		
+		
+		
+	}
 	
 	
 	@Override

@@ -23,6 +23,7 @@ import artAuctions.exceptions.UserHasBidsException;
 import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
+import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
 import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
@@ -350,9 +351,9 @@ public class Main {
 			Iterator<Work> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
 				Work currWork= workIt.next();
-				if(currWork.getNumOfBids()==0) {
+				if(currWork.getNumOfBidsFromAuction(auctionid)==0) {
 					
-					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.NOUSERWANTSTHIS.getResponse());
+					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
 					
 				}
 				else {
@@ -428,7 +429,7 @@ public class Main {
 		String auctionid=input.next(),workid=input.next();
 		input.nextLine();
 		try {
-			Iterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
+			FilteredIterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
 			while(workBids.hasNext()) {
 				Bid curr= workBids.next();
 				System.out.println(curr);
@@ -441,6 +442,8 @@ public class Main {
 			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (NoSuchWorkInAuctionException e) {
 			System.out.println(CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
+		} catch (WorkHasNoBidsInAuctionException e) {
+			System.out.println(CommandResponse.HERENOUSERWANTSTHIS.getResponse()+"\n");
 		}
 		
 		

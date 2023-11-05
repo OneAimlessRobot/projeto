@@ -14,6 +14,7 @@ import artAuctions.exceptions.UserHasBidsException;
 import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
+import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
@@ -23,6 +24,7 @@ import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
 import dataStructures.DoubleList;
+import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 import dataStructures.List;
 import dataStructures.Vector;
@@ -269,7 +271,7 @@ if(age<MIN_AGE) {
 		
 	}
 	@Override
-	public Iterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException {
+	public FilteredIterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException ,WorkHasNoBidsInAuctionException{
 
 		Work work= new WorkClass(workid, null, 0, null);
 		Auction auction=new AuctionClass(auctionid);
@@ -290,7 +292,11 @@ if(age<MIN_AGE) {
 			throw new NoSuchWorkInAuctionException();
 			
 		}
-		return workinauction.bids();
+		if(workinauction.getNumOfBidsFromAuction(auctionid)==0) {
+			
+			throw new WorkHasNoBidsInAuctionException();
+		}
+		return workinauction.bidsFilteredByAuctionId(auctionid);
 		
 	}
 	private static Work getWorkInAuction(Auction auction,Work work) {
