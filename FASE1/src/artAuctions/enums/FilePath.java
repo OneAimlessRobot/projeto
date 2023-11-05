@@ -1,7 +1,7 @@
 package artAuctions.enums;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
-* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
+* @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
 
@@ -9,12 +9,13 @@ public enum FilePath {
 
 	SYSTEMSTATE("systemstate.res");
 	
-//Usa a adequada
+	//Usa a adequada
 
-private String resourcesPath=System.getProperty("user.dir")+"/resources/"; //Linux Path
+	//private String resourcesPath=System.getProperty("user.dir")+"/../resources/"; //Linux Path
 	
 	
-//private String resourcesPath=System.getProperty("user.dir")+"\resources\"; //Windows path
+	//private String resourcesPath=System.getProperty("user.dir")+"\\resources\\"; //Windows path
+	private String resourcesPath="C:\\Users\\Pedders\\eclipse-workspace\\FASE1\\resources\\"; 
 	
 	private String value; 
 

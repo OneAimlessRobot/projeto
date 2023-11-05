@@ -345,18 +345,18 @@ public class MainFromZero {
 		String auctionid= input.next();
 		input.nextLine();
 		try {
-			System.out.println();
 			Auction defunct=mgr.closeAuction(auctionid);
+			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
 			Iterator<Work> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
 				Work currWork= workIt.next();
 				if(currWork.getNumOfBids()==0) {
 					
-					System.out.println(CommandResponse.NOUSERWANTSTHIS.getResponse());
-				
+					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.NOUSERWANTSTHIS.getResponse());
+					
 				}
 				else {
-					Iterator<Bid> currBidIt= currWork.bids();
+					/*Iterator<Bid> currBidIt= currWork.bids();
 					Bid maxBid=new BidClass(null,null,-1);
 					while(currBidIt.hasNext()) {
 						Bid currBid=currBidIt.next();
@@ -365,19 +365,19 @@ public class MainFromZero {
 							maxBid=currBid;
 						}
 						
-					}
-					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getYear()+" "+maxBid.getBidAmmount()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName());
+					}*/
+					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName()+" "+currWork.getBidAmmount());
 					
 				}
 				
 			}
 			System.out.println();
 		} catch (NoSuchAuctionException e) {
+
 			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		}
 		
 	}
-
 	private static void createAuction(Scanner input,AuctionManager mgr){
 		
 				String auctionid=input.next();

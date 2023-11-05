@@ -29,7 +29,7 @@ import dataStructures.List;
 import dataStructures.Vector;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
-* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
+* @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
 
@@ -164,21 +164,23 @@ if(age<MIN_AGE) {
 		Auction auction=new AuctionClass(auctionid);
 		User decoy= new UserClass(collectorlogin," ",0," ");
 		int pos=users.find(decoy),
-				workpos=works.find(work),
-				auctionpos=auctions.find(auction);
+			workpos=works.find(work),
+			auctionpos=auctions.find(auction);
 		if(pos<0) {
 
 			throw new NoSuchUserException();
-		}
-		if(workpos<0) {
-			
-			throw new NoSuchWorkException();
-			
 		}
 		if(auctionpos<0) {
 			
 			throw new NoSuchAuctionException();
 		}
+		if(workpos<0) {
+			
+			//throw new NoSuchWorkException();	
+			throw new NoSuchWorkInAuctionException();  //Se a Obra n existe no vector de Obras, então tb não vai existir no Leilão.
+			
+		}
+
 		auction=auctions.get(auctionpos);
 		work=works.get(workpos);
 		if(!workExistsInAuction(auction,work)) {
@@ -257,7 +259,7 @@ if(age<MIN_AGE) {
 			
 		}
 		work=works.get(workpos);
-		work.setSoldAmmount(minValue);
+		work.setMinAmmount(minValue);
 		auction=auctions.get(auctionpos);
 		if(workExistsInAuction(auction,work)) {
 			

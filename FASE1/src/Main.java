@@ -2,7 +2,7 @@ import dataStructures.*;
 import java.util.Scanner;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
-* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
+* @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
 
@@ -345,19 +345,19 @@ public class Main {
 		String auctionid= input.next();
 		input.nextLine();
 		try {
-			System.out.println(CommandResponse.AUCTIONOVER.getResponse());
 		
 			Auction defunct=mgr.closeAuction(auctionid);
+			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
 			Iterator<Work> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
 				Work currWork= workIt.next();
 				if(currWork.getNumOfBids()==0) {
 					
-					System.out.println(currWork+CommandResponse.NOUSERWANTSTHIS.getResponse());
+					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.NOUSERWANTSTHIS.getResponse());
 					
 				}
 				else {
-					Iterator<Bid> currBidIt= currWork.bids();
+					/*Iterator<Bid> currBidIt= currWork.bids();
 					Bid maxBid=new BidClass(null,null,-1);
 					while(currBidIt.hasNext()) {
 						Bid currBid=currBidIt.next();
@@ -366,14 +366,15 @@ public class Main {
 							maxBid=currBid;
 						}
 						
-					}
-					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getYear()+" "+maxBid.getBidAmmount()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName());
+					}*/
+					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName()+" "+currWork.getBidAmmount());
 					
 				}
 				
 			}
 			System.out.println();
 		} catch (NoSuchAuctionException e) {
+
 			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		}
 		
@@ -417,10 +418,10 @@ public class Main {
 			}
 			System.out.println();
 		} catch (NoSuchAuctionException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
+			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (AuctionEmptyException e) {	
 			
-			System.out.println("\n"+CommandResponse.AUCTIONEMPTY.getResponse()+"\n");
+			System.out.println(CommandResponse.AUCTIONEMPTY.getResponse()+"\n");
 		
 		}
 	}

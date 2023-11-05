@@ -1,7 +1,7 @@
 package artAuctions.specificADTs.implem;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
-* @author Pedro Miguel Martino Assuncao (68840) pedroassuncao@gmail.com
+* @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
 
@@ -16,8 +16,7 @@ import dataStructures.Vector;
 public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
-	private static final int minBidAmmount=100;
-	private int year,lastSoldPrice;
+	private int year,lastSoldPrice,minBidAmmount;
 	private Artist author;
 	private String name,id;
 	
@@ -32,6 +31,7 @@ public class WorkClass implements Serializable, Work {
 		workBids=new DoubleList<>();
 //		workBids=new Vector<>();
 		lastSoldPrice=0;
+		minBidAmmount=0;
 		
 		
 	}
@@ -48,6 +48,9 @@ public class WorkClass implements Serializable, Work {
 		if(value>lastSoldPrice&&value>minBidAmmount) {
 		lastSoldPrice = value;
 		}
+	}
+	public void setMinAmmount(int value) {
+		minBidAmmount=value;
 	}
 	@Override
 	public int getBidAmmount() {
