@@ -13,18 +13,20 @@ import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
 
-public class BidClass implements Serializable, Bid {
+public class BidClass implements Serializable,Comparable<Bid>, Bid {
 
 	private static final long serialVersionUID = 1L;
 	
 	private User collector;
 	private Work work;
+	private String auctionId;
 	private int bidAmmount;
-	public BidClass(User collector,Work work,int bidAmmount) {
+	public BidClass(User collector,Work work,int bidAmmount,String auctionId) {
 		
 		this.collector=collector;
 		this.work=work;
 		this.setBidAmmount(bidAmmount);
+		this.auctionId=auctionId;
 		
 	}
 	@Override
@@ -32,6 +34,22 @@ public class BidClass implements Serializable, Bid {
 		
 		return collector;
 	}
+	@Override
+	public int compareTo(Bid anotherBid) {
+		int result=-1;
+		if(anotherBid instanceof BidClass) {
+			
+			result= anotherBid.getAuctionId().compareTo(auctionId);
+				
+			
+		}
+		return result;
+		
+		
+		
+	}
+	
+	
 	@Override
 	public void setCollector(User user) {
 		
@@ -58,6 +76,10 @@ public class BidClass implements Serializable, Bid {
 	}
 	public void setBidAmmount(int bidAmmount) {
 		this.bidAmmount = bidAmmount;
+	}
+	@Override
+	public String getAuctionId() {
+		return auctionId;
 	}
 
 }

@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
-import dataStructures.DoubleList;
 //import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;

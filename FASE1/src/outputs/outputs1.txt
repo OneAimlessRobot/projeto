@@ -1,6 +1,3 @@
-Problemas ao apagar este ficheiro (talvez já não exista?):
-C:\Users\Pedders\eclipse-workspace\FASE1\resources\systemstate.res
-
 
 Registo de utilizador executado.
 

@@ -2,7 +2,6 @@ package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
-import artAuctions.exceptions.ArtistHasWorksException;
 import artAuctions.exceptions.ArtistHasWorksInAuctionException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;
@@ -183,7 +182,7 @@ if(age<MIN_AGE) {
 
 		auction=auctions.get(auctionpos);
 		work=works.get(workpos);
-		if(!workExistsInAuction(auction,work)) {
+		if(getWorkInAuction(auction,work)==null) {
 			
 			throw new NoSuchWorkInAuctionException();
 			
@@ -195,7 +194,7 @@ if(age<MIN_AGE) {
 		}
 		work.setSoldAmmount(value);
 		User collector=users.get(pos);
-		Bid bid= new BidClass(collector, work, value);
+		Bid bid= new BidClass(collector, work, value,auctionid);
 		collector.addBid(bid);
 		work.addBid(bid);
 		
@@ -261,7 +260,7 @@ if(age<MIN_AGE) {
 		work=works.get(workpos);
 		work.setMinAmmount(minValue);
 		auction=auctions.get(auctionpos);
-		if(workExistsInAuction(auction,work)) {
+		if(getWorkInAuction(auction,work)!=null) {
 			
 			throw new WorkExistsInAuctionException();
 			
@@ -275,6 +274,7 @@ if(age<MIN_AGE) {
 		Work work= new WorkClass(workid, null, 0, null);
 		Auction auction=new AuctionClass(auctionid);
 		int workpos=works.find(work),auctionpos=auctions.find(auction);
+		Work workinauction=null;
 		if(workpos<0) {
 			
 			throw new NoSuchWorkException();
@@ -285,34 +285,32 @@ if(age<MIN_AGE) {
 			throw new NoSuchAuctionException();
 		}
 		auction=auctions.get(auctionpos);
-		if(!workExistsInAuction(auction,work)) {
+		if((workinauction=getWorkInAuction(auction,work))==null) {
 			
 			throw new NoSuchWorkInAuctionException();
 			
 		}
-		work=works.get(workpos);
-		return work.bids();
+		return workinauction.bids();
 		
 	}
-	private static boolean workExistsInAuction(Auction auction,Work work) {
+	private static Work getWorkInAuction(Auction auction,Work work) {
 		
-		boolean result=false;
 		Iterator<Work> auctionWorkIt= auction.listWorks();
 		Work curr= null;
 		while(auctionWorkIt.hasNext()) {
 			curr=auctionWorkIt.next();
+			
 			if(work.equals(curr)) {
 				
-				return true;
+				return curr;
 			}
-			
 		}
 		if(curr==null) {
 			
-			return false;
+			return null;
 			
 		}
-		return result;
+		return null;
 	}
 	private void removeArtistWorks(Artist artist) {
 		

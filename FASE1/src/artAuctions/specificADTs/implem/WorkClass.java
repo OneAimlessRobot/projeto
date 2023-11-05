@@ -11,7 +11,6 @@ import artAuctions.specificADTs.interfaces.*;
 import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
-import dataStructures.Vector;
 
 public class WorkClass implements Serializable, Work {
 

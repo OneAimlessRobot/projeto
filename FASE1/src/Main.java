@@ -24,7 +24,6 @@ import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
-import artAuctions.specificADTs.implem.BidClass;
 import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
@@ -432,15 +431,16 @@ public class Main {
 			Iterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
 			while(workBids.hasNext()) {
 				Bid curr= workBids.next();
-				System.out.println("\n"+curr+"\n");
+				System.out.println(curr);
 				
 			}
+			System.out.printf("\n");
 		} catch (NoSuchWorkException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
+			System.out.println(CommandResponse.NOSUCHWORK.getResponse()+"\n");
 		} catch (NoSuchAuctionException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
+			System.out.println(CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
 		} catch (NoSuchWorkInAuctionException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
+			System.out.println(CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
 		}
 		
 		

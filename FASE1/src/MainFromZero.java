@@ -421,24 +421,24 @@ public class MainFromZero {
 		
 		}
 	}
-	private static void listBidsWork(Scanner input,AuctionManager mgr) {
-		String auctionid=input.next(),workid=input.next();
-		input.nextLine();
-		try {
-			Iterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
-			while(workBids.hasNext()) {
-				Bid curr= workBids.next();
-				System.out.println("\n"+curr+"\n");
-				
+		private static void listBidsWork(Scanner input,AuctionManager mgr) {
+			String auctionid=input.next(),workid=input.next();
+			input.nextLine();
+			try {
+				Iterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
+				while(workBids.hasNext()) {
+					Bid curr= workBids.next();
+					System.out.println(curr);
+					
+				}
+				System.out.printf("\n");
+			} catch (NoSuchWorkException e) {
+				System.out.println(CommandResponse.NOSUCHWORK.getResponse()+"\n");
+			} catch (NoSuchAuctionException e) {
+				System.out.println(CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
+			} catch (NoSuchWorkInAuctionException e) {
+				System.out.println(CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
 			}
-		} catch (NoSuchWorkException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
-		} catch (NoSuchAuctionException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
-		} catch (NoSuchWorkInAuctionException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
-		}
-		
 		
 	}
 	private static void testSave(AuctionManager mgr) {

@@ -7,7 +7,6 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
-import artAuctions.exceptions.ArtistHasWorksException;
 import artAuctions.exceptions.ArtistHasWorksInAuctionException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;

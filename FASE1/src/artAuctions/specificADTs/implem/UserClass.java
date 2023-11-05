@@ -11,7 +11,6 @@ import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
-import dataStructures.DoubleList;
 import dataStructures.Iterator;
 //import dataStructures.DoubleList;
 import dataStructures.List;
