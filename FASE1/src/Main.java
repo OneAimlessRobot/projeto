@@ -25,15 +25,27 @@ import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
-import artAuctions.specificADTs.interfaces.Auction;
+import artAuctions.specificADTs.interfaces.AuctionGeneric;
 import artAuctions.specificADTs.interfaces.AuctionManager;
-import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.BidGeneric;
-import artAuctions.specificADTs.interfaces.Work;
+import artAuctions.specificADTs.interfaces.BidGeneric;
+import artAuctions.specificADTs.interfaces.WorkGeneric;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 
 import java.io.*;
-
+/**
+ * 
+ * 
+ * SE QUISERES TRANSFORMAR NEWLINES DE UNIX EM NEWLINES DE DOS, podes seguir isto:
+ * 
+ * https://stackoverflow.com/questions/20368781/anything-like-dos2unix-for-windows
+ * 
+ * Eu tenho ferramentas para converter para Unix
+ * 
+ * 
+ * 
+ * 
+ */
 public class Main {
 
 	private static class MenuReturnPOJO{
@@ -348,14 +360,14 @@ public class Main {
 		input.nextLine();
 		try {
 		
-			Auction defunct=mgr.closeAuction(auctionid);
+			AuctionGeneric defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
 			Iterator<WorkGeneric> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
 				WorkGeneric currWork= workIt.next();
 				if(currWork.getNumOfBidsFromAuction(auctionid)==0) {
 					
-					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse()+"\n");
+					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
 					
 				}
 				else {
@@ -369,7 +381,7 @@ public class Main {
 						}
 						
 					}*/
-					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName()+" "+currWork.getBidAmmount()+"\n");
+					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getBuyer().getLogin()+" "+currWork.getBuyer().getName()+" "+currWork.getBidAmmount());
 					
 				}
 				
@@ -411,9 +423,10 @@ public class Main {
 		input.nextLine();
 		try {
 			Iterator<WorkGeneric> workIt= mgr.getAuctionWorks(auctionid);
-			while(workIt.hasNext()) {
 
-				System.out.println();
+			System.out.println();
+				while(workIt.hasNext()) {
+
 				WorkGeneric curr= workIt.next();
 				System.out.println(curr);
 				
@@ -439,14 +452,14 @@ public class Main {
 				
 			}
 			System.out.printf("\n");
-		} catch (NoSuchWorkInAuctionException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
 		} catch (NoSuchAuctionException e) {
 			System.out.println("\n"+CommandResponse.NOSUCHAUCTION.getResponse()+"\n");
+		} catch (NoSuchWorkInAuctionException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHWORKHERE.getResponse()+"\n");
 		} catch (NoSuchWorkException e) {
 			System.out.println("\n"+CommandResponse.NOSUCHWORK.getResponse()+"\n");
 		}  catch (WorkHasNoBidsInAuctionException e) {
-			System.out.println("\n"+CommandResponse.HERENOUSERWANTSTHIS.getResponse()+"\n");
+			System.out.println("\n"+CommandResponse.HERENOUSERWANTSTHIS2.getResponse()+"\n");
 		}
 		
 		

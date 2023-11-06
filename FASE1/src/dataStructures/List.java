@@ -38,6 +38,12 @@ public interface List<E> extends Serializable
      * @return Iterator of the elements in the list
      */
     FilteredIterator<E> filteredIterator( E elem);
+    /**
+     *  Returns an iterator of the elements in the list (in proper sequence), which can
+     *  skip unwanted elements with a provided FilterPredicate and skipDifferent().
+     * @return Iterator of the elements in the list
+     */
+    FilteredIteratorWithPredicate<E> filteredIteratorWithPredicate(FilterPredicate<E> filter);
 
     /**
      * Returns the first element of the list.

@@ -9,51 +9,40 @@ package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
+import artAuctions.specificADTs.interfaces.AuctionGeneric;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
+import artAuctions.specificADTs.interfaces.UserGeneric;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 
-public class BidClass implements Serializable,Comparable<Bid>, Bid {
+public class BidClass implements Serializable, Bid {
 
 	private static final long serialVersionUID = 1L;
 	
-	private User collector;
+	private UserGeneric collector;
 	private WorkGeneric work;
-	private String auctionId;
+	private AuctionGeneric auction;
 	private int bidAmmount;
-	public BidClass(User collector,Work work,int bidAmmount,String auctionId) {
+	public BidClass(UserGeneric collector,WorkGeneric work,int bidAmmount,AuctionGeneric auction) {
 		
 		this.collector=collector;
 		this.work=work;
 		this.setBidAmmount(bidAmmount);
-		this.auctionId=auctionId;
+		this.auction=auction;
 		
 	}
 	@Override
-	public User getCollector() {
+	public UserGeneric getCollector() {
 		
 		return collector;
 	}
 	@Override
-	public int compareTo(Bid anotherBid) {
-		int result=-1;
-		if(anotherBid instanceof BidClass) {
-			
-			result= anotherBid.getAuctionId().compareTo(auctionId);
-				
-			
-		}
-		return result;
-		
-		
-		
-	}
 	public boolean equals(Object anotherBid) {
 		boolean result=false;
 		if(anotherBid instanceof BidClass) {
 			
-			result= ((Bid)anotherBid).getAuctionId().compareTo(auctionId)==0;
+			result= ((Bid)anotherBid).getAuction().equals(auction);
 				
 			
 		}
@@ -92,8 +81,8 @@ public class BidClass implements Serializable,Comparable<Bid>, Bid {
 		this.bidAmmount = bidAmmount;
 	}
 	@Override
-	public String getAuctionId() {
-		return auctionId;
+	public AuctionGeneric getAuction() {
+		return auction;
 	}
 
 }

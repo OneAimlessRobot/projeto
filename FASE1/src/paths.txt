@@ -1,5 +1,6 @@
 ./dsRunner.java
 ./dataStructures/Stack.java
+./dataStructures/GenericFilterPredicate.java
 ./dataStructures/ConcatenableQueueInList.java
 ./dataStructures/DoubleList.java
 ./dataStructures/Queue.java
@@ -9,7 +10,10 @@
 ./dataStructures/EmptyQueueException.java
 ./dataStructures/DoubleListIterator.java
 ./dataStructures/EmptyListException.java
+./dataStructures/BidAuctionIsOpen.java
+./dataStructures/FilteredIteratorWithPredicate.java
 ./dataStructures/ObjectSaverLoader.java
+./dataStructures/DoubleListFilteredIteratorWithPredicate.java
 ./dataStructures/InvertibleQueueInList.java
 ./dataStructures/QueueInArray.java
 ./dataStructures/FullStackException.java
@@ -17,6 +21,7 @@
 ./dataStructures/Iterator.java
 ./dataStructures/StackInList.java
 ./dataStructures/InvertibleQueue.java
+./dataStructures/FilterPredicate.java
 ./dataStructures/NoSuchElementException.java
 ./dataStructures/ConcatenableQueue.java
 ./dataStructures/DoubleListFilteredIterator.java

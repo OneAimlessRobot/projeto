@@ -18,8 +18,10 @@ import dataStructures.Iterator;
 public interface WorkGeneric extends Serializable{
 
 	int getYear();
-	
+
 	int getBidAmmount();
+
+	int getMinBidAmmount();
 
 	String getId();
 
@@ -28,6 +30,9 @@ public interface WorkGeneric extends Serializable{
 	ArtistGeneric getAuthor();
 
 	String getName();
+	
+	UserGeneric getBuyer();
+	
 	
 	Iterator<BidGeneric> bids();
 	

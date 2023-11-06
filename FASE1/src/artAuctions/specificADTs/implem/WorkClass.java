@@ -18,12 +18,13 @@ public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
 	private int year,lastSoldPrice,minBidAmmount;
-	private Artist author;
+	private ArtistGeneric author;
+	private UserGeneric buyer;
 	private String name,id;
 	
 	private List<BidGeneric> workBids;
 	
-	public WorkClass(String id,Artist author,int year,String name) {
+	public WorkClass(String id,ArtistGeneric author,int year,String name) {
 		
 		this.setId(id);
 		this.setAuthor(author);
@@ -31,6 +32,7 @@ public class WorkClass implements Serializable, Work {
 		this.setName(name);
 //		workBids=new DoubleList<>();
 		workBids=new Vector<>();
+		buyer=null;
 		lastSoldPrice=0;
 		minBidAmmount=0;
 		
@@ -66,11 +68,11 @@ public class WorkClass implements Serializable, Work {
 		this.id = id;
 	}
 	@Override
-	public Artist getAuthor() {
+	public ArtistGeneric getAuthor() {
 		return author;
 	}
 	@Override
-	public void setAuthor(Artist author) {
+	public void setAuthor(ArtistGeneric author) {
 		this.author = author;
 	}
 	@Override
@@ -117,11 +119,11 @@ public class WorkClass implements Serializable, Work {
 	}
 	@Override
 	public void addBid(Bid addedBid) {
-		if(addedBid.getBidAmmount()<minBidAmmount) {
-			
-			return;
-		}
 		workBids.addLast(addedBid);
+			if(addedBid.getBidAmmount()>lastSoldPrice) {
+			lastSoldPrice = addedBid.getBidAmmount();
+			buyer=addedBid.getCollector();
+			}
 		
 	}
 	@Override
@@ -131,7 +133,8 @@ public class WorkClass implements Serializable, Work {
 	
 	@Override
 	public int getNumOfBidsFromAuction(String auctionId) {
-		Bid bid= new BidClass(null,null,0,auctionId);
+		AuctionGeneric auction= new AuctionClass(auctionId);
+		Bid bid= new BidClass(null,null,0,auction);
 		FilteredIterator<BidGeneric> fit=workBids.filteredIterator(bid);
 		int count=0;
 		while(fit.hasNext()) {
@@ -142,7 +145,8 @@ public class WorkClass implements Serializable, Work {
 	}
 	@Override
 	public FilteredIterator<BidGeneric> bidsFilteredByAuctionId(String auctionId) {
-		Bid bid= new BidClass(null,null,0,auctionId);
+		AuctionGeneric auction= new AuctionClass(auctionId);
+		Bid bid= new BidClass(null,null,0,auction);
 		return workBids.filteredIterator(bid);
 	}
 	
@@ -160,5 +164,13 @@ public class WorkClass implements Serializable, Work {
 			}
 		}
 		
+	}
+	@Override
+	public int getMinBidAmmount() {
+		return minBidAmmount;
+	}
+	@Override
+	public UserGeneric getBuyer() {
+		return buyer;
 	}
 }

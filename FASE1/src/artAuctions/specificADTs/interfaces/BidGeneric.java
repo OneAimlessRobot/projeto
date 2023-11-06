@@ -20,6 +20,6 @@ public interface BidGeneric extends Serializable{
 
 	int getBidAmmount();
 	
-	String getAuctionId();
+	AuctionGeneric getAuction();
 
 }

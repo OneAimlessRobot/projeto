@@ -17,10 +17,12 @@ public class AuctionClass implements Serializable, Auction {
 	
 	private String id;
 	private List<WorkGeneric> works;
+	private boolean isClosed;
 
 	public AuctionClass(String id) {
 		
 		this.id=id;
+		isClosed=false;
 //		works= new DoubleList<>();
 		works= new Vector<>();
 	}
@@ -89,6 +91,17 @@ public class AuctionClass implements Serializable, Auction {
 			
 			works.remove(work);
 		}
+		
+	}
+
+	@Override
+	public boolean isClosed() {
+		return isClosed;
+	}
+
+	@Override
+	public void close() {
+		isClosed=true;
 		
 	}
 }

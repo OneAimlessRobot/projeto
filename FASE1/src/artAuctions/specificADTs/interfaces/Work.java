@@ -20,7 +20,7 @@ public interface Work extends WorkGeneric{
 
 	void setId(String id);
 
-	void setAuthor(Artist author);
+	void setAuthor(ArtistGeneric author);
 	
 	void setName(String name);
 

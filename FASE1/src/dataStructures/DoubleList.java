@@ -518,6 +518,13 @@ public class DoubleList<E> implements List<E>
 	}
 
 
+	@Override
+	public FilteredIteratorWithPredicate<E> filteredIteratorWithPredicate( FilterPredicate<E> filter) {
+
+		return new DoubleListFilteredIteratorWithPredicate<>(head,tail,filter);
+	}
+
+
 }   
 
 

@@ -105,6 +105,58 @@ private static class VectorFilteredIterator<T> implements FilteredIterator<T>{
 			
 }
 }
+private static class VectorFilteredIteratorWithPredicate<T> implements FilteredIteratorWithPredicate<T> {
+	
+	private static final long serialVersionUID = 1L;
+	private Vector<T> support;
+	private int currPos;
+	private FilterPredicate<T> filterP;
+	public VectorFilteredIteratorWithPredicate(Vector<T> support,FilterPredicate<T> predicate) {
+		this.support=support;
+		filterP=predicate;
+		rewind();
+		
+	}
+	@Override
+	public T next() {
+        if ( !this.hasNext() )
+            throw new NoSuchElementException();
+
+        T result= support.get(currPos);
+        advance();
+		nextEquals();
+		return result;
+	}
+	
+	private void advance() {
+        if ( !this.hasNext() )
+            throw new NoSuchElementException();
+
+        currPos++;
+		
+	}
+	@Override
+	public boolean hasNext() {
+		return this.currPos!=support.size();
+	}
+	@Override
+	public void rewind() {
+		this.currPos=0;
+		nextEquals();
+	}
+	@Override
+	public void nextEquals() {
+
+		while(hasNext()){
+	
+			if(filterP.execute(support.get(currPos))) {
+				return;
+			}
+			advance();
+		}
+		
+}
+}
 	private T[] arr;
 	private static final int INIT_SIZE=20000;
 	private int currPos,size;
@@ -283,7 +335,10 @@ private static class VectorFilteredIterator<T> implements FilteredIterator<T>{
 	}
 	@Override
 	public FilteredIterator<T> filteredIterator(T elem) {
-		// TODO Auto-generated method stub
 		return new VectorFilteredIterator<T>(this,elem);
+	}
+	@Override
+	public FilteredIteratorWithPredicate<T> filteredIteratorWithPredicate( FilterPredicate<T> filter) {
+		return new VectorFilteredIteratorWithPredicate<>(this,filter);
 	}
 }

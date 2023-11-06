@@ -30,6 +30,7 @@ import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 import dataStructures.DoubleList;
 import dataStructures.FilteredIterator;
+import dataStructures.FilteredIteratorWithPredicate;
 import dataStructures.Iterator;
 import dataStructures.List;
 import dataStructures.Vector;
@@ -49,7 +50,6 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	private List<Artist> artists;
 	private List<Auction> auctions;
 	private static final int MIN_AGE= 18;
-	private static final int MIN_BID= 50;
 
 	public AuctionManagerClass() {
 //		
@@ -189,21 +189,23 @@ if(age<MIN_AGE) {
 
 		auction=auctions.get(auctionpos);
 		work=works.get(workpos);
-		if(getWorkInAuction(auction,work)==null) {
+		Work workInAuction=null;
+		if((workInAuction=(Work)getWorkInAuction(auction,work))==null) {
 			
 			throw new NoSuchWorkInAuctionException();
 			
 		}
-		if(value<MIN_BID) {
+		if(value<workInAuction.getMinBidAmmount()) {
 			
 			throw new WeakBidException();
 			
 		}
-		work.setSoldAmmount(value);
 		User collector=users.get(pos);
-		Bid bid= new BidClass(collector, work, value,auctionid);
+		Bid bid= new BidClass(collector, work, value,auction);
+		Bid bidForAuction= new BidClass(collector, workInAuction, value,auction);
 		collector.addBid(bid);
 		work.addBid(bid);
+		workInAuction.addBid(bidForAuction);
 		
 		
 	}
@@ -264,15 +266,17 @@ if(age<MIN_AGE) {
 			throw new NoSuchWorkException();
 			
 		}
-		work=works.get(workpos);
-		work.setMinAmmount(minValue);
-		auction=auctions.get(auctionpos);
 		if(getWorkInAuction(auction,work)!=null) {
 			
 			throw new WorkExistsInAuctionException();
 			
 		}
-		auctions.get(auctionpos).addWork(works.get(workpos));
+		work=works.get(workpos);
+		Work addedWork= new WorkClass(work.getId(),work.getAuthor(),work.getYear(),work.getName());
+		addedWork.setMinAmmount(minValue);
+		auction=auctions.get(auctionpos);
+		
+		auctions.get(auctionpos).addWork(addedWork);
 		
 	}
 	@Override
@@ -282,11 +286,7 @@ if(age<MIN_AGE) {
 		Auction auction=new AuctionClass(auctionid);
 		int workpos=works.find(work),auctionpos=auctions.find(auction);
 		WorkGeneric workinauction=null;
-		if(workpos<0) {
-			
-			throw new NoSuchWorkException();
-			
-		}
+
 		if(auctionpos<0) {
 			
 			throw new NoSuchAuctionException();
@@ -295,6 +295,11 @@ if(age<MIN_AGE) {
 		if((workinauction=getWorkInAuction(auction,work))==null) {
 			
 			throw new NoSuchWorkInAuctionException();
+			
+		}
+		if(workpos<0) {
+			
+			throw new NoSuchWorkException();
 			
 		}
 		if(workinauction.getNumOfBidsFromAuction(auctionid)==0) {
@@ -316,12 +321,7 @@ if(age<MIN_AGE) {
 				return curr;
 			}
 		}
-		if(curr==null) {
-			
-			return null;
-			
-		}
-		return null;
+		return curr;
 	}
 	private void removeArtistWorks(Artist artist) {
 		
@@ -359,6 +359,16 @@ if(age<MIN_AGE) {
 		}
 		return result;
 	}
+private boolean userHasBidsInOpenAuction(UserGeneric user) {
+		
+		boolean result=false;
+		FilteredIteratorWithPredicate<BidGeneric> bidit= user.bidsInOpenAuctions();
+		if(bidit.hasNext()) {
+			
+			result=true;
+		}
+		return result;
+	}
 	@Override
 	public Iterator<WorkGeneric> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException {
 		Auction auction=new AuctionClass(auctionid);
@@ -391,7 +401,7 @@ if(age<MIN_AGE) {
 		if(artistpos<0) {
 		
 			removedIfUser=users.get(userpos);
-			if(removedIfUser.numOfBids()>0) {
+			if(userHasBidsInOpenAuction(removedIfUser)) {
 				
 				throw new UserHasBidsException();
 			}
@@ -400,13 +410,13 @@ if(age<MIN_AGE) {
 		else {
 			
 			removedIfArtist=artists.get(artistpos);
-			if(this.artistHasWorksInAuction(removedIfArtist)) {
-				
-				throw new ArtistHasWorksInAuctionException();
-			}
-			if(removedIfArtist.numOfBids()>0) {
+			if(userHasBidsInOpenAuction((UserGeneric)removedIfArtist)) {
 				
 				throw new UserHasBidsException();
+			}
+			if(artistHasWorksInAuction(removedIfArtist)) {
+				
+				throw new ArtistHasWorksInAuctionException();
 			}
 			if(removedIfArtist.getNumOfWorks()>0) {
 			removeArtistWorks(removedIfArtist);
@@ -423,7 +433,7 @@ if(age<MIN_AGE) {
 			
 			throw new NoSuchAuctionException();
 		}
-		
+		auctions.get(auctionpos).close();
 		return auctions.remove(auctionpos);
 		
 		

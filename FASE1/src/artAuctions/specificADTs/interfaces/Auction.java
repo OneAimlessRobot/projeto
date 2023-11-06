@@ -13,6 +13,8 @@ public interface Auction extends AuctionGeneric{
 	void removeWork(Work work);
 
 	void addWork(Work addedWork);
+	
+	void close();
 
 	
 }
