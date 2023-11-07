@@ -21,6 +21,8 @@ public interface WorkGeneric extends Serializable{
 
 	int getBidAmmount();
 
+	Iterator<AuctionGeneric> auctionsWhoWantThis();
+	
 	int getMinBidAmmount();
 
 	String getId();

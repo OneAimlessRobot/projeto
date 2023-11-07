@@ -43,6 +43,34 @@ import dataStructures.Vector;
 
 public class AuctionManagerClass implements Serializable, AuctionManager {
 
+	public class WorkIteratorPair{
+		private Iterator<WorkGeneric> it1,it2;
+		
+		public WorkIteratorPair(Iterator<WorkGeneric> it1,Iterator<WorkGeneric> it2) {
+			
+			this.it1=it1;
+			this.it2=it2;
+			
+		}
+		public Iterator<WorkGeneric> getIteratorOneOrTwo(int which){
+			Iterator<WorkGeneric> result=null;
+			switch(which) {
+			case 1:
+				result= it1;
+			case 2:
+				result= it2;
+			default:
+				break;
+			}
+			return result;
+			
+			
+		}
+		
+		
+		
+		
+	}
 	private static final long serialVersionUID = 1L;
 	
 	private List<Work> works;
@@ -180,14 +208,18 @@ if(age<MIN_AGE) {
 			
 			throw new NoSuchAuctionException();
 		}
+
+		auction=auctions.get(auctionpos);
+		if(auction.isClosed()) {
+			
+			throw new NoSuchAuctionException();
+		}
 		if(workpos<0) {
 			
 			//throw new NoSuchWorkException();	
 			throw new NoSuchWorkInAuctionException();  //Se a Obra n existe no vector de Obras, então tb não vai existir no Leilão.
 			
 		}
-
-		auction=auctions.get(auctionpos);
 		work=works.get(workpos);
 		Work workInAuction=null;
 		if((workInAuction=(Work)getWorkInAuction(auction,work))==null) {
@@ -261,12 +293,16 @@ if(age<MIN_AGE) {
 			
 			throw new NoSuchAuctionException();
 		}
+		auction=auctions.get(auctionpos);
+		if(auction.isClosed()) {
+			
+			throw new NoSuchAuctionException();
+		}
 		if(workpos<0) {
 			
 			throw new NoSuchWorkException();
 			
 		}
-		auction=auctions.get(auctionpos);
 		work=works.get(workpos);
 		if(getWorkInAuction(auction,work)!=null) {
 			
@@ -292,6 +328,10 @@ if(age<MIN_AGE) {
 			throw new NoSuchAuctionException();
 		}
 		auction=auctions.get(auctionpos);
+		if(auction.isClosed()) {
+			
+			throw new NoSuchAuctionException();
+		}
 		if((workinauction=getWorkInAuction(auction,work))==null) {
 			
 			throw new NoSuchWorkInAuctionException();
@@ -384,6 +424,10 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 			throw new NoSuchAuctionException();
 		}
 		auction=auctions.get(auctionpos);
+		if(auction.isClosed()) {
+			
+			throw new NoSuchAuctionException();
+		}
 		if(auction.getNumOfWorks()==0) {//224 
 			
 			throw new AuctionEmptyException();
@@ -440,6 +484,26 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		}
 		auctions.get(auctionpos).close();
 		return auctions.remove(auctionpos);
+		
+		
+	}
+	@Override
+	public void sellAuctionWorks(Auction auction) {
+			
+			Iterator<WorkGeneric> workit=auction.listWorks();
+			while(workit.hasNext()) {
+				Work currWork=(Work) workit.next();
+				Iterator<AuctionGeneric> workAuctionsIt= currWork.auctionsWhoWantThis();
+				while(workAuctionsIt.hasNext()) {
+					AuctionGeneric currWorkAuction= workAuctionsIt.next();
+					currWork=(Work)currWorkAuction.findWork(currWork);
+					currWork.setSoldAmmount(0);
+				}
+				
+				
+				
+			}
+		
 		
 		
 	}

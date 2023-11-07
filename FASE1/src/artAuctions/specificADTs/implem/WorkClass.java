@@ -20,6 +20,7 @@ public class WorkClass implements Serializable, Work {
 	private int year,lastSoldPrice,minBidAmmount;
 	private ArtistGeneric author;
 	private UserGeneric buyer;
+	private List<AuctionGeneric> auctionsWhoWantThis;
 	private String name,id;
 	
 	private List<BidGeneric> workBids;
@@ -32,6 +33,7 @@ public class WorkClass implements Serializable, Work {
 		this.setName(name);
 //		workBids=new DoubleList<>();
 		workBids=new Vector<>();
+		auctionsWhoWantThis= new Vector<>();
 		buyer=null;
 		lastSoldPrice=0;
 		minBidAmmount=0;
@@ -120,6 +122,9 @@ public class WorkClass implements Serializable, Work {
 	@Override
 	public void addBid(Bid addedBid) {
 		workBids.addLast(addedBid);
+		if(auctionsWhoWantThis.find(addedBid.getAuction())<0) {
+		auctionsWhoWantThis.addLast(addedBid.getAuction());
+		}
 			if(addedBid.getBidAmmount()>lastSoldPrice) {
 			lastSoldPrice = addedBid.getBidAmmount();
 			buyer=addedBid.getCollector();
@@ -172,5 +177,9 @@ public class WorkClass implements Serializable, Work {
 	@Override
 	public UserGeneric getBuyer() {
 		return buyer;
+	}
+	@Override
+	public Iterator<AuctionGeneric> auctionsWhoWantThis() {
+		return auctionsWhoWantThis.iterator();
 	}
 }

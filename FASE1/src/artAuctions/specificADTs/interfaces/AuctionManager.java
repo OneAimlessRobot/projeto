@@ -54,4 +54,6 @@ public interface AuctionManager extends Serializable{
 	void addBidToWork(String auctionid,String workid,String collectorlogin,int value) throws NoSuchUserException, NoSuchWorkInAuctionException, NoSuchWorkException, NoSuchAuctionException, WeakBidException;
 	
 	Auction closeAuction(String auctionid) throws NoSuchAuctionException;
+
+	void sellAuctionWorks(Auction auction);
 }

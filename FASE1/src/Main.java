@@ -25,11 +25,11 @@ import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
+import artAuctions.specificADTs.implem.BidClass;
 import artAuctions.specificADTs.interfaces.Auction;
+import artAuctions.specificADTs.interfaces.AuctionGeneric;
 import artAuctions.specificADTs.interfaces.AuctionManager;
-import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.BidGeneric;
-import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 
 import java.io.*;
@@ -259,7 +259,6 @@ public class Main {
 	private static void infoArtist(Scanner input,AuctionManager mgr) {
 		String userLogin=input.next();
 		input.nextLine();
-		//input.nextLine();
 		try {
 			System.out.println("\n"+mgr.getArtistInfo(userLogin)+"\n");
 		} catch (NoSuchUserException e) {
@@ -360,7 +359,7 @@ public class Main {
 		input.nextLine();
 		try {
 		
-			Auction defunct=mgr.closeAuction(auctionid);
+			AuctionGeneric defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
 			Iterator<WorkGeneric> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
@@ -371,17 +370,17 @@ public class Main {
 					
 				}
 				else {
-					/*Iterator<Bid> currBidIt= currWork.bids();
-					Bid maxBid=new BidClass(null,null,-1);
+					FilteredIterator<BidGeneric> currBidIt= currWork.bidsFilteredByAuctionId(auctionid);
+					BidGeneric maxBid=new BidClass(null,null,-1,null);
 					while(currBidIt.hasNext()) {
-						Bid currBid=currBidIt.next();
+						BidGeneric currBid=currBidIt.next();
 						if(currBid.getBidAmmount()>maxBid.getBidAmmount()) {
 							
 							maxBid=currBid;
 						}
 						
-					}*/
-					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getBuyer().getLogin()+" "+currWork.getBuyer().getName()+" "+currWork.getBidAmmount());
+					}
+					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getBuyer().getLogin()+" "+currWork.getBuyer().getName()+" "+maxBid.getBidAmmount());
 					
 				}
 				

@@ -104,4 +104,19 @@ public class AuctionClass implements Serializable, Auction {
 		isClosed=true;
 		
 	}
+
+	@Override
+	public WorkGeneric findWork(WorkGeneric work) {
+		Iterator<WorkGeneric> worksIt= listWorks();
+		WorkGeneric result=null;
+		while(worksIt.hasNext()) {
+			WorkGeneric currWork= worksIt.next();
+			if(currWork.equals((WorkGeneric)work)){
+				
+				result= currWork;
+			}
+			
+		}
+		return result;
+	}
 }

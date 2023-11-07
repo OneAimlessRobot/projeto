@@ -19,8 +19,10 @@ public interface AuctionGeneric extends Serializable{
 	int getNumOfWorks();
 	
 	String getId();
-	
+
 	boolean hasWork(Work work);
+	
+	WorkGeneric findWork(WorkGeneric work);
 	
 	boolean isClosed();
 	
