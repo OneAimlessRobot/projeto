@@ -55,5 +55,6 @@ public interface AuctionManager extends Serializable{
 	
 	Auction closeAuction(String auctionid) throws NoSuchAuctionException;
 
-	void sellAuctionWorks(Auction auction);
+
+	void sellAuctionWork(Work currWork, String auctionId);
 }

@@ -16,8 +16,8 @@ public interface Work extends WorkGeneric{
 
 	void setYear(int year);
 
-	void setSoldAmmount(int value);
-
+	void setMaxBid(BidGeneric bid);
+	
 	void setId(String id);
 
 	void setAuthor(ArtistGeneric author);

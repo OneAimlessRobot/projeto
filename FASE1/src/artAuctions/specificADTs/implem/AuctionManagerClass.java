@@ -234,10 +234,8 @@ if(age<MIN_AGE) {
 		}
 		User collector=users.get(pos);
 		Bid bid= new BidClass(collector, work, value,auction);
-		Bid bidForAuction= new BidClass(collector, workInAuction, value,auction);
 		collector.addBid(bid);
 		work.addBid(bid);
-		workInAuction.addBid(bidForAuction);
 		
 		
 	}
@@ -252,6 +250,21 @@ if(age<MIN_AGE) {
 			User collector=users.get(pos);
 		return ((UserClass)collector).printUser();
 		
+	}
+	@Override
+	public void sellAuctionWork(Work currWork,String auctionId) {
+		
+		
+		FilteredIterator<BidGeneric> currBidIt= currWork.bidsFilteredByAuctionId(auctionId);
+		while(currBidIt.hasNext()) {
+			BidGeneric currBid=currBidIt.next();
+			if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
+				
+				currWork.setMaxBid(currBid);
+			}
+			
+		}
+		int auxPosValue=works.find(currWork);
 	}
 	@Override
 	public String getWorkInfo(String id) throws NoSuchWorkException {
@@ -309,10 +322,8 @@ if(age<MIN_AGE) {
 			throw new WorkExistsInAuctionException();
 			
 		}
-		Work addedWork= new WorkClass(work.getId(),work.getAuthor(),work.getYear(),work.getName());
-		addedWork.setMinAmmount(minValue);
-		
-		auctions.get(auctionpos).addWork(addedWork);
+		work.setMinAmmount(minValue);
+		auctions.get(auctionpos).addWork(work);
 		
 	}
 	@Override
@@ -346,7 +357,7 @@ if(age<MIN_AGE) {
 			
 			throw new WorkHasNoBidsInAuctionException();
 		}
-		return workinauction.bidsFilteredByAuctionId(auctionid);
+		return works.get(workpos).bidsFilteredByAuctionId(auctionid);
 		
 	}
 	private static WorkGeneric getWorkInAuction(Auction auction,WorkGeneric work) {
@@ -484,26 +495,6 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		}
 		auctions.get(auctionpos).close();
 		return auctions.remove(auctionpos);
-		
-		
-	}
-	@Override
-	public void sellAuctionWorks(Auction auction) {
-			
-			Iterator<WorkGeneric> workit=auction.listWorks();
-			while(workit.hasNext()) {
-				Work currWork=(Work) workit.next();
-				Iterator<AuctionGeneric> workAuctionsIt= currWork.auctionsWhoWantThis();
-				while(workAuctionsIt.hasNext()) {
-					AuctionGeneric currWorkAuction= workAuctionsIt.next();
-					currWork=(Work)currWorkAuction.findWork(currWork);
-					currWork.setSoldAmmount(0);
-				}
-				
-				
-				
-			}
-		
 		
 		
 	}

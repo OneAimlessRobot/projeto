@@ -4,7 +4,7 @@ package artAuctions.specificADTs.implem;
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
-
+import java.lang.Math;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
@@ -17,13 +17,14 @@ import dataStructures.List;
 public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
-	private int year,lastSoldPrice,minBidAmmount;
+	private int year,minBidAmmount,maxSoldPrice;
 	private ArtistGeneric author;
 	private UserGeneric buyer;
 	private List<AuctionGeneric> auctionsWhoWantThis;
 	private String name,id;
 	
 	private List<BidGeneric> workBids;
+	private BidGeneric currMaxBid;
 	
 	public WorkClass(String id,ArtistGeneric author,int year,String name) {
 		
@@ -35,8 +36,9 @@ public class WorkClass implements Serializable, Work {
 		workBids=new Vector<>();
 		auctionsWhoWantThis= new Vector<>();
 		buyer=null;
-		lastSoldPrice=0;
+		maxSoldPrice=0;
 		minBidAmmount=0;
+		currMaxBid=new BidClass(null,(WorkGeneric)this,0,null);
 		
 		
 	}
@@ -48,18 +50,8 @@ public class WorkClass implements Serializable, Work {
 	public void setYear(int year) {
 		this.year = year;
 	}
-	@Override
-	public void setSoldAmmount(int value) {
-		if(value>lastSoldPrice&&value>minBidAmmount) {
-		lastSoldPrice = value;
-		}
-	}
 	public void setMinAmmount(int value) {
 		minBidAmmount=value;
-	}
-	@Override
-	public int getBidAmmount() {
-		return lastSoldPrice;
 	}
 	@Override
 	public String getId() {
@@ -86,7 +78,7 @@ public class WorkClass implements Serializable, Work {
 		this.name = name;
 	}
 	public String toString() {
-		return ""+getId()+" "+getName()+ " "+getYear()+" "+getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
+		return ""+getId()+" "+getName()+ " "+getYear()+" "+currMaxBid.getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
 		
 	}
 	public boolean equals(Object work) {
@@ -122,13 +114,7 @@ public class WorkClass implements Serializable, Work {
 	@Override
 	public void addBid(Bid addedBid) {
 		workBids.addLast(addedBid);
-		if(auctionsWhoWantThis.find(addedBid.getAuction())<0) {
-		auctionsWhoWantThis.addLast(addedBid.getAuction());
-		}
-			if(addedBid.getBidAmmount()>lastSoldPrice) {
-			lastSoldPrice = addedBid.getBidAmmount();
-			buyer=addedBid.getCollector();
-			}
+		
 		
 	}
 	@Override
@@ -181,5 +167,14 @@ public class WorkClass implements Serializable, Work {
 	@Override
 	public Iterator<AuctionGeneric> auctionsWhoWantThis() {
 		return auctionsWhoWantThis.iterator();
+	}
+	@Override
+	public BidGeneric getMaxBid() {
+		return currMaxBid;
+	}
+	@Override
+	public void setMaxBid(BidGeneric bid) {
+		currMaxBid=bid;
+		maxSoldPrice=bid.getBidAmmount();
 	}
 }

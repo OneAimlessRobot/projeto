@@ -19,11 +19,12 @@ public interface WorkGeneric extends Serializable{
 
 	int getYear();
 
-	int getBidAmmount();
 
 	Iterator<AuctionGeneric> auctionsWhoWantThis();
+
+
+	BidGeneric getMaxBid();
 	
-	int getMinBidAmmount();
 
 	String getId();
 
@@ -41,6 +42,10 @@ public interface WorkGeneric extends Serializable{
 	int getNumOfBidsFromAuction(String auctionid);
 
 	FilteredIterator<BidGeneric> bidsFilteredByAuctionId(String auctionid);
+
+
+	int getMinBidAmmount();
+
 
 	
 	
