@@ -25,9 +25,11 @@ import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
-import artAuctions.specificADTs.interfaces.AuctionGeneric;
+import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
+import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.BidGeneric;
+import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 
 import java.io.*;
@@ -358,7 +360,7 @@ public class MainFromZero {
 		input.nextLine();
 		try {
 		
-			AuctionGeneric defunct=mgr.closeAuction(auctionid);
+			Auction defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
 			Iterator<WorkGeneric> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {

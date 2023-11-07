@@ -266,15 +266,15 @@ if(age<MIN_AGE) {
 			throw new NoSuchWorkException();
 			
 		}
+		auction=auctions.get(auctionpos);
+		work=works.get(workpos);
 		if(getWorkInAuction(auction,work)!=null) {
 			
 			throw new WorkExistsInAuctionException();
 			
 		}
-		work=works.get(workpos);
 		Work addedWork= new WorkClass(work.getId(),work.getAuthor(),work.getYear(),work.getName());
 		addedWork.setMinAmmount(minValue);
-		auction=auctions.get(auctionpos);
 		
 		auctions.get(auctionpos).addWork(addedWork);
 		
@@ -321,7 +321,12 @@ if(age<MIN_AGE) {
 				return curr;
 			}
 		}
-		return curr;
+		if(curr==null) {
+			
+			return null;
+			
+		}
+		return null;
 	}
 	private void removeArtistWorks(Artist artist) {
 		
@@ -379,7 +384,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 			throw new NoSuchAuctionException();
 		}
 		auction=auctions.get(auctionpos);
-		if(auction.getNumOfWorks()==0) {
+		if(auction.getNumOfWorks()==0) {//224 
 			
 			throw new AuctionEmptyException();
 			
