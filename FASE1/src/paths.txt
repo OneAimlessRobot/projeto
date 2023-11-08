@@ -36,7 +36,6 @@
 ./artAuctions/specificADTs/interfaces/Bid.java
 ./artAuctions/specificADTs/interfaces/WorkGeneric.java
 ./artAuctions/specificADTs/interfaces/User.java
-./artAuctions/specificADTs/interfaces/BidGeneric.java
 ./artAuctions/specificADTs/interfaces/Artist.java
 ./artAuctions/specificADTs/interfaces/AuctionGeneric.java
 ./artAuctions/specificADTs/interfaces/ArtistGeneric.java

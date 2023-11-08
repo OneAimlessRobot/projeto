@@ -25,11 +25,9 @@ import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
-import artAuctions.specificADTs.implem.BidClass;
-import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionGeneric;
 import artAuctions.specificADTs.interfaces.AuctionManager;
-import artAuctions.specificADTs.interfaces.BidGeneric;
+import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 
@@ -435,10 +433,10 @@ public class Main {
 		String auctionid=input.next(),workid=input.next();
 		input.nextLine();
 		try {
-			FilteredIterator<BidGeneric> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
+			FilteredIterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
 			System.out.printf("\n");
 			while(workBids.hasNext()) {
-				BidGeneric curr= workBids.next();
+				Bid curr= workBids.next();
 				System.out.println(curr);
 				
 			}

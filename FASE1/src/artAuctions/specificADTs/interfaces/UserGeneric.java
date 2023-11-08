@@ -47,5 +47,5 @@ public interface UserGeneric extends Serializable {
 	 * @return
 	 */
 	String printUser();
-	FilteredIteratorWithPredicate<BidGeneric> bidsInOpenAuctions();
+	FilteredIteratorWithPredicate<Bid> bidsInOpenAuctions();
 }

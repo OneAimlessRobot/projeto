@@ -12,16 +12,23 @@ import dataStructures.Iterator;
 */
 public interface Artist extends ArtistGeneric {
 
-
-	void removeWork(Work work);
 	
-	
+	/**
+	 * Adiciona uma Obra de Arte à Lista de Obras de Arte de um determinado Artista
+	 * @param work
+	 */
 	void addWork(Work work);
 	
 
-
+	/**
+	 * Atribui um Nome Artístico a um determinado Artist
+	 * @param newName
+	 */
 	void setArtsyName(String newName);
-
+	
+	/**
+	 * Remove todas as Obras de Arte da lista de Obras de Arte de um Artista
+	 */
 	void clearWorks();
 	
 	

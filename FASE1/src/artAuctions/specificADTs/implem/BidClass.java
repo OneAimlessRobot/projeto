@@ -11,11 +11,12 @@ import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.AuctionGeneric;
 import artAuctions.specificADTs.interfaces.Bid;
-import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.UserGeneric;
-import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 
+/**
+* Implements interface Bid. Describes a Bid.
+*/
 public class BidClass implements Serializable, Bid {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +29,7 @@ public class BidClass implements Serializable, Bid {
 		
 		this.collector=collector;
 		this.work=work;
-		this.setBidAmmount(bidAmmount);
+		this.bidAmmount=bidAmmount;
 		this.auction=auction;
 		
 	}
@@ -52,17 +53,6 @@ public class BidClass implements Serializable, Bid {
 		
 	}
 	
-	
-	@Override
-	public void setCollector(User user) {
-		
-		collector=user;
-	}
-	@Override
-	public void setWork(Work work) {
-		
-		this.work=work;
-	}
 
 	@Override
 	public WorkGeneric getWork() {
@@ -76,10 +66,6 @@ public class BidClass implements Serializable, Bid {
 	@Override
 	public int getBidAmmount() {
 		return bidAmmount;
-	}
-	@Override
-	public void setBidAmmount(int bidAmmount) {
-		this.bidAmmount = bidAmmount;
 	}
 	@Override
 	public AuctionGeneric getAuction() {

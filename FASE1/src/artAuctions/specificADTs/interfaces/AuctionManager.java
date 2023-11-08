@@ -26,6 +26,10 @@ import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 
+
+/**
+* Encompasses the whole thing.
+*/
 public interface AuctionManager extends Serializable{
 
 	
@@ -42,7 +46,7 @@ public interface AuctionManager extends Serializable{
 	void addWorkToAuction(String auctionid,String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException, NoSuchWorkException;
 	
 	Iterator<WorkGeneric> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException;
-	FilteredIterator<BidGeneric> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
+	FilteredIterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
 	void addUser(String login, String name, int age, String email) throws UserExistsException, TooYoungException;
 
 	void removeUser(String login) throws NoSuchUserException, UserHasBidsException,  ArtistHasWorksInAuctionException;
@@ -53,7 +57,7 @@ public interface AuctionManager extends Serializable{
 
 	void addBidToWork(String auctionid,String workid,String collectorlogin,int value) throws NoSuchUserException, NoSuchWorkInAuctionException, NoSuchWorkException, NoSuchAuctionException, WeakBidException;
 	
-	Auction closeAuction(String auctionid) throws NoSuchAuctionException;
+	AuctionGeneric closeAuction(String auctionid) throws NoSuchAuctionException;
 
 
 	void sellAuctionWork(Work currWork, String auctionId);

@@ -13,12 +13,15 @@ import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
 
+/**
+* Implements interface Artist. An Artist is a specific type of User. It can author Works.
+*/
 public class ArtistClass extends UserClass implements Serializable, Artist {
 
 	private static final long serialVersionUID = 1L;
 
-	private String artsyName;
-	private List<WorkGeneric> works;
+	private String artsyName;			//Nome artístico
+	private List<WorkGeneric> works;	//Lista de obras de arte autoradas pelo Artist
 	
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
@@ -57,22 +60,6 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	@Override
 	public String getArtsyName() {
 		return artsyName;
-	}
-
-	@Override
-	public boolean hasWork(Work work) {
-
-		return works.find(work)>=0;
-		
-	}
-	@Override
-	public void removeWork(Work work) {
-		
-		if(hasWork(work)) {
-			
-			works.remove(work);
-		}
-		
 	}
 	@Override
 	public void clearWorks() {

@@ -21,8 +21,6 @@ public interface AuctionGeneric extends Serializable{
 	
 	String getId();
 
-	boolean hasWork(Work work);
-	
 	boolean isClosed();
 	
 	Iterator<WorkGeneric> listWorks();

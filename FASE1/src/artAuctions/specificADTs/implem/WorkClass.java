@@ -12,6 +12,9 @@ import dataStructures.DoubleList;
 import dataStructures.FilteredIterator;
 import dataStructures.List;
 
+/**
+* Implements interface Work. Describes a Work (Obra de Arte).
+*/
 public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
@@ -20,8 +23,8 @@ public class WorkClass implements Serializable, Work {
 	private UserGeneric buyer;
 	private String name,id;
 	
-	private List<BidGeneric> workBids;
-	private BidGeneric currMaxBid;
+	private List<Bid> workBids;
+	private Bid currMaxBid;
 	
 	public WorkClass(String id,ArtistGeneric author,int year,String name) {
 		
@@ -86,7 +89,7 @@ public class WorkClass implements Serializable, Work {
 		
 	}
 	@Override
-	public Iterator<BidGeneric> bids() {
+	public Iterator<Bid> bids() {
 		return workBids.iterator();
 	}
 	@Override
@@ -104,7 +107,7 @@ public class WorkClass implements Serializable, Work {
 	public int getNumOfBidsFromAuction(String auctionId) {
 		AuctionGeneric auction= new AuctionClass(auctionId);
 		Bid bid= new BidClass(null,null,0,auction);
-		FilteredIterator<BidGeneric> fit=workBids.filteredIterator(bid);
+		FilteredIterator<Bid> fit=workBids.filteredIterator(bid);
 		int count=0;
 		while(fit.hasNext()) {
 			fit.next();
@@ -113,7 +116,7 @@ public class WorkClass implements Serializable, Work {
 		return count;
 	}
 	@Override
-	public FilteredIterator<BidGeneric> bidsFilteredByAuctionId(String auctionId) {
+	public FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionId) {
 		AuctionGeneric auction= new AuctionClass(auctionId);
 		Bid bid= new BidClass(null,null,0,auction);
 		return workBids.filteredIterator(bid);
@@ -130,11 +133,11 @@ public class WorkClass implements Serializable, Work {
 		return buyer;
 	}
 	@Override
-	public BidGeneric getMaxBid() {
+	public Bid getMaxBid() {
 		return currMaxBid;
 	}
 	@Override
-	public void setMaxBid(BidGeneric bid) {
+	public void setMaxBid(Bid bid) {
 		currMaxBid=bid;
 	}
 }

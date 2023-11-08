@@ -8,7 +8,6 @@ public interface User extends UserGeneric {
 
 	
 
-	void removeBidsByWork(Work work);
 	/**
 	 * 
 	 * @param addedBid

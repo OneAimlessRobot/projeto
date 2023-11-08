@@ -10,11 +10,14 @@ package artAuctions.specificADTs.interfaces;
 import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 
+/**
+* Describes a Work (Obra de Arte).
+*/
 public interface Work extends WorkGeneric{
 
 	void addBid(Bid addedBid);
 
-	void setMaxBid(BidGeneric bid);
+	void setMaxBid(Bid bid);
 
 
 

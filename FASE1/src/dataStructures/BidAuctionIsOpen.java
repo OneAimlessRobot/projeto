@@ -1,8 +1,8 @@
 package dataStructures;
 
-import artAuctions.specificADTs.interfaces.BidGeneric;
+import artAuctions.specificADTs.interfaces.Bid;
 
-public class BidAuctionIsOpen implements FilterPredicate<BidGeneric> {
+public class BidAuctionIsOpen implements FilterPredicate<Bid> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -11,7 +11,7 @@ public class BidAuctionIsOpen implements FilterPredicate<BidGeneric> {
 		
 	}
 	@Override
-	public Boolean execute(BidGeneric param) {
+	public Boolean execute(Bid param) {
 		return !param.getAuction().isClosed();
 	}
 

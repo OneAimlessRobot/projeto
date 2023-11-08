@@ -17,11 +17,10 @@ import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.ArtistGeneric;
-import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionGeneric;
+import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
-import artAuctions.specificADTs.interfaces.BidGeneric;
 import artAuctions.exceptions.NoSuchWorkException;
 import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.specificADTs.interfaces.User;
@@ -33,44 +32,17 @@ import dataStructures.FilteredIterator;
 import dataStructures.FilteredIteratorWithPredicate;
 import dataStructures.Iterator;
 import dataStructures.List;
-import dataStructures.Vector;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
 
-
+/**
+* Implements interface AuctionManager. All ADT's start here.
+*/
 public class AuctionManagerClass implements Serializable, AuctionManager {
 
-	public class WorkIteratorPair{
-		private Iterator<WorkGeneric> it1,it2;
-		
-		public WorkIteratorPair(Iterator<WorkGeneric> it1,Iterator<WorkGeneric> it2) {
-			
-			this.it1=it1;
-			this.it2=it2;
-			
-		}
-		public Iterator<WorkGeneric> getIteratorOneOrTwo(int which){
-			Iterator<WorkGeneric> result=null;
-			switch(which) {
-			case 1:
-				result= it1;
-			case 2:
-				result= it2;
-			default:
-				break;
-			}
-			return result;
-			
-			
-		}
-		
-		
-		
-		
-	}
 	private static final long serialVersionUID = 1L;
 	
 	private List<Work> works;
@@ -251,9 +223,9 @@ if(age<MIN_AGE) {
 	public void sellAuctionWork(Work currWork,String auctionId) {
 		
 		
-		FilteredIterator<BidGeneric> currBidIt= currWork.bidsFilteredByAuctionId(auctionId);
+		FilteredIterator<Bid> currBidIt= currWork.bidsFilteredByAuctionId(auctionId);
 		while(currBidIt.hasNext()) {
-			BidGeneric currBid=currBidIt.next();
+			Bid currBid=currBidIt.next();
 			if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
 				
 				currWork.setMaxBid(currBid);
@@ -322,7 +294,7 @@ if(age<MIN_AGE) {
 		
 	}
 	@Override
-	public FilteredIterator<BidGeneric> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException ,WorkHasNoBidsInAuctionException{
+	public FilteredIterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException ,WorkHasNoBidsInAuctionException{
 
 		Work work= new WorkClass(workid, null, 0, null);
 		Auction auction=new AuctionClass(auctionid);
@@ -408,7 +380,7 @@ if(age<MIN_AGE) {
 private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		
 		boolean result=false;
-		FilteredIteratorWithPredicate<BidGeneric> bidit= user.bidsInOpenAuctions();
+		FilteredIteratorWithPredicate<Bid> bidit= user.bidsInOpenAuctions();
 		if(bidit.hasNext()) {
 			
 			result=true;
@@ -476,7 +448,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		}
 	}
 	@Override
-	public Auction closeAuction(String auctionid) throws NoSuchAuctionException {
+	public AuctionGeneric closeAuction(String auctionid) throws NoSuchAuctionException {
 		Auction removed= new AuctionClass(auctionid);
 		int auctionpos=auctions.find(removed);
 		if(auctionpos<0) {
@@ -484,7 +456,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 			throw new NoSuchAuctionException();
 		}
 		auctions.get(auctionpos).close();
-		return auctions.remove(auctionpos);
+		return (AuctionGeneric)auctions.remove(auctionpos);
 		
 		
 	}

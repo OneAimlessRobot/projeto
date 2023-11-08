@@ -9,21 +9,21 @@ import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Bid;
-import artAuctions.specificADTs.interfaces.BidGeneric;
 import artAuctions.specificADTs.interfaces.User;
-import artAuctions.specificADTs.interfaces.Work;
 import dataStructures.BidAuctionIsOpen;
 import dataStructures.DoubleList;
 import dataStructures.FilteredIteratorWithPredicate;
-import dataStructures.Iterator;
 import dataStructures.List;
 
+/**
+* Implements interface User. Describes a User (Utilizador\coleccionador).
+*/
 public class UserClass implements User, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	protected String login,email,name;
 	protected int age;
-	protected List<BidGeneric> collectorBids;
+	protected List<Bid> collectorBids;
 	public UserClass(String login,String name,int age,String email) {
 		this.login=login;
 		this.email=email;
@@ -105,18 +105,6 @@ public class UserClass implements User, Serializable {
 		return result;
 		
 		
-	}@Override
-	public void removeBidsByWork(Work work) {
-		Iterator<BidGeneric> bids= collectorBids.iterator();
-		while(bids.hasNext()) {
-			BidGeneric currBid= bids.next();
-			if(work.equals(currBid.getWork())) {
-				
-				collectorBids.remove(currBid);
-				bids.rewind();
-			}
-		}
-		
 	}
 	@Override
 	public int numOfBids() {
@@ -132,7 +120,7 @@ public class UserClass implements User, Serializable {
 	}
 
 	@Override
-	public FilteredIteratorWithPredicate<BidGeneric> bidsInOpenAuctions() {
+	public FilteredIteratorWithPredicate<Bid> bidsInOpenAuctions() {
 		BidAuctionIsOpen bidpred= new BidAuctionIsOpen();
 		return collectorBids.filteredIteratorWithPredicate(bidpred);
 	}

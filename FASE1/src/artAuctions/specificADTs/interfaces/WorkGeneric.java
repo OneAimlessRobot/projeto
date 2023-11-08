@@ -22,7 +22,7 @@ public interface WorkGeneric extends Serializable{
 	int getYear();
 
 
-	BidGeneric getMaxBid();
+	Bid getMaxBid();
 	
 
 	String getId();
@@ -36,11 +36,11 @@ public interface WorkGeneric extends Serializable{
 	UserGeneric getBuyer();
 	
 	
-	Iterator<BidGeneric> bids();
+	Iterator<Bid> bids();
 	
 	int getNumOfBidsFromAuction(String auctionid);
 
-	FilteredIterator<BidGeneric> bidsFilteredByAuctionId(String auctionid);
+	FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionid);
 
 
 	int getMinBidAmmount();
