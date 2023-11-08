@@ -13,13 +13,10 @@ import artAuctions.specificADTs.interfaces.BidGeneric;
 import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
 import dataStructures.BidAuctionIsOpen;
-import dataStructures.FilterPredicate;
-import dataStructures.FilteredIterator;
+import dataStructures.DoubleList;
 import dataStructures.FilteredIteratorWithPredicate;
 import dataStructures.Iterator;
-//import dataStructures.DoubleList;
 import dataStructures.List;
-import dataStructures.Vector;
 
 public class UserClass implements User, Serializable {
 
@@ -32,8 +29,7 @@ public class UserClass implements User, Serializable {
 		this.email=email;
 		this.age=age;
 		this.name=name;
-//		collectorBids=new DoubleList<>();
-		collectorBids=new Vector<>();
+		collectorBids=new DoubleList<>();
 		
 	}
 

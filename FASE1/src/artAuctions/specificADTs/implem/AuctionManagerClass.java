@@ -80,13 +80,10 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	private static final int MIN_AGE= 18;
 
 	public AuctionManagerClass() {
-//		
-		works= new Vector<>();
-		users= new Vector<>();
-		artists= new Vector<>();
-//		works= new DoubleList<>();
-//		users= new DoubleList<>();
-//		artists= new DoubleList<>();
+		
+		works= new DoubleList<>();
+		users= new DoubleList<>();
+		artists= new DoubleList<>();
 		auctions= new DoubleList<>();
 		
 	}
@@ -216,7 +213,6 @@ if(age<MIN_AGE) {
 		}
 		if(workpos<0) {
 			
-			//throw new NoSuchWorkException();	
 			throw new NoSuchWorkInAuctionException();  //Se a Obra n existe no vector de Obras, então tb não vai existir no Leilão.
 			
 		}
@@ -264,7 +260,6 @@ if(age<MIN_AGE) {
 			}
 			
 		}
-		int auxPosValue=works.find(currWork);
 	}
 	@Override
 	public String getWorkInfo(String id) throws NoSuchWorkException {
@@ -383,11 +378,6 @@ if(age<MIN_AGE) {
 		
 		Iterator<WorkGeneric> artistWorksIt=artist.works();
 
-//		while(artistWorksIt.hasNext()) {
-//			Work currArtistWork= artistWorksIt.next();
-//			works.remove(currArtistWork);
-//			artistWorksIt.rewind();
-//			}
 		while(artistWorksIt.hasNext()) {
 			WorkGeneric currArtistWork= artistWorksIt.next();
 			works.remove((Work)currArtistWork);

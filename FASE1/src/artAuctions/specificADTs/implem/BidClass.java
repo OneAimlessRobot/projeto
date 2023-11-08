@@ -77,6 +77,7 @@ public class BidClass implements Serializable, Bid {
 	public int getBidAmmount() {
 		return bidAmmount;
 	}
+	@Override
 	public void setBidAmmount(int bidAmmount) {
 		this.bidAmmount = bidAmmount;
 	}

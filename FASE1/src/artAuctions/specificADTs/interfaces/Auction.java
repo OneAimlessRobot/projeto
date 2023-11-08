@@ -5,6 +5,9 @@ package artAuctions.specificADTs.interfaces;
 */
 
 
+/**
+* Contains a collection of Works.
+*/
 
 import dataStructures.Iterator;
 public interface Auction extends AuctionGeneric{

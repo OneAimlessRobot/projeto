@@ -23,8 +23,7 @@ public class AuctionClass implements Serializable, Auction {
 		
 		this.id=id;
 		isClosed=false;
-//		works= new DoubleList<>();
-		works= new Vector<>();
+		works= new DoubleList<>();
 	}
 
 	@Override
@@ -72,7 +71,7 @@ public class AuctionClass implements Serializable, Auction {
 	public String getId() {
 		return id;
 	}
-
+	@Override
 	public int getNumOfWorks() {
 		return works.size();
 	}
@@ -105,18 +104,4 @@ public class AuctionClass implements Serializable, Auction {
 		
 	}
 
-	@Override
-	public WorkGeneric findWork(WorkGeneric work) {
-		Iterator<WorkGeneric> worksIt= listWorks();
-		WorkGeneric result=null;
-		while(worksIt.hasNext()) {
-			WorkGeneric currWork= worksIt.next();
-			if(currWork.equals((WorkGeneric)work)){
-				
-				result= currWork;
-			}
-			
-		}
-		return result;
-	}
 }

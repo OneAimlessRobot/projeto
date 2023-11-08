@@ -14,18 +14,10 @@ public interface Work extends WorkGeneric{
 
 	void addBid(Bid addedBid);
 
-	void setYear(int year);
-
 	void setMaxBid(BidGeneric bid);
-	
-	void setId(String id);
 
-	void setAuthor(ArtistGeneric author);
-	
-	void setName(String name);
+
 
 	public void setMinAmmount(int value);
-
-	void removeBidsByUser(User user);
 
 }

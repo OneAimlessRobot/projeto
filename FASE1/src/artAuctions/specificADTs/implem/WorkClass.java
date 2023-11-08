@@ -4,23 +4,20 @@ package artAuctions.specificADTs.implem;
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
-import java.lang.Math;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
-//import dataStructures.DoubleList;
-import dataStructures.Vector;
 import dataStructures.Iterator;
+import dataStructures.DoubleList;
 import dataStructures.FilteredIterator;
 import dataStructures.List;
 
 public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
-	private int year,minBidAmmount,maxSoldPrice;
+	private int year,minBidAmmount;
 	private ArtistGeneric author;
 	private UserGeneric buyer;
-	private List<AuctionGeneric> auctionsWhoWantThis;
 	private String name,id;
 	
 	private List<BidGeneric> workBids;
@@ -28,15 +25,12 @@ public class WorkClass implements Serializable, Work {
 	
 	public WorkClass(String id,ArtistGeneric author,int year,String name) {
 		
-		this.setId(id);
-		this.setAuthor(author);
-		this.setYear(year);
-		this.setName(name);
-//		workBids=new DoubleList<>();
-		workBids=new Vector<>();
-		auctionsWhoWantThis= new Vector<>();
+		this.id=id;
+		this.author=author;
+		this.year=year;
+		this.name=name;
+		workBids=new DoubleList<>();
 		buyer=null;
-		maxSoldPrice=0;
 		minBidAmmount=0;
 		currMaxBid=new BidClass(null,(WorkGeneric)this,0,null);
 		
@@ -46,10 +40,6 @@ public class WorkClass implements Serializable, Work {
 	public int getYear() {
 		return year;
 	}
-	@Override
-	public void setYear(int year) {
-		this.year = year;
-	}
 	public void setMinAmmount(int value) {
 		minBidAmmount=value;
 	}
@@ -58,24 +48,12 @@ public class WorkClass implements Serializable, Work {
 		return id;
 	}
 	@Override
-	public void setId(String id) {
-		this.id = id;
-	}
-	@Override
 	public ArtistGeneric getAuthor() {
 		return author;
 	}
 	@Override
-	public void setAuthor(ArtistGeneric author) {
-		this.author = author;
-	}
-	@Override
 	public String getName() {
 		return name;
-	}
-	@Override
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String toString() {
 		return ""+getId()+" "+getName()+ " "+getYear()+" "+currMaxBid.getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
@@ -144,19 +122,6 @@ public class WorkClass implements Serializable, Work {
 	
 
 	@Override
-	public void removeBidsByUser(User user) {
-		Iterator<BidGeneric> bids= workBids.iterator();
-		while(bids.hasNext()) {
-			BidGeneric currBid= bids.next();
-			if(user.equals(currBid.getCollector())) {
-
-				workBids.remove(currBid);
-				bids.rewind();
-			}
-		}
-		
-	}
-	@Override
 	public int getMinBidAmmount() {
 		return minBidAmmount;
 	}
@@ -165,16 +130,11 @@ public class WorkClass implements Serializable, Work {
 		return buyer;
 	}
 	@Override
-	public Iterator<AuctionGeneric> auctionsWhoWantThis() {
-		return auctionsWhoWantThis.iterator();
-	}
-	@Override
 	public BidGeneric getMaxBid() {
 		return currMaxBid;
 	}
 	@Override
 	public void setMaxBid(BidGeneric bid) {
 		currMaxBid=bid;
-		maxSoldPrice=bid.getBidAmmount();
 	}
 }

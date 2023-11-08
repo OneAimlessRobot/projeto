@@ -6,11 +6,17 @@ package artAuctions.specificADTs.interfaces;
 
 
 
+/**
+* Works that are up for Auction have Bids made on them.
+* 
+*/
 
 public interface Bid extends  BidGeneric{
 
 	void setCollector(User user);
 
 	void setWork(Work work);
+
+	void setBidAmmount(int bidAmmount);
 	
 }

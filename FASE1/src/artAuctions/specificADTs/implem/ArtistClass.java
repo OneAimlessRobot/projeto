@@ -9,10 +9,9 @@ import java.io.Serializable;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
-//import dataStructures.DoubleList;
+import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
-import dataStructures.Vector;
 
 public class ArtistClass extends UserClass implements Serializable, Artist {
 
@@ -23,8 +22,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
-//		works=new DoubleList <>();
-		works=new Vector<>();
+		works=new DoubleList <>();
 	}
 	@Override
 	public String printArtist() {

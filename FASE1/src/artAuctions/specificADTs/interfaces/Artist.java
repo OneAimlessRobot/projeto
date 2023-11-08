@@ -7,6 +7,9 @@ package artAuctions.specificADTs.interfaces;
 
 import dataStructures.Iterator;
 
+/**
+* Specific type of User. Creates Works of art.
+*/
 public interface Artist extends ArtistGeneric {
 
 
@@ -16,7 +19,6 @@ public interface Artist extends ArtistGeneric {
 	void addWork(Work work);
 	
 
-	Iterator<WorkGeneric> works();
 
 	void setArtsyName(String newName);
 

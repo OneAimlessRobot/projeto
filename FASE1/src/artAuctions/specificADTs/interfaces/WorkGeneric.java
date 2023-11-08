@@ -12,15 +12,14 @@ import java.io.Serializable;
 import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 
+
 /**
+ * Describes a Generic Work. This interface is used for the 'getters' of the interface Work, essentially.
  * Esta interface contém apenas os 'getters' .
  */
 public interface WorkGeneric extends Serializable{
 
 	int getYear();
-
-
-	Iterator<AuctionGeneric> auctionsWhoWantThis();
 
 
 	BidGeneric getMaxBid();

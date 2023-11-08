@@ -10,6 +10,7 @@ package artAuctions.specificADTs.interfaces;
 import java.io.Serializable;
 
 /**
+ * This is the interface for a Generic Bid.
  * Esta interface contém apenas os 'getters' .
  */
 public interface BidGeneric extends Serializable{

@@ -12,6 +12,7 @@ import java.io.Serializable;
 import dataStructures.Iterator;
 
 /**
+ * Describes a generic Auction.
  * Esta interface contém apenas os 'getters' .
  */
 public interface AuctionGeneric extends Serializable{
@@ -21,8 +22,6 @@ public interface AuctionGeneric extends Serializable{
 	String getId();
 
 	boolean hasWork(Work work);
-	
-	WorkGeneric findWork(WorkGeneric work);
 	
 	boolean isClosed();
 	
