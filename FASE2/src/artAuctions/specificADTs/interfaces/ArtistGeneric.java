@@ -1,6 +1,6 @@
 package artAuctions.specificADTs.interfaces;
 
-import dataStructures.Iterator;
+import dataStructures.IteratorEntries;
 
 /**
 * Generic Artist. Has the 'getters'.
@@ -27,6 +27,6 @@ public interface ArtistGeneric extends UserGeneric {
 	 */
 	int getNumOfWorks();
 	
-	Iterator<WorkGeneric> works();
+	IteratorEntries<WorkGeneric,WorkGeneric> works();
 	
 }

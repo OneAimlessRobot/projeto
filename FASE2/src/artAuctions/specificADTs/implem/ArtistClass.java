@@ -6,12 +6,16 @@ package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
+import artAuctions.specificADTs.implem.comparators.CompareWorksByValue;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
+import dataStructures.AVLBSTComparable;
 import dataStructures.DoubleList;
 import dataStructures.Iterator;
+import dataStructures.IteratorEntries;
 import dataStructures.List;
+import dataStructures.OrderedDictionary;
 
 /**
 * Implements interface Artist. An Artist is a specific type of User. It can author Works.
@@ -21,11 +25,11 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	private static final long serialVersionUID = 1L;
 
 	private String artsyName;			//Nome artístico
-	private List<WorkGeneric> works;	//Lista de obras de arte autoradas pelo Artist
+	private OrderedDictionary<WorkGeneric,WorkGeneric> works;	//Lista de obras de arte autoradas pelo Artist
 	
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
-		works=new DoubleList <>();
+		works=new AVLBSTComparable<>(new CompareWorksByValue());
 	}
 	@Override
 	public String printArtist() {
@@ -50,11 +54,11 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	}
 	@Override
 	public void addWork(Work work) {
-		works.addLast(work);
+		works.insert(work,work);
 		
 	}
 	@Override
-	public Iterator<WorkGeneric> works() {
+	public IteratorEntries<WorkGeneric,WorkGeneric> works() {
 		return works.iterator();
 	}
 	@Override
@@ -66,7 +70,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 		
 		while(!works.isEmpty()) {
 			
-			works.removeLast();
+			works.remove(works.maxEntry().getKey());
 		}
 	}
 	

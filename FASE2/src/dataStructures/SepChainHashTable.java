@@ -21,9 +21,11 @@ public class SepChainHashTable<K extends Comparable<K>, V>
 		private int mainPos,last;
 		private IteratorEntries<K,V> current;
 		private Dictionary<K,V>[] entries;
+		private SepChainHashTable<K,V> set;
 		public HashSetIterator(SepChainHashTable<K,V> set){
 			
 			this.entries=set.table;
+			this.set=set;
 			fullForward();
 			last=mainPos;
 			rewind();
@@ -40,6 +42,9 @@ public class SepChainHashTable<K extends Comparable<K>, V>
 		}
 		@Override
 		public boolean hasNext() {
+			if(set.isEmpty()) {
+				return false;
+			}
 			if(current.hasNext()) {
 				return true;
 			}
@@ -58,7 +63,7 @@ public class SepChainHashTable<K extends Comparable<K>, V>
 		}
 
 		private void skipEmptyListsForward() {
-			while(entries[mainPos].isEmpty()&&mainPos<entries.length) {mainPos++;}
+			while(entries[mainPos].isEmpty()&&mainPos<entries.length-1) {mainPos++;}
 			
 					this.current =entries[mainPos].iterator();
 					

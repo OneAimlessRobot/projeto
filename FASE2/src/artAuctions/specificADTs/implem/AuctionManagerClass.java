@@ -28,9 +28,11 @@ import artAuctions.specificADTs.interfaces.UserGeneric;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 import dataStructures.DoubleList;
+import dataStructures.Entry;
 import dataStructures.FilteredIterator;
 import dataStructures.FilteredIteratorWithPredicate;
 import dataStructures.Iterator;
+import dataStructures.IteratorEntries;
 import dataStructures.List;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
@@ -348,10 +350,10 @@ if(age<MIN_AGE) {
 	}
 	private void removeArtistWorks(Artist artist) {
 		
-		Iterator<WorkGeneric> artistWorksIt=artist.works();
+		IteratorEntries<WorkGeneric,WorkGeneric> artistWorksIt=artist.works();
 
 		while(artistWorksIt.hasNext()) {
-			WorkGeneric currArtistWork= artistWorksIt.next();
+			Entry<WorkGeneric,WorkGeneric> currArtistWork= artistWorksIt.next();
 			works.remove((Work)currArtistWork);
 			}
 		artist.clearWorks();

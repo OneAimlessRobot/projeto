@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @param <K> Generic type Key, must extend comparable
  * @param <V> Generic type Value 
  */
-public abstract class BinarySearchTree<K extends Comparable<K>, V> 
+public abstract class BinarySearchTreeComparable<K extends Comparable<K>, V> 
     implements OrderedDictionary<K,V>, Serializable
 {                                                                   
 
@@ -277,6 +277,7 @@ protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
      */
     protected BSTNode<K,V> root;                                
 
+    protected Comparator<K> comparator;
     /**
      * Number of entries in the tree.                                  
      * 
@@ -337,9 +338,10 @@ protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
     /**
      * Tree Constructor - creates an empty tree.
      */
-    public BinarySearchTree( )                                    
+    public BinarySearchTreeComparable(Comparator<K> comparator )                                    
     {    
         root = null;
+        this.comparator=comparator;
         currentSize = 0;
     }
 
@@ -383,7 +385,7 @@ protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
             return null;
         else
         {
-            int compResult = key.compareTo( node.getKey() );
+            int compResult = comparator.compare(key, node.getKey() );
             if ( compResult == 0 )
                 return node;                                         
             else if ( compResult < 0 )

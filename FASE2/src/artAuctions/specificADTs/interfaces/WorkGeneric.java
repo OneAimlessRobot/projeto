@@ -7,8 +7,6 @@ package artAuctions.specificADTs.interfaces;
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
-import java.io.Serializable;
-
 import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 
@@ -17,7 +15,7 @@ import dataStructures.Iterator;
  * Describes a Generic Work. This interface is used for the 'getters' of the interface Work, essentially.
  * Esta interface contém apenas os 'getters' .
  */
-public interface WorkGeneric extends Serializable{
+public interface WorkGeneric extends Comparable<WorkGeneric>{
 
 	int getYear();
 

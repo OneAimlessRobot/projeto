@@ -140,4 +140,9 @@ public class WorkClass implements Serializable, Work {
 	public void setMaxBid(Bid bid) {
 		currMaxBid=bid;
 	}
+	@Override
+	public int compareTo(WorkGeneric arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
