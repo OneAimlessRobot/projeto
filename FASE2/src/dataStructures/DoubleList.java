@@ -509,6 +509,17 @@ public class DoubleList<E> implements List<E>
         dList.head=dList.tail=null;
     }
 
+    public FilteredIterator<E> filteredIterator(E elem){
+
+        return new DoubleListFilteredIterator<>(head,tail,elem);
+
+    }
+    public FilteredIteratorWithPredicate<E> filteredIteratorWithPredicate( FilterPredicate<E> filterP){
+
+        return new DoubleListFilteredIteratorWithPredicate<>(head, tail,filterP);
+
+    }
+
 
 }   
 

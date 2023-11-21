@@ -46,6 +46,9 @@ public interface List<E> extends Serializable
      */
     E getLast( ) throws EmptyListException;
  
+    FilteredIterator<E> filteredIterator(E elem);
+
+    FilteredIteratorWithPredicate<E> filteredIteratorWithPredicate( FilterPredicate<E> filterP);
     /**
      * Returns the element at the specified position in the list.
      * Range of valid positions: 0, ..., size()-1.
