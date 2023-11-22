@@ -7,7 +7,6 @@ package artAuctions.specificADTs.interfaces;
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
-import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
 import dataStructures.IteratorEntries;
 
@@ -34,8 +33,9 @@ public interface WorkGeneric extends Comparable<WorkGeneric>{
 	
 	UserGeneric getBuyer();
 	
-	
-	IteratorEntries<Bid,Bid> bids();
+
+//	IteratorEntries<Bid,Bid> bids();
+	Iterator<Bid> bids();
 	
 	int getNumOfBidsFromAuction(String auctionid);
 

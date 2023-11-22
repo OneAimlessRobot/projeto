@@ -214,23 +214,47 @@ if(age<MIN_AGE) {
 		return ((UserClass)collector).printUser();
 		
 	}
+//	@Override
+//	public void sellAuctionWork(Work currWork,String auctionId) {
+//		if(soldworks.find(currWork)!=null) {
+//			
+//			soldworks.remove(currWork);
+//		}
+//		
+//		IteratorEntries<Bid,Bid> currBidIt= currWork.bids();
+//		while(currBidIt.hasNext()) {
+//			Bid currBid=currBidIt.next().getValue();
+//			if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
+//				
+//				currWork.setMaxBid(currBid);
+//			}
+//			
+//		}
+//		soldworks.insert(currWork,currWork);
+//	}
 	@Override
 	public void sellAuctionWork(Work currWork,String auctionId) {
-		if(soldworks.find(currWork)!=null) {
-			
+		boolean alreadySold=false;
+		if(alreadySold=(soldworks.find(currWork)!=null) ){
+
 			soldworks.remove(currWork);
+			System.out.println("AQUI!!!!!");
+			
+			
+			
 		}
-		
-		IteratorEntries<Bid,Bid> currBidIt= currWork.bids();
+		Iterator<Bid> currBidIt= currWork.bids();
 		while(currBidIt.hasNext()) {
-			Bid currBid=currBidIt.next().getValue();
+			Bid currBid=currBidIt.next();
+			if(currBid.getAuction().getId().equals(auctionId)) {
 			if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
-				
-				currWork.setMaxBid(currBid);
+					currWork.setMaxBid(currBid);
+			}
 			}
 			
 		}
-		soldworks.insert(currWork,currWork);
+			soldworks.insert(currWork,currWork);
+
 	}
 	@Override
 	public String getWorkInfo(String id) throws NoSuchWorkException {
@@ -288,7 +312,7 @@ if(age<MIN_AGE) {
 		
 	}
 	@Override
-	public IteratorEntries<Bid,Bid> getBidsFromWork(String auctionid,String workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException ,WorkHasNoBidsInAuctionException{
+	public Iterator<Bid> getBidsFromWork(String auctionid,String workid) throws NoSuchWorkException,NoSuchAuctionException,NoSuchWorkInAuctionException ,WorkHasNoBidsInAuctionException{
 
 		Work work=works.find(workid);
 				Auction auction=auctions.find(auctionid);
@@ -302,14 +326,14 @@ if(age<MIN_AGE) {
 			
 			throw new NoSuchAuctionException();
 		}
-		if((workinauction=getWorkInAuction(auction,work))==null) {
-			
+		if(work==null) {
+
 			throw new NoSuchWorkInAuctionException();
 			
 		}
-		if(work==null) {
+		if((workinauction=getWorkInAuction(auction,work))==null) {
 			
-			throw new NoSuchWorkException();
+			throw new NoSuchWorkInAuctionException();
 			
 		}
 		if(workinauction.getNumOfBidsFromAuction(auctionid)==0) {
@@ -360,8 +384,9 @@ if(age<MIN_AGE) {
 			while(currAuctionWorksIt.hasNext()) {
 				WorkGeneric currWorkInCurrAuction= currAuctionWorksIt.next().getValue();
 				if(currWorkInCurrAuction.getAuthor().equals(artist)) {
-					
-					return true;
+					if(!currAuction.isClosed()) {
+						return true;
+					}
 				}
 				
 			}
@@ -467,8 +492,8 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 			
 			throw new NoSuchAuctionException();
 		}
-		return (AuctionGeneric)auctions.remove(auctionid);
-		
+		removed.close();
+		return removed;
 		
 	}
 

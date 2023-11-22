@@ -47,7 +47,11 @@ public interface AuctionManager extends Serializable{
 	void addWorkToAuction(String auctionid,String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException, NoSuchWorkException;
 	
 	Iterator<WorkGeneric> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException;
-	IteratorEntries<Bid,Bid> getBidsFromWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
+
+//	IteratorEntries<Bid,Bid> getBidsFromWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
+	
+	Iterator<Bid> getBidsFromWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
+
 	void addUser(String login, String name, int age, String email) throws UserExistsException, TooYoungException;
 
 	void removeUser(String login) throws NoSuchUserException, UserHasBidsException,  ArtistHasWorksInAuctionException;

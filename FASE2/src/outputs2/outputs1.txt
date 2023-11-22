@@ -1,4 +1,3 @@
-Non existing serialization file: Creatin new Object.
 
 Registo de utilizador executado.
 

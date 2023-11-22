@@ -10,7 +10,7 @@ public class CompareWorksByValue implements Comparator<WorkGeneric>, Serializabl
 
 	@Override
 	public int compare(WorkGeneric arg0, WorkGeneric arg1) {
-		return arg0.getMaxBid().getBidAmmount()-arg0.getMaxBid().getBidAmmount();
+		return arg0.getMaxBid().getBidAmmount()-arg1.getMaxBid().getBidAmmount();
 	}
 
 }

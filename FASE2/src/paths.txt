@@ -63,7 +63,7 @@
 ./dataStructures/AVLBSTComparable.java
 ./dataStructures/FullQueueException.java
 ./dataStructures/List.java
-./MainFromZero.java
+./dsRunnerDict.java
 ./Main.java
 ./MainHashTable.java
 ./artAuctions/specificADTs/interfaces/Bid.java
@@ -81,6 +81,7 @@
 ./artAuctions/specificADTs/implem/comparators/CompareWorkByValueAndName.java
 ./artAuctions/specificADTs/implem/comparators/CompareWorkByName.java
 ./artAuctions/specificADTs/implem/comparators/CompareWorksByValue.java
+./artAuctions/specificADTs/implem/comparators/CompareBidsByValue.java
 ./artAuctions/specificADTs/implem/ArtistClass.java
 ./artAuctions/specificADTs/implem/UserClass.java
 ./artAuctions/specificADTs/implem/BidClass.java

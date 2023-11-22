@@ -68,7 +68,7 @@ public class Main {
 	}
 	public static void main(String[] args) {
 	//Se começar a dar ClassNotFoundException ou wtvr, descomenta esta linha. Vai reiniciar os dados do disco
-		//initFiles();
+		initFiles();
 		Scanner input= new Scanner(System.in);
 		String option=null;
 		ObjectSaverLoader<AuctionManager> sysloader=new ObjectSaverLoader<>(FilePath.SYSTEMSTATE.getValue());
@@ -146,11 +146,9 @@ public class Main {
 			listWorksByValue(input,mgr);
 			break;
 		case PRINTMENU:
-			input.nextLine();
 			printMenu();
 			break;
 		case QUIT:
-			input.nextLine();
 			System.out.println("\nObrigado. Ate a proxima.");
 			testSave(mgr);
 			break;
@@ -372,6 +370,7 @@ public class Main {
 				else {
 					mgr.sellAuctionWork(currWork, auctionid);
 					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getMaxBid().getCollector().getLogin()+" "+currWork.getMaxBid().getCollector().getName()+" "+currWork.getMaxBid().getBidAmmount());
+					//System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getMaxBid().getBidAmmount());
 					
 				}
 				
@@ -450,10 +449,11 @@ public class Main {
 		String auctionid=input.next(),workid=input.next();
 		input.nextLine();
 		try {
-			IteratorEntries<Bid,Bid> workBids=mgr.getBidsFromWork(auctionid, workid);
+//			IteratorEntries<Bid,Bid> workBids=mgr.getBidsFromWork(auctionid, workid);
+			Iterator<Bid> workBids=mgr.getBidsFromWork(auctionid, workid);
 			System.out.printf("\n");
 			while(workBids.hasNext()) {
-				Bid curr= workBids.next().getValue();
+				Bid curr= workBids.next();
 				if(curr.getAuction().getId().equals(auctionid)) {
 				System.out.println(curr);
 				}
@@ -487,7 +487,6 @@ public class Main {
 			
 			try {
 				IteratorEntries<WorkGeneric, WorkGeneric> it= mgr.listWorksByValue();
-				System.out.println();
 				while(it.hasNext()) {
 					Entry<WorkGeneric,WorkGeneric> curr= it.next();
 					WorkGeneric currWork=curr.getValue();
@@ -497,7 +496,7 @@ public class Main {
 				}
 				System.out.println();
 			} catch (NoSoldWorksException e) {
-				System.out.println("\n"+CommandResponse.NOSOLDWORKSINSYSTEM.getResponse()+"\n");
+				System.out.println(CommandResponse.NOSOLDWORKSINSYSTEM.getResponse()+"\n");
 			}
 			
 		}

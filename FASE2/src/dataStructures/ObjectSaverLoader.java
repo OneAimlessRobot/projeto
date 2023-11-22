@@ -27,16 +27,12 @@ public class ObjectSaverLoader<E> {
 			
 			
 			
-			System.out.println("Non existing serialization file: Creatin new Object.");
 
 			return null;
 		}
 		catch (ClassNotFoundException e) {
 			
 			
-			
-			System.out.println("Problems with class (maybe diferent versions or non existant: Creatin new Object.");
-
 			return null;
 		}
 		
