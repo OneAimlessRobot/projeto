@@ -6,15 +6,12 @@ package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
-import artAuctions.specificADTs.implem.comparators.CompareWorksByValue;
+import artAuctions.specificADTs.implem.comparators.CompareWorkByName;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
 import dataStructures.AVLBSTComparable;
-import dataStructures.DoubleList;
-import dataStructures.Iterator;
 import dataStructures.IteratorEntries;
-import dataStructures.List;
 import dataStructures.OrderedDictionary;
 
 /**
@@ -29,7 +26,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
-		works=new AVLBSTComparable<>(new CompareWorksByValue());
+		works=new AVLBSTComparable<>(new CompareWorkByName());
 	}
 	@Override
 	public String printArtist() {

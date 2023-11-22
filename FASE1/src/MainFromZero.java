@@ -65,7 +65,6 @@ public class MainFromZero {
 		
 	}
 	public static void main(String[] args) {
-		deleteFiles(); 
 	//Se começar a dar ClassNotFoundException ou wtvr, descomenta esta linha. Vai reiniciar os dados do disco
 		initFiles();
 		Scanner input= new Scanner(System.in);

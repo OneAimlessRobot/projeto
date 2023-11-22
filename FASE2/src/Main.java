@@ -9,9 +9,11 @@ import java.util.Scanner;
 import artAuctions.enums.CommandResponse;
 import artAuctions.enums.FilePath;
 import artAuctions.enums.MenuOption;
+import artAuctions.exceptions.ArtistHasNoWorksException;
 import artAuctions.exceptions.ArtistHasWorksInAuctionException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;
+import artAuctions.exceptions.NoSoldWorksException;
 import artAuctions.exceptions.NoSuchArtistException;
 import artAuctions.exceptions.NoSuchAuctionException;
 import artAuctions.exceptions.NoSuchUserException;
@@ -65,9 +67,8 @@ public class Main {
 		
 	}
 	public static void main(String[] args) {
-		deleteFiles(); 
 	//Se começar a dar ClassNotFoundException ou wtvr, descomenta esta linha. Vai reiniciar os dados do disco
-		initFiles();
+		//initFiles();
 		Scanner input= new Scanner(System.in);
 		String option=null;
 		ObjectSaverLoader<AuctionManager> sysloader=new ObjectSaverLoader<>(FilePath.SYSTEMSTATE.getValue());
@@ -133,7 +134,7 @@ public class Main {
 			infoWork(input,mgr);
 			break;
 		case LISTARTISTWORKS:
-			addUser(input,mgr);
+			listArtistWorks(input,mgr);
 			break;
 		case LISTAUCTIONWORKS:
 			listAuctionWorks(input,mgr);
@@ -142,7 +143,7 @@ public class Main {
 			listBidsWork(input,mgr);
 			break;
 		case LISTWORKSBYVALUE:
-			//listWorksByValue(input,mgr);
+			listWorksByValue(input,mgr);
 			break;
 		case PRINTMENU:
 			input.nextLine();
@@ -360,7 +361,7 @@ public class Main {
 		
 			AuctionGeneric defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
-			Iterator<WorkGeneric> workIt= defunct.listWorks();
+			Iterator<WorkGeneric> workIt= defunct.listWorksInsertionOrder();
 			while(workIt.hasNext()) {
 				Work currWork= (Work)workIt.next();
 				if(currWork.getNumOfBidsFromAuction(auctionid)==0) {
@@ -402,11 +403,27 @@ public class Main {
 		System.out.println(mgr);
 		
 	}
-//	private static void listArtistWorks(Scanner input,AuctionManager mgr){
-//		/*NOT THIS VERSION*/
-//			
-//			
-//		}
+	private static void listArtistWorks(Scanner input,AuctionManager mgr){
+		String artistid= input.next();
+		input.nextLine();
+		try {
+			IteratorEntries<WorkGeneric,WorkGeneric> it= mgr.getArtistWorks(artistid);
+			while(it.hasNext()) {
+				Entry<WorkGeneric,WorkGeneric> curr= it.next();
+				WorkGeneric currWork= curr.getValue();
+				System.out.println("\n"+currWork.getId()+" "+currWork.getName()+" "+currWork.getYear()+ " "+currWork.getMaxBid().getBidAmmount()+"\n");
+				
+			}
+		} catch (NoSuchUserException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
+		} catch (NoSuchArtistException e) {
+			System.out.println("\n"+CommandResponse.NOSUCHARTIST.getResponse()+"\n");
+		} catch (ArtistHasNoWorksException e) {
+			System.out.println("\n"+CommandResponse.NOWORKSFROMARTIST.getResponse()+"\n");
+		}
+			
+			
+		}
 	private static void listAuctionWorks(Scanner input,AuctionManager mgr) {
 		String auctionid= input.next();
 		input.nextLine();
@@ -433,11 +450,13 @@ public class Main {
 		String auctionid=input.next(),workid=input.next();
 		input.nextLine();
 		try {
-			FilteredIterator<Bid> workBids=mgr.getBidsFromAuctionWork(auctionid, workid);
+			IteratorEntries<Bid,Bid> workBids=mgr.getBidsFromWork(auctionid, workid);
 			System.out.printf("\n");
 			while(workBids.hasNext()) {
-				Bid curr= workBids.next();
+				Bid curr= workBids.next().getValue();
+				if(curr.getAuction().getId().equals(auctionid)) {
 				System.out.println(curr);
+				}
 				
 			}
 			System.out.printf("\n");
@@ -464,12 +483,24 @@ public class Main {
 			
 		
 	}
-//		private static void listWorksByValue(Scanner input,AuctionManager mgr) {
-//			/*NOT THIS VERSION*/
-//			
-//			
-//			
-//		}
+		private static void listWorksByValue(Scanner input,AuctionManager mgr) {
+			
+			try {
+				IteratorEntries<WorkGeneric, WorkGeneric> it= mgr.listWorksByValue();
+				System.out.println();
+				while(it.hasNext()) {
+					Entry<WorkGeneric,WorkGeneric> curr= it.next();
+					WorkGeneric currWork=curr.getValue();
+					
+					System.out.println("\n"+currWork.getId()+ " "+currWork.getName()+ " "+currWork.getYear()+" "+currWork.getMaxBid().getBidAmmount()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName()+"\n");
+					
+				}
+				System.out.println();
+			} catch (NoSoldWorksException e) {
+				System.out.println("\n"+CommandResponse.NOSOLDWORKSINSYSTEM.getResponse()+"\n");
+			}
+			
+		}
 	private static void printMenu() {
 		for(MenuOption option: MenuOption.values()) {
 			

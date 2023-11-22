@@ -7,10 +7,11 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
-import artAuctions.exceptions.ArtistHasWorksException;
+import artAuctions.exceptions.ArtistHasNoWorksException;
 import artAuctions.exceptions.ArtistHasWorksInAuctionException;
 import artAuctions.exceptions.AuctionEmptyException;
 import artAuctions.exceptions.AuctionExistsException;
+import artAuctions.exceptions.NoSoldWorksException;
 import artAuctions.exceptions.NoSuchArtistException;
 import artAuctions.exceptions.NoSuchAuctionException;
 import artAuctions.exceptions.NoSuchUserException;
@@ -23,8 +24,8 @@ import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
-import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
+import dataStructures.IteratorEntries;
 
 
 /**
@@ -46,7 +47,7 @@ public interface AuctionManager extends Serializable{
 	void addWorkToAuction(String auctionid,String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException, NoSuchWorkException;
 	
 	Iterator<WorkGeneric> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException;
-	FilteredIterator<Bid> getBidsFromAuctionWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
+	IteratorEntries<Bid,Bid> getBidsFromWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
 	void addUser(String login, String name, int age, String email) throws UserExistsException, TooYoungException;
 
 	void removeUser(String login) throws NoSuchUserException, UserHasBidsException,  ArtistHasWorksInAuctionException;
@@ -61,4 +62,8 @@ public interface AuctionManager extends Serializable{
 
 
 	void sellAuctionWork(Work currWork, String auctionId);
+
+	IteratorEntries<WorkGeneric, WorkGeneric> getArtistWorks(String artistLogin) throws NoSuchUserException, NoSuchArtistException, ArtistHasNoWorksException;
+
+	IteratorEntries<WorkGeneric, WorkGeneric> listWorksByValue() throws NoSoldWorksException;
 }

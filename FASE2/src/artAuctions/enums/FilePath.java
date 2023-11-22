@@ -11,11 +11,11 @@ public enum FilePath {
 	
 	//Usa a adequada
 
-	//private String resourcesPath=System.getProperty("user.dir")+"/../resources/"; //Linux Path
+	private String resourcesPath=System.getProperty("user.dir")+"/"; //Linux Path
 	
 	
 	//private String resourcesPath=System.getProperty("user.dir")+"\\resources\\"; //Windows path
-	private String resourcesPath="C:\\Users\\Pedders\\eclipse-workspace\\FASE1\\resources\\"; 
+	//private String resourcesPath="C:\\Users\\Pedders\\eclipse-workspace\\FASE1\\resources\\"; 
 	
 	private String value; 
 

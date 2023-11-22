@@ -7,9 +7,6 @@ package artAuctions.specificADTs.interfaces;
 
 
 
-import dataStructures.FilteredIterator;
-import dataStructures.Iterator;
-
 /**
 * Describes a Work (Obra de Arte).
 */

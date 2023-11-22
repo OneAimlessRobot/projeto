@@ -14,7 +14,6 @@ import java.io.Serializable;
 
 
 import dataStructures.AVLBSTNode.NodeType;
-import dataStructures.BinarySearchTree.PathStep;
 public class AVLBST<K extends Comparable<K>,V> extends BinarySearchTree<K, V> implements Dictionary<K, V>, Serializable {
 
 	/**
@@ -355,11 +354,6 @@ this.linkSubtree(rightChild);
     			parent= (AVLBSTNode<K,V>)lastStep.parent;
     			
     		}
-		
-	}
-
-	private void rotateNodesRightR(AVLBSTNode<K, V> parent) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -7,10 +7,10 @@ package artAuctions.specificADTs.implem;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
-import dataStructures.Iterator;
-import dataStructures.DoubleList;
-import dataStructures.FilteredIterator;
-import dataStructures.List;
+import dataStructures.IteratorEntries;
+import dataStructures.Dictionary;
+import dataStructures.Entry;
+import dataStructures.SepChainHashTable;
 
 /**
 * Implements interface Work. Describes a Work (Obra de Arte).
@@ -23,7 +23,7 @@ public class WorkClass implements Serializable, Work {
 	private UserGeneric buyer;
 	private String name,id;
 	
-	private List<Bid> workBids;
+	private Dictionary<Bid,Bid> workBids;
 	private Bid currMaxBid;
 	
 	public WorkClass(String id,ArtistGeneric author,int year,String name) {
@@ -32,7 +32,7 @@ public class WorkClass implements Serializable, Work {
 		this.author=author;
 		this.year=year;
 		this.name=name;
-		workBids=new DoubleList<>();
+		workBids=new SepChainHashTable<>();
 		buyer=null;
 		minBidAmmount=0;
 		currMaxBid=new BidClass(null,(WorkGeneric)this,0,null);
@@ -89,12 +89,12 @@ public class WorkClass implements Serializable, Work {
 		
 	}
 	@Override
-	public Iterator<Bid> bids() {
+	public IteratorEntries<Bid,Bid> bids() {
 		return workBids.iterator();
 	}
 	@Override
 	public void addBid(Bid addedBid) {
-		workBids.addLast(addedBid);
+		workBids.insert(addedBid,addedBid);
 		
 		
 	}
@@ -105,24 +105,16 @@ public class WorkClass implements Serializable, Work {
 	
 	@Override
 	public int getNumOfBidsFromAuction(String auctionId) {
-		AuctionGeneric auction= new AuctionClass(auctionId);
-		Bid bid= new BidClass(null,null,0,auction);
-		FilteredIterator<Bid> fit=workBids.filteredIterator(bid);
+		IteratorEntries<Bid,Bid> fit=workBids.iterator();
 		int count=0;
 		while(fit.hasNext()) {
-			fit.next();
+			Entry<Bid,Bid> curr=fit.next();
+			if(curr.getValue().getAuction().getId().equals(auctionId)) {
 			count++;
+			}
 		}
 		return count;
 	}
-	@Override
-	public FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionId) {
-		AuctionGeneric auction= new AuctionClass(auctionId);
-		Bid bid= new BidClass(null,null,0,auction);
-		return workBids.filteredIterator(bid);
-	}
-	
-	
 
 	@Override
 	public int getMinBidAmmount() {
@@ -142,7 +134,6 @@ public class WorkClass implements Serializable, Work {
 	}
 	@Override
 	public int compareTo(WorkGeneric arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getId().compareTo(arg0.getId());
 	}
 }

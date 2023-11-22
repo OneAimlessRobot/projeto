@@ -35,7 +35,9 @@ public enum CommandResponse {
 	AUCTIONEMPTY("Leilao sem obras."),
 	NOSUCHWORKHERE("Obra inexistente no leilao."),
 	BIDTOOCHEAP("Valor proposto abaixo do valor minimo."),
-	NOSUCHARTIST("Artista inexistente.");
+	NOSUCHARTIST("Artista inexistente."),
+	NOSOLDWORKSINSYSTEM("Nao existem obras ja vendidas em leilao."),
+	NOWORKSFROMARTIST("Artista sem obras.");
 	//TODO adicionar o resto do enunciado
 /*
  * Ou nao existe nenhum user 

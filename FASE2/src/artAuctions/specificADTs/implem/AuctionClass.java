@@ -18,20 +18,27 @@ public class AuctionClass implements Serializable, Auction {
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
-	private List<WorkGeneric> works;
+	private Dictionary<String,WorkGeneric> works;
+	private List<WorkGeneric> worksInInsertionOrder;
 	private boolean isClosed;
 
 	public AuctionClass(String id) {
 		
 		this.id=id;
 		isClosed=false;
-		works= new DoubleList<>();
+		works= new SepChainHashTable<>();
+		worksInInsertionOrder=new DoubleList<>();
 	}
 
 	@Override
-	public Iterator<WorkGeneric> listWorks() {
+	public IteratorEntries<String,WorkGeneric> listWorks() {
 		
 		return works.iterator();
+	}
+	@Override
+	public Iterator<WorkGeneric> listWorksInsertionOrder() {
+		
+		return worksInInsertionOrder.iterator();
 	}
 
 	public boolean equals(Object auction) {
@@ -61,7 +68,9 @@ public class AuctionClass implements Serializable, Auction {
 	}
 	@Override
 	public void addWork(Work addedWork) {
-		works.addLast(addedWork);
+		if(works.insert(addedWork.getId(),addedWork)==null) {
+		worksInInsertionOrder.addLast(addedWork);
+		}
 	}
 
 	public String toString() {

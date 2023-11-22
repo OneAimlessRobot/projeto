@@ -2,11 +2,13 @@
 ./dataStructures/Stack.java
 ./dataStructures/GenericFilterPredicate.java
 ./dataStructures/BSTNode.java
+./dataStructures/BSTListNode.java
 ./dataStructures/RemoveODLTest.java
 ./dataStructures/ConcatenableQueueInList.java
 ./dataStructures/DoubleList.java
 ./dataStructures/Queue.java
 ./dataStructures/StackInArray.java
+./dataStructures/Comparator.java
 ./dataStructures/InvalidPositionException.java
 ./dataStructures/EmptyQueueException.java
 ./dataStructures/OrderedDictionary.java
@@ -15,6 +17,7 @@
 ./dataStructures/BinarySearchTree.java
 ./dataStructures/FilePaths2.java
 ./dataStructures/BidAuctionIsOpen.java
+./dataStructures/BSTList.java
 ./dataStructures/SBSTNode.java
 ./dataStructures/FilteredIteratorWithPredicate.java
 ./dataStructures/AVLBSTNode.java
@@ -31,6 +34,7 @@
 ./dataStructures/Dictionary.java
 ./dataStructures/QueueInArray.java
 ./dataStructures/FullStackException.java
+./dataStructures/SBSTComparable.java
 ./dataStructures/QueueInList.java
 ./dataStructures/Iterator.java
 ./dataStructures/InsertODLTest.java
@@ -52,13 +56,16 @@
 ./dataStructures/HashTable.java
 ./dataStructures/Entry.java
 ./dataStructures/DoubleListNode.java
+./dataStructures/BinarySearchTreeComparable.java
 ./dataStructures/EmptyStackException.java
 ./dataStructures/SBST.java
 ./dataStructures/AVLBST.java
+./dataStructures/AVLBSTComparable.java
 ./dataStructures/FullQueueException.java
 ./dataStructures/List.java
 ./MainFromZero.java
 ./Main.java
+./MainHashTable.java
 ./artAuctions/specificADTs/interfaces/Bid.java
 ./artAuctions/specificADTs/interfaces/WorkGeneric.java
 ./artAuctions/specificADTs/interfaces/User.java
@@ -71,6 +78,9 @@
 ./artAuctions/specificADTs/interfaces/UserGeneric.java
 ./artAuctions/specificADTs/implem/AuctionManagerClass.java
 ./artAuctions/specificADTs/implem/WorkClass.java
+./artAuctions/specificADTs/implem/comparators/CompareWorkByValueAndName.java
+./artAuctions/specificADTs/implem/comparators/CompareWorkByName.java
+./artAuctions/specificADTs/implem/comparators/CompareWorksByValue.java
 ./artAuctions/specificADTs/implem/ArtistClass.java
 ./artAuctions/specificADTs/implem/UserClass.java
 ./artAuctions/specificADTs/implem/BidClass.java
@@ -86,8 +96,10 @@
 ./artAuctions/exceptions/AuctionEmptyException.java
 ./artAuctions/exceptions/ArtistHasWorksInAuctionException.java
 ./artAuctions/exceptions/WorkExistsException.java
+./artAuctions/exceptions/NoSoldWorksException.java
 ./artAuctions/exceptions/WeakBidException.java
 ./artAuctions/exceptions/WorkHasNoBidsInAuctionException.java
+./artAuctions/exceptions/ArtistHasNoWorksException.java
 ./artAuctions/exceptions/CollectorHasBidsException.java
 ./artAuctions/exceptions/NoSuchWorkException.java
 ./artAuctions/exceptions/WorkExistsInAuctionException.java

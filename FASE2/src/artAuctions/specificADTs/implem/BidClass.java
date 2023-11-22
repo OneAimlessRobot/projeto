@@ -71,5 +71,10 @@ public class BidClass implements Serializable, Bid {
 	public AuctionGeneric getAuction() {
 		return auction;
 	}
+	@Override
+	public int compareTo(Bid arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

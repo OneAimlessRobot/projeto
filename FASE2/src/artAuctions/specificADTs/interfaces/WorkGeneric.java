@@ -9,6 +9,7 @@ package artAuctions.specificADTs.interfaces;
 
 import dataStructures.FilteredIterator;
 import dataStructures.Iterator;
+import dataStructures.IteratorEntries;
 
 
 /**
@@ -34,11 +35,9 @@ public interface WorkGeneric extends Comparable<WorkGeneric>{
 	UserGeneric getBuyer();
 	
 	
-	Iterator<Bid> bids();
+	IteratorEntries<Bid,Bid> bids();
 	
 	int getNumOfBidsFromAuction(String auctionid);
-
-	FilteredIterator<Bid> bidsFilteredByAuctionId(String auctionid);
 
 
 	int getMinBidAmmount();

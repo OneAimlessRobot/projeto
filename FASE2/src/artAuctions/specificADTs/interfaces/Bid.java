@@ -13,7 +13,7 @@ import java.io.Serializable;
  * This is the interface for a Generic Bid.
  * Esta interface contém apenas os 'getters' .
  */
-public interface Bid extends Serializable{
+public interface Bid extends Comparable<Bid>{
 	
 	UserGeneric getCollector();
 	

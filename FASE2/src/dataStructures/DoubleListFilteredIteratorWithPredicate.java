@@ -82,7 +82,6 @@ class DoubleListFilteredIteratorWithPredicate<E> implements FilteredIteratorWith
         if ( !this.hasNext() )
             throw new NoSuchElementException();
 
-        E element = nextToReturn.getElement();
         prevToReturn = nextToReturn.getPrevious();
         nextToReturn = nextToReturn.getNext();
     }
