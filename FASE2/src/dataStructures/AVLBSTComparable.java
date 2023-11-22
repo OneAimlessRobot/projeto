@@ -218,7 +218,7 @@ this.linkSubtree(rightChild);
         BSTNode<K,V> node = root;
         while ( node != null )
         {
-            int compResult = key.compareTo( node.getKey() );
+            int compResult = comparator.compare(key, node.getKey() );
             if ( compResult == 0 )
                 return (AVLBSTNode<K, V>) node;
             else if ( compResult < 0 )

@@ -10,11 +10,11 @@ public class CompareWorkByValueAndName implements Comparator<WorkGeneric> {
 	@Override
 	public int compare(WorkGeneric first, WorkGeneric second) {
 		if(first.getMaxBid().getBidAmmount()!=second.getMaxBid().getBidAmmount()) {
-			return first.getMaxBid().getBidAmmount()-second.getMaxBid().getBidAmmount();
+			return second.getMaxBid().getBidAmmount()-first.getMaxBid().getBidAmmount();
 		}
 		else if(!first.getId().equals(second.getId())) {
 			
-			return first.getId().compareTo(second.getId());
+			return first.getName().compareTo(second.getName());
 			
 		}
 		else {

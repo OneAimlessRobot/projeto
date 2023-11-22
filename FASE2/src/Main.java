@@ -369,7 +369,16 @@ public class Main {
 				}
 				else {
 					mgr.sellAuctionWork(currWork, auctionid);
-					System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getMaxBid().getCollector().getLogin()+" "+currWork.getMaxBid().getCollector().getName()+" "+currWork.getMaxBid().getBidAmmount());
+					System.out.print(currWork.getId());
+					System.out.print(" ");
+					System.out.print(currWork.getName());
+					System.out.print(" ");
+					System.out.print(currWork.getMaxBid().getCollector().getLogin());
+					System.out.print(" ");
+					System.out.print(currWork.getMaxBid().getCollector().getName());
+					System.out.print(" ");
+					System.out.print(currWork.getMaxBid().getBidAmmount());
+					System.out.print("\n");
 					//System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getMaxBid().getBidAmmount());
 					
 				}
@@ -491,7 +500,7 @@ public class Main {
 					Entry<WorkGeneric,WorkGeneric> curr= it.next();
 					WorkGeneric currWork=curr.getValue();
 					
-					System.out.println("\n"+currWork.getId()+ " "+currWork.getName()+ " "+currWork.getYear()+" "+currWork.getMaxBid().getBidAmmount()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName()+"\n");
+					System.out.println(currWork.getId()+ " "+currWork.getName()+ " "+currWork.getYear()+" "+currWork.getMaxBid().getBidAmmount()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName());
 					
 				}
 				System.out.println();

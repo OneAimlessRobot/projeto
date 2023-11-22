@@ -444,8 +444,11 @@ Leilao sem obras.
 
 fwilliams Joseph Chapman 5699433
 csmith Alexandra Campos 9532463
+fwilliams Joseph Chapman 5699433
+csmith Alexandra Campos 9532463
 
 
+megan12 Holly Thomas 206596
 megan12 Holly Thomas 206596
 
 
@@ -454,8 +457,12 @@ Obra sem propostas.
 
 nhuang Daniel Dickerson 4954442
 ihanson Logan Morrison 3080928
+nhuang Daniel Dickerson 4954442
+ihanson Logan Morrison 3080928
 
 
+amberlane Richard Cline 7404316
+palmerjennifer Rebecca Green 480283
 amberlane Richard Cline 7404316
 palmerjennifer Rebecca Green 480283
 
@@ -464,18 +471,26 @@ Obra sem propostas.
 
 
 wgarcia Christopher Reed 8398659
+wgarcia Christopher Reed 8398659
 
 
+glenn43 Julia Estrada 296821
+orozcogeorge Natalie Zamora 202856
 glenn43 Julia Estrada 296821
 orozcogeorge Natalie Zamora 202856
 
 
 costaalicia Tonya Carney 4620546
+costaalicia Tonya Carney 4620546
 
 
 bethgrant Daniel Chambers 6382458
+bethgrant Daniel Chambers 6382458
 
 
+toddhendricks Lauren Bradford 9892200
+gonzaleznicholas Marcus Ortiz 255395
+phardy Jasmin Hill 6514891
 toddhendricks Lauren Bradford 9892200
 gonzaleznicholas Marcus Ortiz 255395
 phardy Jasmin Hill 6514891
@@ -494,8 +509,12 @@ Obra sem propostas.
 
 
 shernandez Shawn Willis 6520893
+shernandez Shawn Willis 6520893
 
 
+toddhendricks Lauren Bradford 9892200
+gonzaleznicholas Marcus Ortiz 255395
+phardy Jasmin Hill 6514891
 toddhendricks Lauren Bradford 9892200
 gonzaleznicholas Marcus Ortiz 255395
 phardy Jasmin Hill 6514891
@@ -511,17 +530,21 @@ Obra inexistente no leilao.
 
 
 vancetimothy Leslie Miller 6392080
+vancetimothy Leslie Miller 6392080
 
 
 Obra sem propostas.
 
 
 wdouglas Ian Ramirez 3840252
+wdouglas Ian Ramirez 3840252
 
 
 vancetimothy Leslie Miller 6392080
+vancetimothy Leslie Miller 6392080
 
 
+laurensmith Kevin Johnson Jr. 5113053
 laurensmith Kevin Johnson Jr. 5113053
 
 
