@@ -31,7 +31,6 @@
 ./dataStructures/EmptyStackException.java
 ./dataStructures/FullQueueException.java
 ./dataStructures/List.java
-./MainFromZero.java
 ./Main.java
 ./artAuctions/specificADTs/interfaces/Bid.java
 ./artAuctions/specificADTs/interfaces/WorkGeneric.java

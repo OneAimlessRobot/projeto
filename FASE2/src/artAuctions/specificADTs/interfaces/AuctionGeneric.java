@@ -27,6 +27,8 @@ public interface AuctionGeneric extends Serializable{
 	IteratorEntries<String, WorkGeneric> listWorks();
 
 	Iterator<WorkGeneric> listWorksInsertionOrder();
+
+	Work getWork(String id);
 	
 
 }

@@ -2,7 +2,7 @@
 separator="/"
 
 rm -r ./outputs/outputs*.txt
-rm -r ../resources/systemstate.res
+rm -r ./systemstate.res
 
 time java Main < "./inputs/1_in.txt" > "./outputs/outputs1.txt"
 diff ./outputs/outputs1.txt ./outputs/1_out.txt

@@ -66,7 +66,7 @@ public class Main {
 	}
 	public static void main(String[] args) {
 	//Se começar a dar ClassNotFoundException ou wtvr, descomenta esta linha. Vai reiniciar os dados do disco
-		//initFiles();
+		initFiles();
 		Scanner input= new Scanner(System.in);
 		String option=null;
 		ObjectSaverLoader<AuctionManager> sysloader=new ObjectSaverLoader<>(FilePath.SYSTEMSTATE.getValue());

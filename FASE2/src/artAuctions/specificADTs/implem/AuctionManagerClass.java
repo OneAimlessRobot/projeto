@@ -198,9 +198,11 @@ if(age<MIN_AGE) {
 			throw new WeakBidException();
 			
 		}
-		Bid bid= new BidClass(collector, work, value,auction);
-		collector.addBid(bid);
-		work.addBid(bid);
+		Bid bid= new BidClass(collector, workInAuction, value,auction);
+		Bid bid2= new BidClass(collector, work, value,auction);
+		collector.addBid(bid2);
+		work.addBid(bid2);
+		auction.getWork(workInAuction.getId()).addBid(bid);;
 		
 		
 	}
@@ -234,34 +236,42 @@ if(age<MIN_AGE) {
 //	}
 	@Override
 	public void sellAuctionWork(Work currWork,String auctionId) {
-		boolean alreadySold=false;
-		if(alreadySold=(soldworks.find(currWork)!=null) ){
+		Work workInSystem= works.find(currWork.getId());
+		
 
-			soldworks.remove(currWork);
-//			System.out.println("AQUI!!!!!");2
-
-			
-			
-		}
-		if(auctionId.equals("5482729")&&currWork.getId().equals("274")) {
-		System.out.println(auctionId);
-		}
+//		if(auctionId.equals("5482729")&&currWork.getId().equals("274")) {
+//		System.out.println(auctionId);
+//		}
 		Iterator<Bid> currBidIt= currWork.bids();
 		while(currBidIt.hasNext()) {
 			Bid currBid=currBidIt.next();
 
-			if(auctionId.equals("5482729")&&currWork.getId().equals("274")) {
-			System.out.println(currBid);
-			}
+			
 			if(currBid.getAuction().getId().equals(auctionId)) {
 					
-					if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
-						currWork.setMaxBid(currBid);
-					}
+				if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
+					currWork.setMaxBid(currBid);
 					
 				}
 			}
-			soldworks.insert(currWork,currWork);
+			if(currBid.getBidAmmount()>workInSystem.getMaxBid().getBidAmmount()) {
+				if(soldworks.find(workInSystem)!=null ){
+
+					soldworks.remove(workInSystem);
+//					System.out.println("AQUI!!!!!");2
+
+					
+					
+				}
+				workInSystem.setMaxBid(currBid);
+				
+			}	
+//			if(auctionId.equals("5482729")&&currWork.getId().equals("274")) {
+//				System.out.println("Work no sistema:\n"+((WorkClass)workInSystem).workBids+"\nMax Bid:\n"+((WorkClass)workInSystem).currMaxBid+"\n Work na auction:\n"+((WorkClass)currWork).workBids+"\nMax Bix\n"+((WorkClass)currWork).currMaxBid);
+//				}
+			
+		}
+			soldworks.insert(workInSystem,workInSystem);
 
 	}
 	@Override
@@ -316,7 +326,9 @@ if(age<MIN_AGE) {
 			
 		}
 		work.setMinAmmount(minValue);
-		auction.addWork(work);
+		Work copyForAuction= new WorkClass(work.getId(),work.getAuthor(),work.getYear(),work.getName());
+		copyForAuction.setMinAmmount(minValue);
+		auction.addWork(copyForAuction);
 		
 	}
 	@Override

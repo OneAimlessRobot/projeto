@@ -73,6 +73,11 @@ public class AuctionClass implements Serializable, Auction {
 		}
 	}
 
+	@Override
+	public Work getWork(String id) {
+		
+		return (Work)works.find(id);
+	}
 	public String toString() {
 		
 		return getId()+"\nWorks: "+works.toString();

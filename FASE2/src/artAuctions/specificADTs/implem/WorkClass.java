@@ -27,8 +27,8 @@ public class WorkClass implements Serializable, Work {
 	private String name,id;
 	
 //	private Dictionary<Bid,Bid> workBids;
-	private List<Bid> workBids;
-	private Bid currMaxBid;
+	public List<Bid> workBids;
+	public Bid currMaxBid;
 	
 	public WorkClass(String id,ArtistGeneric author,int year,String name) {
 		
