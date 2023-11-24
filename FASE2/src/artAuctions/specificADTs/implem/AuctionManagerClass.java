@@ -19,7 +19,6 @@ import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.implem.comparators.CompareWorkByValueAndName;
 import artAuctions.specificADTs.interfaces.Artist;
-import artAuctions.specificADTs.interfaces.ArtistGeneric;
 import artAuctions.specificADTs.interfaces.AuctionGeneric;
 import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
@@ -88,7 +87,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 				throw new NoSuchArtistException();
 				
 		}
-		Work addedWork=new WorkClass(id,(ArtistGeneric) user , year, name);
+		Work addedWork=new WorkClass(id,artist , year, name);
 		works.insert(id,addedWork);
 		artist.addWork(addedWork);
 	}
@@ -253,6 +252,8 @@ if(age<MIN_AGE) {
 					
 					soldworks.remove(workInSystem);
 
+
+//					System.out.println("Work in sold!!!!!\n"+workInSystem.getId()+ " "+workInSystem.getName()+ " "+workInSystem.getYear()+" "+workInSystem.getMaxBid().getBidAmmount()+" "+workInSystem.getAuthor().getLogin()+" "+currWork.getAuthor().getName());
 					
 					
 				}
@@ -449,7 +450,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 			throw new NoSuchUserException();
 		}if(targetedArtist==null) {
 			
-			throw new NoSuchArtistException();
+			throw new NoSuchUserException();
 		}if(targetedArtist.getNumOfWorks()==0) {
 			
 			throw new ArtistHasNoWorksException();

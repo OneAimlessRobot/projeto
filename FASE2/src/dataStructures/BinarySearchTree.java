@@ -13,7 +13,7 @@ public abstract class BinarySearchTree<K extends Comparable<K>, V>
     implements OrderedDictionary<K,V>, Serializable
 {                                                                   
 
-private static class BSTNodeIterator<K,V>{
+private static class BSTNodeIterator<K,V> implements Serializable{
 		
 		private static final long serialVersionUID = 1L;
 		protected Stack<BSTNode<K,V>> path;

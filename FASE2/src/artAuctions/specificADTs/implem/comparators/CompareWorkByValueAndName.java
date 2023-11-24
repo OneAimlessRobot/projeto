@@ -12,7 +12,7 @@ public class CompareWorkByValueAndName implements Comparator<WorkGeneric> {
 		if(first.getMaxBid().getBidAmmount()!=second.getMaxBid().getBidAmmount()) {
 			return second.getMaxBid().getBidAmmount()-first.getMaxBid().getBidAmmount();
 		}
-		else if(!first.getId().equals(second.getId())) {
+		else if(!first.getName().equals(second.getName())) {
 			
 			return first.getName().compareTo(second.getName());
 			

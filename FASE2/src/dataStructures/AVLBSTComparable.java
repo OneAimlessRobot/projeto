@@ -172,18 +172,18 @@ protected void doubleLeftRot( AVLBSTNode<K,V> theRoot, AVLBSTNode<K,V> leftChild
 
 protected void doubleRightRot( AVLBSTNode<K,V> theRoot, AVLBSTNode<K,V> rightChild) { 
 	AVLBSTNode<K,V> leftGrandchild = (AVLBSTNode<K,V>) rightChild.getLeft(); 
-	 switch ( leftGrandchild.getType() ) { 
+	switch ( leftGrandchild.getType() ) { 
 	 case R: 
-		 theRoot.setType(NodeType.E); 
-		 rightChild.setType(NodeType.R); 
+		 theRoot.setType(NodeType.L); 
+		 rightChild.setType(NodeType.E); 
 		 break; 
 		 case E: 
 			 theRoot.setType(NodeType.E); 
 			 rightChild.setType(NodeType.E); 
 		break; 
 		case L: 
-			 theRoot.setType(NodeType.L); 
-				 rightChild.setType(NodeType.E); 
+			 theRoot.setType(NodeType.E); 
+				 rightChild.setType(NodeType.R); 
 		break;
 	 }
 
@@ -290,14 +290,14 @@ this.linkSubtree(rightChild);
             {
                 // Node has 2 children. Replace the node's entry with
                 // the 'minEntry' of the right subtree.
-                path.top().set(node, false);
+            	path.push(new PathStep<>(node, false));
                 AVLBSTNode<K,V> minNode = (AVLBSTNode<K, V>) this.minNode((AVLBSTNode<K, V>) node.getRight());
                 node.setEntry( minNode.getEntry() );
                 this.linkSubtree((AVLBSTNode<K, V>) minNode.getRight());
                 rotateNodesRemove();
                 currentSize--;
+                return oldValue;
             }
-            currentSize--;
             return oldValue;
         }                                 
     }                                

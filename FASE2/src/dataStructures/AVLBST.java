@@ -290,15 +290,15 @@ this.linkSubtree(rightChild);
             {
                 // Node has 2 children. Replace the node's entry with
                 // the 'minEntry' of the right subtree.
-                path.top().set(node, false);
+                path.push(new PathStep<>(node, false));
                 AVLBSTNode<K,V> minNode = (AVLBSTNode<K, V>) this.minNode((AVLBSTNode<K, V>) node.getRight());
                 node.setEntry( minNode.getEntry() );
                 this.linkSubtree((AVLBSTNode<K, V>) minNode.getRight());
                 rotateNodesRemove();
                 currentSize--;
+                return oldValue;
             }
-            currentSize--;
-            return oldValue;
+            return null;
         }                                 
     }                                
 
