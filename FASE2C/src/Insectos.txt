@@ -1,4 +1,0 @@
-O comando bid aceita licitações abaixo do valor mínimo estabelecido pelo comando addworkauction (talvez pq estou a licitar com um artist?)
-
-
-listBidsWork parece não funcionar? (pelo menos com os comandos em MyTests.txt)
