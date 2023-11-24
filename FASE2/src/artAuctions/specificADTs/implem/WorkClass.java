@@ -7,13 +7,6 @@ package artAuctions.specificADTs.implem;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
-import dataStructures.IteratorEntries;
-import dataStructures.List;
-import dataStructures.Dictionary;
-import dataStructures.DoubleList;
-import dataStructures.Entry;
-import dataStructures.Iterator;
-import dataStructures.SepChainHashTable;
 
 /**
 * Implements interface Work. Describes a Work (Obra de Arte).
@@ -26,8 +19,7 @@ public class WorkClass implements Serializable, Work {
 	private UserGeneric buyer;
 	private String name,id;
 	
-//	private Dictionary<Bid,Bid> workBids;
-	public List<Bid> workBids;
+	
 	public Bid currMaxBid;
 	
 	public WorkClass(String id,ArtistGeneric author,int year,String name) {
@@ -37,10 +29,9 @@ public class WorkClass implements Serializable, Work {
 		this.year=year;
 		this.name=name;
 //		workBids=new SepChainHashTable<>();
-		workBids= new DoubleList<>();
 		buyer=null;
 		minBidAmmount=0;
-		currMaxBid=new BidClass(null,(WorkGeneric)this,0,null);
+		currMaxBid= new BidClass(null,null,0,null);
 		
 		
 	}
@@ -97,26 +88,15 @@ public class WorkClass implements Serializable, Work {
 //	public IteratorEntries<Bid,Bid> bids() {
 //		return workBids.iterator();
 //	}
-		@Override
-	public Iterator<Bid> bids() {
-	return workBids.iterator();
-}
+		
 //	@Override
 //	public void addBid(Bid addedBid) {
 //		workBids.insert(addedBid,addedBid);
 //		
 //		
 //	}
-		@Override
-		public void addBid(Bid addedBid) {
-			workBids.addLast(addedBid);
-			
-			
-		}
-		@Override
-	public int getNumOfBids() {
-		return workBids.size();
-	}
+	
+		
 	
 //		@Override
 //		public int getNumOfBidsFromAuction(String auctionId) {
@@ -130,18 +110,6 @@ public class WorkClass implements Serializable, Work {
 //			}
 //			return count;
 //		}
-		@Override
-		public int getNumOfBidsFromAuction(String auctionId) {
-			Iterator<Bid> fit=workBids.iterator();
-			int count=0;
-			while(fit.hasNext()) {
-				Bid curr=fit.next();
-				if(curr.getAuction().getId().equals(auctionId)) {
-				count++;
-				}
-			}
-			return count;
-		}
 
 	@Override
 	public int getMinBidAmmount() {

@@ -30,10 +30,10 @@ import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.UserGeneric;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
+import artAuctions.specificADTs.interfaces.WorkInAuction;
 import dataStructures.AVLBSTComparable;
 import dataStructures.Dictionary;
 import dataStructures.Entry;
-import dataStructures.FilteredIteratorWithPredicate;
 import dataStructures.Iterator;
 import dataStructures.IteratorEntries;
 import dataStructures.OrderedDictionary;
@@ -187,22 +187,22 @@ if(age<MIN_AGE) {
 			throw new NoSuchWorkInAuctionException();  //Se a Obra n existe no vector de Obras, então tb não vai existir no Leilão.
 			
 		}
-		Work workInAuction=null;
-		if((workInAuction=(Work)getWorkInAuction(auction,work))==null) {
+		WorkInAuction workInAuction=null;
+		if((workInAuction=getWorkInAuction(auction,work))==null) {
 			
 			throw new NoSuchWorkInAuctionException();
 			
 		}
-		if(value<workInAuction.getMinBidAmmount()) {
+		if(value<work.getMinBidAmmount()) {
 			
 			throw new WeakBidException();
 			
 		}
-		Bid bid= new BidClass(collector, workInAuction, value,auction);
-		Bid bid2= new BidClass(collector, work, value,auction);
-		collector.addBid(bid2);
-		work.addBid(bid2);
-		auction.getWork(workInAuction.getId()).addBid(bid);;
+		Bid bid= new BidClass(collector, work, value,auction);
+//		Bid bid2= new BidClass(collector, work, value,auction);
+		collector.addBid(bid);
+		workInAuction.addBid(bid);
+//		auction.getWork(workInAuction.getId()).addBid(bid);;
 		
 		
 	}
@@ -237,41 +237,32 @@ if(age<MIN_AGE) {
 	@Override
 	public void sellAuctionWork(Work currWork,String auctionId) {
 		Work workInSystem= works.find(currWork.getId());
+		WorkInAuction analyzed=null;
 		
-
-//		if(auctionId.equals("5482729")&&currWork.getId().equals("274")) {
-//		System.out.println(auctionId);
-//		}
-		Iterator<Bid> currBidIt= currWork.bids();
+		Iterator<Bid> currBidIt= (analyzed=getWorkInAuction(auctions.find(auctionId),currWork)).bids();
 		while(currBidIt.hasNext()) {
 			Bid currBid=currBidIt.next();
 
-			
-			if(currBid.getAuction().getId().equals(auctionId)) {
-					
-				if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
-					currWork.setMaxBid(currBid);
-					
-				}
+			if(currBid.getBidAmmount()>analyzed.getMaxBid().getBidAmmount()) {
+				
+				analyzed.setMaxBid(currBid);
+				
 			}
 			if(currBid.getBidAmmount()>workInSystem.getMaxBid().getBidAmmount()) {
 				if(soldworks.find(workInSystem)!=null ){
-
+					
 					soldworks.remove(workInSystem);
-//					System.out.println("AQUI!!!!!");2
 
 					
 					
 				}
 				workInSystem.setMaxBid(currBid);
 				
-			}	
-//			if(auctionId.equals("5482729")&&currWork.getId().equals("274")) {
-//				System.out.println("Work no sistema:\n"+((WorkClass)workInSystem).workBids+"\nMax Bid:\n"+((WorkClass)workInSystem).currMaxBid+"\n Work na auction:\n"+((WorkClass)currWork).workBids+"\nMax Bix\n"+((WorkClass)currWork).currMaxBid);
-//				}
+			}
 			
 		}
 			soldworks.insert(workInSystem,workInSystem);
+			
 
 	}
 	@Override
@@ -326,9 +317,9 @@ if(age<MIN_AGE) {
 			
 		}
 		work.setMinAmmount(minValue);
-		Work copyForAuction= new WorkClass(work.getId(),work.getAuthor(),work.getYear(),work.getName());
-		copyForAuction.setMinAmmount(minValue);
-		auction.addWork(copyForAuction);
+//		Work copyForAuction= new WorkClass(work.getId(),work.getAuthor(),work.getYear(),work.getName());
+//		copyForAuction.setMinAmmount(minValue);
+		auction.addWork(work);
 		
 	}
 	@Override
@@ -336,7 +327,7 @@ if(age<MIN_AGE) {
 
 		Work work=works.find(workid);
 				Auction auction=auctions.find(auctionid);
-		WorkGeneric workinauction=null;
+		WorkInAuction workinauction=null;
 
 		if(auction==null) {
 			
@@ -356,29 +347,24 @@ if(age<MIN_AGE) {
 			throw new NoSuchWorkInAuctionException();
 			
 		}
-		if(workinauction.getNumOfBidsFromAuction(auctionid)==0) {
+		if(workinauction.getNumOfBids()==0) {
 			
 			throw new WorkHasNoBidsInAuctionException();
 		}
 		return workinauction.bids();
 		
 	}
-	private static WorkGeneric getWorkInAuction(Auction auction,WorkGeneric work) {
+	private static WorkInAuction getWorkInAuction(Auction auction,WorkGeneric work) {
 		
-		IteratorEntries<String,WorkGeneric> auctionWorkIt= auction.listWorks();
-		WorkGeneric curr= null;
+		Iterator<WorkInAuction> auctionWorkIt= auction.listWorks();
+		WorkInAuction curr= null;
 		while(auctionWorkIt.hasNext()) {
-			curr=auctionWorkIt.next().getValue();
+			curr=auctionWorkIt.next();
 			
-			if(work.equals(curr)) {
+			if(work.equals(curr.getWork())) {
 				
 				return curr;
 			}
-		}
-		if(curr==null) {
-			
-			return null;
-			
 		}
 		return null;
 	}
@@ -400,9 +386,9 @@ if(age<MIN_AGE) {
 		IteratorEntries<String,Auction> auctionIt= auctions.iterator();
 		while(auctionIt.hasNext()) {
 			Auction currAuction= auctionIt.next().getValue();
-			IteratorEntries<String,WorkGeneric> currAuctionWorksIt= currAuction.listWorks();
+			Iterator<WorkInAuction> currAuctionWorksIt= currAuction.listWorks();
 			while(currAuctionWorksIt.hasNext()) {
-				WorkGeneric currWorkInCurrAuction= currAuctionWorksIt.next().getValue();
+				WorkGeneric currWorkInCurrAuction= currAuctionWorksIt.next().getWork();
 				if(currWorkInCurrAuction.getAuthor().equals(artist)) {
 					if(!currAuction.isClosed()) {
 						return true;
@@ -418,15 +404,17 @@ if(age<MIN_AGE) {
 private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		
 		boolean result=false;
-		FilteredIteratorWithPredicate<Bid> bidit= user.bidsInOpenAuctions();
-		if(bidit.hasNext()) {
-			
-			result=true;
+		Iterator<Bid> bidit= user.bids();
+		while(bidit.hasNext()) {
+		
+			if(!bidit.next().getAuction().isClosed()) {
+				result=true;
+			}
 		}
 		return result;
 	}
 	@Override
-	public Iterator<WorkGeneric> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException {
+	public Iterator<WorkInAuction> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException {
 		Auction auction=auctions.find(auctionid);
 		
 		if(auction==null) {
@@ -442,7 +430,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 			throw new AuctionEmptyException();
 			
 		}
-		return auction.listWorksInsertionOrder();
+		return auction.listWorks();
 	}
 
 	@Override
@@ -490,7 +478,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		}
 		else {
 			
-			if(userHasBidsInOpenAuction((UserGeneric)user)) {
+			if(userHasBidsInOpenAuction(user)) {
 				
 				throw new UserHasBidsException();
 			}

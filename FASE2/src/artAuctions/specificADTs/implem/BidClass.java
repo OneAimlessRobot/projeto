@@ -23,34 +23,19 @@ public class BidClass implements Serializable, Bid {
 	
 	private UserGeneric collector;
 	private WorkGeneric work;
-	private AuctionGeneric auction;
 	private int bidAmmount;
+	private AuctionGeneric auction;
 	public BidClass(UserGeneric collector,WorkGeneric work,int bidAmmount,AuctionGeneric auction) {
 		
 		this.collector=collector;
 		this.work=work;
 		this.bidAmmount=bidAmmount;
 		this.auction=auction;
-		
 	}
 	@Override
 	public UserGeneric getCollector() {
 		
 		return collector;
-	}
-	@Override
-	public boolean equals(Object anotherBid) {
-		boolean result=false;
-		if(anotherBid instanceof BidClass) {
-			
-			result= ((Bid)anotherBid).getAuction().equals(auction);
-				
-			
-		}
-		return result;
-		
-		
-		
 	}
 	
 
@@ -70,11 +55,6 @@ public class BidClass implements Serializable, Bid {
 	@Override
 	public AuctionGeneric getAuction() {
 		return auction;
-	}
-	@Override
-	public int compareTo(Bid arg0) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

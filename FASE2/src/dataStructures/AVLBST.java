@@ -174,16 +174,16 @@ protected void doubleRightRot( AVLBSTNode<K,V> theRoot, AVLBSTNode<K,V> rightChi
 	AVLBSTNode<K,V> leftGrandchild = (AVLBSTNode<K,V>) rightChild.getLeft(); 
 	 switch ( leftGrandchild.getType() ) { 
 	 case R: 
-		 theRoot.setType(NodeType.E); 
-		 rightChild.setType(NodeType.R); 
+		 theRoot.setType(NodeType.L); 
+		 rightChild.setType(NodeType.E); 
 		 break; 
 		 case E: 
 			 theRoot.setType(NodeType.E); 
 			 rightChild.setType(NodeType.E); 
 		break; 
 		case L: 
-			 theRoot.setType(NodeType.L); 
-				 rightChild.setType(NodeType.E); 
+			 theRoot.setType(NodeType.E); 
+				 rightChild.setType(NodeType.R); 
 		break;
 	 }
 

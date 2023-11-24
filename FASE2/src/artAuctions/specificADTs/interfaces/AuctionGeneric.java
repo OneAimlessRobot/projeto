@@ -10,7 +10,6 @@ package artAuctions.specificADTs.interfaces;
 import java.io.Serializable;
 
 import dataStructures.Iterator;
-import dataStructures.IteratorEntries;
 
 /**
  * Describes a generic Auction.
@@ -24,11 +23,9 @@ public interface AuctionGeneric extends Serializable{
 
 	boolean isClosed();
 	
-	IteratorEntries<String, WorkGeneric> listWorks();
+	Iterator<WorkInAuction> listWorks();
 
-	Iterator<WorkGeneric> listWorksInsertionOrder();
 
-	Work getWork(String id);
 	
 
 }

@@ -13,9 +13,9 @@ echo "DONE! 3"
 time java Main < "./inputs2/4_in.txt" > "./outputs2/outputs4.txt"
 diff ./outputs2/outputs4.txt ./outputs2/4_out.txt
 echo "DONE! 4"
-#time java Main < "./inputs2/5_in.txt" > "./outputs2/outputs5.txt"
-#diff ./outputs2/outputs5.txt ./outputs2/5_out.txt
-#echo "DONE! 5"
+time java Main < "./inputs2/5_in.txt" > "./outputs2/outputs5.txt"
+diff ./outputs2/outputs5.txt ./outputs2/5_out.txt
+echo "DONE! 5"
 
 echo "DONE!"
 echo "DONE!"

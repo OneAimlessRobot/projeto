@@ -13,6 +13,153 @@ public abstract class BinarySearchTree<K extends Comparable<K>, V>
     implements OrderedDictionary<K,V>, Serializable
 {                                                                   
 
+private static class BSTNodeIterator<K,V>{
+		
+		private static final long serialVersionUID = 1L;
+		protected Stack<BSTNode<K,V>> path;
+		private BSTNode<K,V> root,smallest,biggest,next;
+		private boolean forward;
+		public BSTNodeIterator(BSTNode<K,V> root) {
+			this.root=next=root;
+			forward=true;
+			fullForward();
+			rewind();
+			
+		}
+		
+		
+		public boolean hasNext() {
+			return next!=biggest && biggest!=null;
+		}
+
+		public BSTNode<K, V> next() throws NoSuchElementException {
+				if(!hasNext()) {
+					throw new NoSuchElementException();
+				}
+				if(!forward) {
+					
+					switchDirection();
+				}
+				BSTNode<K,V> node=next= path.pop();
+//				Entry<K,V> result= node.getEntry();
+				
+				if(node.getRight()!=null) {
+					
+					path.push(node.getRight());
+					
+					node=node.getRight();
+					while(node.getLeft()!=null){
+						
+						path.push(node.getLeft());
+						node=node.getLeft();
+						
+					}
+				}
+				
+				return next;
+		}
+
+		private void switchDirection() {
+			BSTNode<K,V> current= next;
+			if(forward) {
+				forward=!forward;
+				fullForward();
+				while(hasPrevious()) {
+					previous();
+					if(next==current) {
+						break;
+					}
+				}
+				
+			}else {
+				forward=!forward;
+				rewind();
+				while(hasNext()) {
+					next();
+					if(next==current) {
+						break;
+					}
+				}
+				
+			}
+			
+			
+		}
+		public void rewind() {
+			if(root==null) {
+				return;
+			}
+			path= new StackInList<>();
+			next=root;
+			do{
+				
+				
+				path.push(next);
+				if(next.getLeft()==null) {
+					smallest=next;
+				}
+				next= next.getLeft();
+				
+			}while(next!=null);
+			
+		}
+
+
+
+
+		public BSTNode<K, V> previous() throws NoSuchElementException {
+			if(!hasPrevious()) {
+				throw new NoSuchElementException();
+			}
+
+			if(forward) {
+				
+				switchDirection();
+			}
+			BSTNode<K,V> node=next= path.pop();
+//			Entry<K,V> result= node.getEntry();
+			
+			if(node.getLeft()!=null) {
+				
+				path.push(node.getLeft());
+				
+				node=node.getLeft();
+				while(node.getRight()!=null){
+					
+					path.push(node.getRight());
+					node=node.getRight();
+					
+				}
+			}
+			return next;
+		}
+
+
+		public void fullForward() {
+			if(root==null) {
+				return;
+			}
+			path= new StackInList<>();
+			next=root;
+			do{
+				
+				
+				path.push(next);
+				if(next.getRight()==null) {
+					biggest=next;
+				}
+				next= next.getRight();
+				
+			}while(next!=null);
+			
+		}
+
+
+		public boolean hasPrevious() {
+			return next!=smallest && smallest!=null;
+		}
+		
+	}
 protected static class BSTIterator<K,V> implements TwoWayIteratorEntries<K,V>{
 		
 		private static final long serialVersionUID = 1L;
@@ -480,9 +627,26 @@ protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
         return height;
     	
     }
+    
     protected int getHeightDifference(BSTNode<K,V> node) {
     	
     	return calculateSubtreeHeight(node.getLeft())-calculateSubtreeHeight(node.getRight());
+    	
+    }
+    
+    public void printHeightDifferences() {
+    	
+    	BSTNodeIterator<K,V> it= new BSTNodeIterator<>(root);
+    	while(it.hasNext()) {
+    		BSTNode<K,V> node= it.next();
+    		int coiso=0;
+    		System.out.println((coiso=getHeightDifference(node))+ " ");
+    		if(Math.abs(coiso)>=2) {
+    			System.out.println("Birthday bukcake");
+    			System.exit(-1);
+    		}
+    	}
+    	
     	
     }
     /**

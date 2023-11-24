@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import dataStructures.FilteredIterator;
 import dataStructures.FilteredIteratorWithPredicate;
+import dataStructures.Iterator;
 
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
@@ -47,5 +48,5 @@ public interface UserGeneric extends Serializable {
 	 * @return
 	 */
 	String printUser();
-	FilteredIteratorWithPredicate<Bid> bidsInOpenAuctions();
+	Iterator<Bid> bids();
 }

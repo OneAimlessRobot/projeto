@@ -7,9 +7,6 @@ package artAuctions.specificADTs.interfaces;
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
-import dataStructures.Iterator;
-import dataStructures.IteratorEntries;
-
 
 /**
  * Describes a Generic Work. This interface is used for the 'getters' of the interface Work, essentially.
@@ -25,20 +22,13 @@ public interface WorkGeneric extends Comparable<WorkGeneric>{
 
 	String getId();
 
-	int getNumOfBids();
-	
 	ArtistGeneric getAuthor();
 
 	String getName();
 	
 	UserGeneric getBuyer();
 	
-
-//	IteratorEntries<Bid,Bid> bids();
-	Iterator<Bid> bids();
 	
-	int getNumOfBidsFromAuction(String auctionid);
-
 
 	int getMinBidAmmount();
 

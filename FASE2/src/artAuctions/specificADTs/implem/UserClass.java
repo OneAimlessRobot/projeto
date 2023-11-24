@@ -10,9 +10,8 @@ import java.io.Serializable;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
-import dataStructures.BidAuctionIsOpen;
 import dataStructures.DoubleList;
-import dataStructures.FilteredIteratorWithPredicate;
+import dataStructures.Iterator;
 import dataStructures.List;
 
 /**
@@ -118,12 +117,13 @@ public class UserClass implements User, Serializable {
 		collectorBids.addLast(addedBid);
 		
 	}
-
-	@Override
-	public FilteredIteratorWithPredicate<Bid> bidsInOpenAuctions() {
-		BidAuctionIsOpen bidpred= new BidAuctionIsOpen();
-		return collectorBids.filteredIteratorWithPredicate(bidpred);
+	
+	@Override 
+	public Iterator<Bid> bids(){
+		
+		return collectorBids.iterator();
 	}
+
 
 
 }

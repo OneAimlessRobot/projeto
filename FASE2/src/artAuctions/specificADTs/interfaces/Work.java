@@ -12,7 +12,6 @@ package artAuctions.specificADTs.interfaces;
 */
 public interface Work extends WorkGeneric{
 
-	void addBid(Bid addedBid);
 
 	void setMaxBid(Bid bid);
 

@@ -32,6 +32,7 @@ import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkGeneric;
+import artAuctions.specificADTs.interfaces.WorkInAuction;
 
 import java.io.*;
 /**
@@ -359,19 +360,20 @@ public class Main {
 		
 			AuctionGeneric defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
-			Iterator<WorkGeneric> workIt= defunct.listWorksInsertionOrder();
+			Iterator<WorkInAuction> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
-				Work currWork= (Work)workIt.next();
-				if(currWork.getNumOfBidsFromAuction(auctionid)==0) {
+				WorkInAuction currWork= workIt.next();
+				Work actualWork= (Work) currWork.getWork();
+				if(currWork.getNumOfBids()==0) {
 					
-					System.out.println(currWork.getId()+" "+ currWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
+					System.out.println(actualWork.getId()+" "+ actualWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
 					
 				}
 				else {
-					mgr.sellAuctionWork(currWork, auctionid);
-					System.out.print(currWork.getId());
+					mgr.sellAuctionWork(actualWork, auctionid);
+					System.out.print(actualWork.getId());
 					System.out.print(" ");
-					System.out.print(currWork.getName());
+					System.out.print(actualWork.getName());
 					System.out.print(" ");
 					System.out.print(currWork.getMaxBid().getCollector().getLogin());
 					System.out.print(" ");
@@ -379,7 +381,7 @@ public class Main {
 					System.out.print(" ");
 					System.out.print(currWork.getMaxBid().getBidAmmount());
 					System.out.print("\n");
-					//System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getMaxBid().getBidAmmount());
+					//System.out.println(actualWork.getId()+" "+actualWork.getName()+" "+actualWork.getMaxBid().getBidAmmount());
 					
 				}
 				
@@ -419,15 +421,16 @@ public class Main {
 			while(it.hasNext()) {
 				Entry<WorkGeneric,WorkGeneric> curr= it.next();
 				WorkGeneric currWork= curr.getValue();
-				System.out.println("\n"+currWork.getId()+" "+currWork.getName()+" "+currWork.getYear()+ " "+currWork.getMaxBid().getBidAmmount()+"\n");
+				System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getYear()+ " "+currWork.getMaxBid().getBidAmmount());
 				
 			}
+			System.out.println();
 		} catch (NoSuchUserException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
+			System.out.println(CommandResponse.NOSUCHUSER.getResponse()+"\n");
 		} catch (NoSuchArtistException e) {
-			System.out.println("\n"+CommandResponse.NOSUCHARTIST.getResponse()+"\n");
+			System.out.println(CommandResponse.NOSUCHARTIST.getResponse()+"\n");
 		} catch (ArtistHasNoWorksException e) {
-			System.out.println("\n"+CommandResponse.NOWORKSFROMARTIST.getResponse()+"\n");
+			System.out.println(CommandResponse.NOWORKSFROMARTIST.getResponse()+"\n");
 		}
 			
 			
@@ -436,13 +439,13 @@ public class Main {
 		String auctionid= input.next();
 		input.nextLine();
 		try {
-			Iterator<WorkGeneric> workIt= mgr.getAuctionWorks(auctionid);
+			Iterator<WorkInAuction> workIt= mgr.getAuctionWorks(auctionid);
 
 			System.out.println();
 				while(workIt.hasNext()) {
 
-				WorkGeneric curr= workIt.next();
-				System.out.println(curr);
+				WorkInAuction curr= workIt.next();
+				System.out.println(curr.getWork());
 				
 			}
 		System.out.println();
@@ -463,9 +466,7 @@ public class Main {
 			System.out.printf("\n");
 			while(workBids.hasNext()) {
 				Bid curr= workBids.next();
-				if(curr.getAuction().getId().equals(auctionid)) {
 				System.out.println(curr);
-				}
 				
 			}
 			System.out.printf("\n");
