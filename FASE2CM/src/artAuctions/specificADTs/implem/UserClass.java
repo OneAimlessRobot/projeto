@@ -11,9 +11,9 @@ import java.io.Serializable;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.User;
-import dataStructure.DoubleList;
-import dataStructure.Iterator;
-import dataStructure.List;
+import dataStructures.implem.DoubleList;
+import dataStructures.interfaces.Iterator;
+import dataStructures.interfaces.List;
 
 /**
 * Implements interface User. Describes a User (Utilizador\coleccionador).

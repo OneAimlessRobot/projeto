@@ -12,13 +12,33 @@ import java.io.Serializable;
  * Esta interface contém apenas os 'getters' .
  */
 public interface Bid extends Serializable{
-	
+	/**
+	 * Returns the bidder
+	 * 
+	 * @return UserGeneric who made the Bid
+	 */
 	UserReadonly getCollector();
 	
+	/**
+	 * Returns the Work that was bid on.
+	 * 
+	 * @return
+	 */
 	WorkReadonly getWork();
 
+	
+	/**
+	 * Returns the Amount of money the bidder decided to part with in order to acquire the work of art.
+	 * 
+	 * @return
+	 */
 	int getBidAmmount();
 	
+	/**
+	 * Returns the Auction where the Bid was made.
+	 * 
+	 * @return
+	 */
 	AuctionReadonly getAuction();
 
 }

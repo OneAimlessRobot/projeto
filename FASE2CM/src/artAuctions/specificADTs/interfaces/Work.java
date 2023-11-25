@@ -13,11 +13,12 @@ package artAuctions.specificADTs.interfaces;
 */
 public interface Work extends WorkReadonly{
 
-
+/**
+ * Sets the max EVER bid made on this work. Is the bid REALLY the max one? that is determined by the sell method in the auction Manager type
+ * @param bid
+ */
 	void setMaxBid(Bid bid);
 
 
-
-	public void setMinAmmount(int value);
 
 }

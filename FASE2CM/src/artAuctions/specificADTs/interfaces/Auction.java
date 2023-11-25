@@ -11,10 +11,19 @@ package artAuctions.specificADTs.interfaces;
 */
 
 public interface Auction extends AuctionReadonly{
+/**
+ * Adds work to auction
+ * @param addedWork
+ * @param minAmmount
+ */
 
+	void addWork(Work addedWork, int minAmmount);
 
-	void addWork(Work addedWork);
 	
+	/**
+	 * 
+	 * closes the auction
+	 */
 	void close();
 
 	

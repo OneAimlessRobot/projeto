@@ -6,7 +6,7 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
-import dataStructure.Iterator;
+import dataStructures.interfaces.Iterator;
 
 
 
@@ -16,38 +16,53 @@ import dataStructure.Iterator;
  */
 
 public interface UserReadonly extends Serializable {
-
-/**
- * Name of this user
- * @return
- */
-	String getName();
 	/**
+	 * Returns the name of a specific User
+	 * @return
+	 */
+	String getName();
+	
+	/**
+	 * Returns the login of a specific User
 	 * 
 	 * @return
 	 */
 	String getLogin();
+	
 	/**
+	 * Returns the email of a specific User
 	 * 
 	 * @return
 	 */
 	String getEmail();
+	
 	/**
+	 * Returns the age of a specific User
 	 * 
 	 * @return
 	 */
 	int getAge();
+	
 	/**
-	 * 
+	 * Returns the number of Bids of a specific User
 	 * @return
 	 */
 	int numOfBids();
+	
 	/**
+	 * For a specific User, returns a string consisting of: Login Name Age Email
 	 * 
 	 * @return
 	 */
-	
-	boolean userHasBidsInOpenAuction();
 	String printUser();
+	/**
+	 * Checks if the user can still be profitable.
+	 * @return
+	 */
+	boolean userHasBidsInOpenAuction();
+	/**
+	 * Returns the bids made by this user
+	 * @return
+	 */
 	Iterator<Bid> bids();
 }

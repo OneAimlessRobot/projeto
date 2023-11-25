@@ -7,7 +7,9 @@ package artAuctions.specificADTs.implem;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
-import dataStructure.*;
+import dataStructures.implem.DoubleList;
+import dataStructures.interfaces.Iterator;
+import dataStructures.interfaces.List;
 
 
 /**
@@ -24,7 +26,7 @@ public class AuctionClass implements Serializable, Auction {
 	/**
 	 * Collection of connections between works and the bids made in them in this auction
 	 */
-	private List<WorkInAuction> works;
+	private List<WorkInAuctionReadonly> works;
 	/**
 	 * Is the bid closed? (To exclude them from operations in the main system class)
 	 */
@@ -38,10 +40,10 @@ public class AuctionClass implements Serializable, Auction {
 	}
 
 	@Override
-	public WorkInAuction getWorkInAuction(WorkReadonly work) {
+	public WorkInAuctionReadonly getWorkInAuction(WorkReadonly work) {
 		
-		Iterator<WorkInAuction> auctionWorkIt= listWorks();
-		WorkInAuction curr= null;
+		Iterator<WorkInAuctionReadonly> auctionWorkIt= listWorks();
+		WorkInAuctionReadonly curr= null;
 		while(auctionWorkIt.hasNext()) {
 			curr=auctionWorkIt.next();
 			
@@ -54,7 +56,7 @@ public class AuctionClass implements Serializable, Auction {
 	}
 
 	@Override
-	public Iterator<WorkInAuction> listWorks() {
+	public Iterator<WorkInAuctionReadonly> listWorks() {
 		
 		return works.iterator();
 	}
@@ -85,8 +87,8 @@ public class AuctionClass implements Serializable, Auction {
 		
 	}
 	@Override
-	public void addWork(Work addedWork) {
-		works.addLast(new WorkInAuctionClass(addedWork));
+	public void addWork(Work addedWork,int minAmmount) {
+		works.addLast(new WorkInAuctionClass(addedWork,minAmmount));
 	}
 
 	public String toString() {

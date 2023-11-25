@@ -6,7 +6,7 @@
 package artAuctions.specificADTs.implem.comparators;
 
 import artAuctions.specificADTs.interfaces.WorkReadonly;
-import dataStructure.Comparator;
+import dataStructures.interfaces.Comparator;
 
 public class CompareWorkByValueAndName implements Comparator<WorkReadonly> {
 

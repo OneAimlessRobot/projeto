@@ -11,10 +11,10 @@ import artAuctions.specificADTs.implem.comparators.CompareWorkByName;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkReadonly;
-import dataStructure.AVLBSTComparable;
-import dataStructure.Entry;
-import dataStructure.Iterator;
-import dataStructure.OrderedDictionary;
+import dataStructures.implem.AVLBSTComparable;
+import dataStructures.interfaces.Entry;
+import dataStructures.interfaces.Iterator;
+import dataStructures.interfaces.OrderedDictionary;
 
 /**
 * Implements interface Artist. An Artist is a specific type of User. It can author Works.

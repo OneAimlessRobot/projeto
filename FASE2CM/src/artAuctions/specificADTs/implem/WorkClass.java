@@ -15,7 +15,7 @@ import artAuctions.specificADTs.interfaces.*;
 public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
-	private int year,minBidAmmount;
+	private int year;
 	private ArtistReadonly author;
 	private UserReadonly buyer;
 	private String name,id;
@@ -29,9 +29,7 @@ public class WorkClass implements Serializable, Work {
 		this.author=author;
 		this.year=year;
 		this.name=name;
-//		workBids=new SepChainHashTable<>();
 		buyer=null;
-		minBidAmmount=0;
 		currMaxBid= new BidClass(null,null,0,null);
 		
 		
@@ -39,9 +37,6 @@ public class WorkClass implements Serializable, Work {
 	@Override
 	public int getYear() {
 		return year;
-	}
-	public void setMinAmmount(int value) {
-		minBidAmmount=value;
 	}
 	@Override
 	public String getId() {
@@ -84,37 +79,6 @@ public class WorkClass implements Serializable, Work {
 		return result;
 		
 		
-	}
-//	@Override
-//	public IteratorEntries<Bid,Bid> bids() {
-//		return workBids.iterator();
-//	}
-		
-//	@Override
-//	public void addBid(Bid addedBid) {
-//		workBids.insert(addedBid,addedBid);
-//		
-//		
-//	}
-	
-		
-	
-//		@Override
-//		public int getNumOfBidsFromAuction(String auctionId) {
-//			IteratorEntries<Bid,Bid> fit=workBids.iterator();
-//			int count=0;
-//			while(fit.hasNext()) {
-//				Entry<Bid,Bid> curr=fit.next();
-//				if(curr.getValue().getAuction().getId().equals(auctionId)) {
-//				count++;
-//				}
-//			}
-//			return count;
-//		}
-
-	@Override
-	public int getMinBidAmmount() {
-		return minBidAmmount;
 	}
 	@Override
 	public UserReadonly getBuyer() {

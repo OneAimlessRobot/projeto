@@ -5,7 +5,7 @@
 
 package artAuctions.specificADTs.implem.comparators;
 import artAuctions.specificADTs.interfaces.WorkReadonly;
-import dataStructure.Comparator;
+import dataStructures.interfaces.Comparator;
 public class CompareWorkByName implements Comparator<WorkReadonly> {
 
 	private static final long serialVersionUID = 1L;

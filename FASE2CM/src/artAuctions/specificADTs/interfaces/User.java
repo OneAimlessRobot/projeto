@@ -14,7 +14,7 @@ public interface User extends UserReadonly {
 	
 
 	/**
-	 * 
+	 * Stores a bid a user made.
 	 * @param addedBid
 	 */
 	void addBid(Bid addedBid);

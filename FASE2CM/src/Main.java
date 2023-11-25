@@ -29,8 +29,10 @@ import artAuctions.specificADTs.interfaces.AuctionReadonly;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.specificADTs.interfaces.WorkReadonly;
-import dataStructure.*;
-import artAuctions.specificADTs.interfaces.WorkInAuction;
+import dataStructures.implem.ObjectSaverLoader;
+import dataStructures.interfaces.Entry;
+import dataStructures.interfaces.Iterator;
+import artAuctions.specificADTs.interfaces.WorkInAuctionReadonly;
 
 import java.io.*;
 /**
@@ -358,9 +360,9 @@ public class Main {
 		
 			AuctionReadonly defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
-			Iterator<WorkInAuction> workIt= defunct.listWorks();
+			Iterator<WorkInAuctionReadonly> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
-				WorkInAuction currWork= workIt.next();
+				WorkInAuctionReadonly currWork= workIt.next();
 				WorkReadonly actualWork= currWork.getWork();
 				if(currWork.getNumOfBids()==0) {
 					
@@ -436,12 +438,12 @@ public class Main {
 		String auctionid= input.next();
 		input.nextLine();
 		try {
-			Iterator<WorkInAuction> workIt= mgr.getAuctionWorks(auctionid);
+			Iterator<WorkInAuctionReadonly> workIt= mgr.getAuctionWorks(auctionid);
 
 			System.out.println();
 				while(workIt.hasNext()) {
 
-				WorkInAuction curr= workIt.next();
+				WorkInAuctionReadonly curr= workIt.next();
 				System.out.println(curr.getWork());
 				
 			}

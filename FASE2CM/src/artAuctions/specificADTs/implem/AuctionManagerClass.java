@@ -33,13 +33,14 @@ import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.specificADTs.interfaces.User;
 import artAuctions.specificADTs.interfaces.Work;
 import artAuctions.specificADTs.interfaces.WorkReadonly;
-import dataStructure.AVLBSTComparable;
-import dataStructure.Dictionary;
-import dataStructure.Entry;
-import dataStructure.Iterator;
-import dataStructure.OrderedDictionary;
-import dataStructure.SepChainHashTable;
+import dataStructures.implem.AVLBSTComparable;
+import dataStructures.implem.SepChainHashTable;
+import dataStructures.interfaces.Dictionary;
+import dataStructures.interfaces.Entry;
+import dataStructures.interfaces.Iterator;
+import dataStructures.interfaces.OrderedDictionary;
 import artAuctions.specificADTs.interfaces.WorkInAuction;
+import artAuctions.specificADTs.interfaces.WorkInAuctionReadonly;
 
 
 /**
@@ -49,11 +50,26 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * This is all the works that have been added (they are just "Thrown in there")
+	 */
 	private Dictionary<String,Work> works;
-	private OrderedDictionary<WorkReadonly,WorkReadonly> soldworks;
+	/**
+	 * Users. Also just "thrown in there". Same for artists and auctions. Its the same for all auctions and the rest of the main actors.
+	 * They are all indexed and compared by a String which is their ID
+	 */
+	
 	private Dictionary<String,User> users;
 	private Dictionary<String,Artist> artists;
 	private Dictionary<String,Auction> auctions;
+	/**
+	 * Collection of all the works that have been sold. They are constantly kept sorted by price and then name
+	 */
+	private OrderedDictionary<WorkReadonly,WorkReadonly> soldworks;
+	/**
+	 * Auctions are 18+. We don't trust them youngsters to be responsible with their money,
+	 * so we make their parents' lifes' easier
+	 */
 	private static final int MIN_AGE= 18;
 
 	public AuctionManagerClass() {
@@ -186,12 +202,12 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 			
 		}
 		WorkInAuction workInAuction=null;
-		if((workInAuction=auction.getWorkInAuction(work))==null) {
+		if((workInAuction=(WorkInAuction) auction.getWorkInAuction(work))==null) {
 			
 			throw new NoSuchWorkInAuctionException();
 			
 		}
-		if(value<work.getMinBidAmmount()) {
+		if(value<workInAuction.getMinBidAmmount()) {
 			
 			throw new WeakBidException();
 			
@@ -209,7 +225,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 
 				throw new NoSuchUserException();
 			}
-		return ((UserClass)collector).printUser();
+		return collector.printUser();
 		
 	}
 	@Override
@@ -217,7 +233,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		Work workInSystem= works.find(currWork.getId());
 		WorkInAuction analyzed=null;
 		
-		Iterator<Bid> currBidIt= (analyzed=auctions.find(auctionId).getWorkInAuction(currWork)).bids();
+		Iterator<Bid> currBidIt= (analyzed=(WorkInAuction) auctions.find(auctionId).getWorkInAuction(currWork)).bids();
 		while(currBidIt.hasNext()) {
 			Bid currBid=currBidIt.next();
 
@@ -279,8 +295,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 			throw new WorkExistsInAuctionException();
 			
 		}
-		work.setMinAmmount(minValue);
-		auction.addWork(work);
+		auction.addWork(work,minValue);
 		
 	}
 	@Override
@@ -288,7 +303,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 
 		Work work=works.find(workid);
 				Auction auction=auctions.find(auctionid);
-		WorkInAuction workinauction=null;
+		WorkInAuctionReadonly workinauction=null;
 
 		if(auction==null) {
 			
@@ -333,7 +348,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		Iterator<Entry<String,Auction>> auctionIt= auctions.iterator();
 		while(auctionIt.hasNext()) {
 			Auction currAuction= auctionIt.next().getValue();
-			Iterator<WorkInAuction> currAuctionWorksIt= currAuction.listWorks();
+			Iterator<WorkInAuctionReadonly> currAuctionWorksIt= currAuction.listWorks();
 			while(currAuctionWorksIt.hasNext()) {
 				WorkReadonly currWorkInCurrAuction= currAuctionWorksIt.next().getWork();
 				if(currWorkInCurrAuction.getAuthor().equals(artist)) {
@@ -349,7 +364,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		return result;
 	}
 	@Override
-	public Iterator<WorkInAuction> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException {
+	public Iterator<WorkInAuctionReadonly> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException {
 		Auction auction=auctions.find(auctionid);
 		
 		if(auction==null) {

@@ -8,9 +8,9 @@ package artAuctions.specificADTs.implem;
 import java.io.Serializable;
 
 import artAuctions.specificADTs.interfaces.*;
-import dataStructure.DoubleList;
-import dataStructure.Iterator;
-import dataStructure.List;
+import dataStructures.implem.DoubleList;
+import dataStructures.interfaces.Iterator;
+import dataStructures.interfaces.List;
 
 /**
 * Implements interface Work. Describes a Work (Obra de Arte).
@@ -23,13 +23,16 @@ public class WorkInAuctionClass implements Serializable, WorkInAuction {
 	private AuctionReadonly auction;
 	
 	
-	public List<Bid> workBids;
-	public Bid currMaxBid;
+	private List<Bid> workBids;
+	private Bid currMaxBid;
+	private int minAmmount;
 	
-	public WorkInAuctionClass(WorkReadonly work) {
+	
+	public WorkInAuctionClass(WorkReadonly work,int minAmmount) {
 		
 		workBids= new DoubleList<>();
 		this.work=work;
+		this.minAmmount=minAmmount;
 		currMaxBid= new BidClass(null,null,0,null);
 	}
 		@Override
@@ -60,5 +63,9 @@ public class WorkInAuctionClass implements Serializable, WorkInAuction {
 	@Override
 	public void setMaxBid(Bid bid) {
 		currMaxBid=bid;
+	}
+	@Override
+	public int getMinBidAmmount() {
+		return minAmmount;
 	}
 }

@@ -7,23 +7,48 @@ package artAuctions.specificADTs.interfaces;
 
 import java.io.Serializable;
 
-import dataStructure.Iterator;
+import dataStructures.interfaces.Iterator;
 
 /**
  * Describes a generic Auction.
  * Esta interface contém apenas os 'getters' .
  */
 public interface AuctionReadonly extends Serializable{
-	
+
+	/**
+	 * Returns the number of Works present for auction in a specific Auction.
+	 * Uses the method size().
+	 * @return
+	 */
 	int getNumOfWorks();
 	
+	/**
+	 * Returns the ID of an Auction
+	 * Used in the method equals().
+	 * @return
+	 */
 	String getId();
 
+	/**
+	 * Returns True if the auction is closed.
+	 * 
+	 * @return
+	 */
 	boolean isClosed();
 	
-	Iterator<WorkInAuction> listWorks();
+	/**
+	 * Returns an iterator of the collection of Works of a specific Auction
+	 * @return
+	 */
+	
 
-	WorkInAuction getWorkInAuction(WorkReadonly work);
+	Iterator<WorkInAuctionReadonly> listWorks();
+	/**
+	 * If present returns a work in this auctions work collection that is equal to the parameter
+	 * @return
+	 */
+	
+	WorkInAuctionReadonly getWorkInAuction(WorkReadonly work);
 
 
 	

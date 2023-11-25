@@ -7,8 +7,8 @@
 
 package artAuctions.specificADTs.interfaces;
 
-import dataStructure.Entry;
-import dataStructure.Iterator;
+import dataStructures.interfaces.Entry;
+import dataStructures.interfaces.Iterator;
 
 /**
 * Generic Artist. Has the 'getters'.
@@ -35,6 +35,10 @@ public interface ArtistReadonly extends UserReadonly {
 	 */
 	int getNumOfWorks();
 	
+	/**
+	 * Lists the works of this artist
+	 * @return
+	 */
 	Iterator<Entry<WorkReadonly,WorkReadonly>> works();
 	
 }
