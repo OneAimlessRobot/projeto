@@ -1,3 +1,8 @@
+/**
+* @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
+* @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
+*/
+
 package dataStructure; 
 
 import java.io.Serializable;
@@ -60,7 +65,7 @@ public interface Dictionary<K,V> extends Serializable
      * Returns an iterator of the entries in the dictionary.
      * @return  iterator of the entries in the dictionary
      */
-    IteratorEntries<K,V> iterator( );  
+    Iterator<Entry<K,V>> iterator( );  
 
 } 
 

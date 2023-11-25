@@ -1,17 +1,19 @@
-package artAuctions.specificADTs.implem;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
+
+package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
 import artAuctions.specificADTs.implem.comparators.CompareWorkByName;
 import artAuctions.specificADTs.interfaces.Artist;
 import artAuctions.specificADTs.interfaces.Work;
-import artAuctions.specificADTs.interfaces.WorkGeneric;
+import artAuctions.specificADTs.interfaces.WorkReadonly;
 import dataStructure.AVLBSTComparable;
-import dataStructure.IteratorEntries;
+import dataStructure.Entry;
+import dataStructure.Iterator;
 import dataStructure.OrderedDictionary;
 
 /**
@@ -22,7 +24,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 	private static final long serialVersionUID = 1L;
 
 	private String artsyName;			//Nome artístico
-	private OrderedDictionary<WorkGeneric,WorkGeneric> works;	//Lista de obras de arte autoradas pelo Artist
+	private OrderedDictionary<WorkReadonly,WorkReadonly> works;	//Lista de obras de arte autoradas pelo Artist
 	
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
@@ -55,7 +57,7 @@ public class ArtistClass extends UserClass implements Serializable, Artist {
 		
 	}
 	@Override
-	public IteratorEntries<WorkGeneric,WorkGeneric> works() {
+	public Iterator<Entry<WorkReadonly,WorkReadonly>> works() {
 		return works.iterator();
 	}
 	@Override

@@ -1,10 +1,9 @@
-import java.util.Scanner;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
 
-
+import java.util.Scanner;
 import artAuctions.enums.CommandResponse;
 import artAuctions.enums.FilePath;
 import artAuctions.enums.MenuOption;
@@ -26,13 +25,12 @@ import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.implem.AuctionManagerClass;
-import artAuctions.specificADTs.interfaces.AuctionGeneric;
+import artAuctions.specificADTs.interfaces.AuctionReadonly;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
-import artAuctions.specificADTs.interfaces.Work;
-import artAuctions.specificADTs.interfaces.WorkGeneric;
-import artAuctions.specificADTs.interfaces.WorkInAuction;
+import artAuctions.specificADTs.interfaces.WorkReadonly;
 import dataStructure.*;
+import artAuctions.specificADTs.interfaces.WorkInAuction;
 
 import java.io.*;
 /**
@@ -358,12 +356,12 @@ public class Main {
 		input.nextLine();
 		try {
 		
-			AuctionGeneric defunct=mgr.closeAuction(auctionid);
+			AuctionReadonly defunct=mgr.closeAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
 			Iterator<WorkInAuction> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
 				WorkInAuction currWork= workIt.next();
-				Work actualWork= (Work) currWork.getWork();
+				WorkReadonly actualWork= currWork.getWork();
 				if(currWork.getNumOfBids()==0) {
 					
 					System.out.println(actualWork.getId()+" "+ actualWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
@@ -381,7 +379,6 @@ public class Main {
 					System.out.print(" ");
 					System.out.print(currWork.getMaxBid().getBidAmmount());
 					System.out.print("\n");
-					//System.out.println(actualWork.getId()+" "+actualWork.getName()+" "+actualWork.getMaxBid().getBidAmmount());
 					
 				}
 				
@@ -417,10 +414,10 @@ public class Main {
 		String artistid= input.next();
 		input.nextLine();
 		try {
-			IteratorEntries<WorkGeneric,WorkGeneric> it= mgr.getArtistWorks(artistid);
+			Iterator<Entry<WorkReadonly,WorkReadonly>> it= mgr.getArtistWorks(artistid);
 			while(it.hasNext()) {
-				Entry<WorkGeneric,WorkGeneric> curr= it.next();
-				WorkGeneric currWork= curr.getValue();
+				Entry<WorkReadonly,WorkReadonly> curr= it.next();
+				WorkReadonly currWork= curr.getValue();
 				System.out.println(currWork.getId()+" "+currWork.getName()+" "+currWork.getYear()+ " "+currWork.getMaxBid().getBidAmmount());
 				
 			}
@@ -461,7 +458,6 @@ public class Main {
 		String auctionid=input.next(),workid=input.next();
 		input.nextLine();
 		try {
-//			IteratorEntries<Bid,Bid> workBids=mgr.getBidsFromWork(auctionid, workid);
 			Iterator<Bid> workBids=mgr.getBidsFromWork(auctionid, workid);
 			System.out.printf("\n");
 			while(workBids.hasNext()) {
@@ -496,10 +492,10 @@ public class Main {
 		private static void listWorksByValue(Scanner input,AuctionManager mgr) {
 			
 			try {
-				IteratorEntries<WorkGeneric, WorkGeneric> it= mgr.listWorksByValue();
+				Iterator<Entry<WorkReadonly, WorkReadonly>> it= mgr.listWorksByValue();
 				while(it.hasNext()) {
-					Entry<WorkGeneric,WorkGeneric> curr= it.next();
-					WorkGeneric currWork=curr.getValue();
+					Entry<WorkReadonly,WorkReadonly> curr= it.next();
+					WorkReadonly currWork=curr.getValue();
 					
 					System.out.println(currWork.getId()+ " "+currWork.getName()+ " "+currWork.getYear()+" "+currWork.getMaxBid().getBidAmmount()+" "+currWork.getAuthor().getLogin()+" "+currWork.getAuthor().getName());
 					
@@ -539,22 +535,5 @@ public class Main {
 		
 		
 	}
-
-	private static void deleteFiles() {
-		
-		for(FilePath filepath: FilePath.values()) {
-			
-			File file= new File(filepath.getValue());
-
-	        if (!file.delete()) {
-	            System.out.println("Problemas ao apagar este ficheiro (talvez já não exista?):\n"+filepath.getValue()+"\n");
-		        
-	        }
-		}
-		
-		
-		
-	}
-	
 
 }

@@ -1,3 +1,4 @@
+
 package artAuctions.enums;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt

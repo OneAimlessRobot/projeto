@@ -1,4 +1,3 @@
-package artAuctions.specificADTs.interfaces;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
@@ -6,10 +5,12 @@ package artAuctions.specificADTs.interfaces;
 
 
 
+package artAuctions.specificADTs.interfaces;
+
 /**
 * Specific type of User. Creates Works of art.
 */
-public interface Artist extends ArtistGeneric {
+public interface Artist extends ArtistReadonly {
 
 	
 	/**

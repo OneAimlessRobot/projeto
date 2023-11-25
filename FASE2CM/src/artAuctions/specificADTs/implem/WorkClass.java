@@ -1,8 +1,9 @@
-package artAuctions.specificADTs.implem;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
+
+package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
 
@@ -15,14 +16,14 @@ public class WorkClass implements Serializable, Work {
 
 	private static final long serialVersionUID = 1L;
 	private int year,minBidAmmount;
-	private ArtistGeneric author;
-	private UserGeneric buyer;
+	private ArtistReadonly author;
+	private UserReadonly buyer;
 	private String name,id;
 	
 	
 	public Bid currMaxBid;
 	
-	public WorkClass(String id,ArtistGeneric author,int year,String name) {
+	public WorkClass(String id,ArtistReadonly author,int year,String name) {
 		
 		this.id=id;
 		this.author=author;
@@ -47,7 +48,7 @@ public class WorkClass implements Serializable, Work {
 		return id;
 	}
 	@Override
-	public ArtistGeneric getAuthor() {
+	public ArtistReadonly getAuthor() {
 		return author;
 	}
 	@Override
@@ -116,7 +117,7 @@ public class WorkClass implements Serializable, Work {
 		return minBidAmmount;
 	}
 	@Override
-	public UserGeneric getBuyer() {
+	public UserReadonly getBuyer() {
 		return buyer;
 	}
 	@Override
@@ -128,7 +129,7 @@ public class WorkClass implements Serializable, Work {
 		currMaxBid=bid;
 	}
 	@Override
-	public int compareTo(WorkGeneric arg0) {
+	public int compareTo(WorkReadonly arg0) {
 		return getId().compareTo(arg0.getId());
 	}
 }

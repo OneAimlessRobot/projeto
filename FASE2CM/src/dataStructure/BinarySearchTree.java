@@ -1,3 +1,8 @@
+/**
+* @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
+* @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
+*/
+
 package dataStructure;
 
 import java.io.Serializable;
@@ -160,7 +165,7 @@ private static class BSTNodeIterator<K,V> implements Serializable{
 		}
 		
 	}
-protected static class BSTIterator<K,V> implements TwoWayIteratorEntries<K,V>{
+protected static class BSTIterator<K,V> implements TwoWayIterator<Entry<K,V>>{
 		
 		private static final long serialVersionUID = 1L;
 		protected Stack<BSTNode<K,V>> path;
@@ -313,7 +318,7 @@ protected static class BSTIterator<K,V> implements TwoWayIteratorEntries<K,V>{
 		}
 		
 	}
-protected static class BSTDepthIterator<K,V> implements IteratorEntries<K,V>{
+protected static class BSTDepthIterator<K,V> implements Iterator<Entry<K,V>>{
 	
 	private static final long serialVersionUID = 1L;
 	protected Stack<BSTNode<K,V>> path;
@@ -363,7 +368,7 @@ protected static class BSTDepthIterator<K,V> implements IteratorEntries<K,V>{
 
 	
 }
-protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
+protected static class BSTBreadthIterator<K,V> implements Iterator<Entry<K,V>>{
 	
 	private static final long serialVersionUID = 1L;
 	protected Queue<BSTNode<K,V>> path;
@@ -664,7 +669,7 @@ protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
     		return "[ ]";
     	}
     	String result="[";
-    	TwoWayIteratorEntries<K,V> it= iterator();
+    	TwoWayIterator<Entry<K,V>> it= iterator();
     	while(it.hasNext()) {
     		
     		result+=" "+it.next()+" ";
@@ -681,7 +686,7 @@ protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
     		return "[ ]";
     	}
     	String result="[";
-    	IteratorEntries<K,V> it= depthIterator();
+    	Iterator<Entry<K,V>> it= depthIterator();
     	while(it.hasNext()) {
     		
     		result+=" "+it.next()+" ";
@@ -698,7 +703,7 @@ protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
     		return "[ ]";
     	}
     	String result="[";
-    	IteratorEntries<K,V> it= breadthIterator();
+    	Iterator<Entry<K,V>> it= breadthIterator();
     	while(it.hasNext()) {
     		
     		result+=" "+it.next()+" ";
@@ -722,18 +727,18 @@ protected static class BSTBreadthIterator<K,V> implements IteratorEntries<K,V>{
      * which preserves the key order relation.
      * @return  key-order iterator of the entries in the dictionary
      */
-    public TwoWayIteratorEntries<K,V> iterator( ) 
+    public TwoWayIterator<Entry<K,V>> iterator( ) 
     {
-    	return (TwoWayIteratorEntries<K,V>) new BSTIterator<>(root);
+    	return (TwoWayIterator<Entry<K,V>>) new BSTIterator<>(root);
     }
 
-    public IteratorEntries<K,V> breadthIterator( ) 
+    public Iterator<Entry<K,V>> breadthIterator( ) 
     {
-    	return (IteratorEntries<K,V>) new BSTBreadthIterator<>(root);
+    	return (Iterator<Entry<K,V>>) new BSTBreadthIterator<>(root);
     }
-    public IteratorEntries<K,V> depthIterator( ) 
+    public Iterator<Entry<K,V>> depthIterator( ) 
     {
-    	return (IteratorEntries<K,V>) new BSTDepthIterator<>(root);
+    	return (Iterator<Entry<K,V>>) new BSTDepthIterator<>(root);
     }
 
 }

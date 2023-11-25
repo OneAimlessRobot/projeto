@@ -1,3 +1,8 @@
+/**
+* @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
+* @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
+*/
+
 package artAuctions.specificADTs.implem;
 
 import java.io.Serializable;
@@ -19,24 +24,22 @@ import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.implem.comparators.CompareWorkByValueAndName;
 import artAuctions.specificADTs.interfaces.Artist;
-import artAuctions.specificADTs.interfaces.AuctionGeneric;
+import artAuctions.specificADTs.interfaces.AuctionReadonly;
 import artAuctions.specificADTs.interfaces.Auction;
 import artAuctions.specificADTs.interfaces.AuctionManager;
 import artAuctions.specificADTs.interfaces.Bid;
 import artAuctions.exceptions.NoSuchWorkException;
 import artAuctions.exceptions.NoSuchWorkInAuctionException;
 import artAuctions.specificADTs.interfaces.User;
-import artAuctions.specificADTs.interfaces.UserGeneric;
 import artAuctions.specificADTs.interfaces.Work;
-import artAuctions.specificADTs.interfaces.WorkGeneric;
-import artAuctions.specificADTs.interfaces.WorkInAuction;
+import artAuctions.specificADTs.interfaces.WorkReadonly;
 import dataStructure.AVLBSTComparable;
 import dataStructure.Dictionary;
 import dataStructure.Entry;
 import dataStructure.Iterator;
-import dataStructure.IteratorEntries;
 import dataStructure.OrderedDictionary;
 import dataStructure.SepChainHashTable;
+import artAuctions.specificADTs.interfaces.WorkInAuction;
 
 
 /**
@@ -47,7 +50,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	private static final long serialVersionUID = 1L;
 
 	private Dictionary<String,Work> works;
-	private OrderedDictionary<WorkGeneric,WorkGeneric> soldworks;
+	private OrderedDictionary<WorkReadonly,WorkReadonly> soldworks;
 	private Dictionary<String,User> users;
 	private Dictionary<String,Artist> artists;
 	private Dictionary<String,Auction> auctions;
@@ -123,11 +126,11 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 
 		Artist newArtist= new ArtistClass(login,name,age,email);
 		User newUser=users.find(login);
-if(age<MIN_AGE) {
+		if(age<MIN_AGE) {
 			
 
 			throw new TooYoungException();
-}
+		}
 		
 		else if(newUser!=null) {
 
@@ -183,7 +186,7 @@ if(age<MIN_AGE) {
 			
 		}
 		WorkInAuction workInAuction=null;
-		if((workInAuction=getWorkInAuction(auction,work))==null) {
+		if((workInAuction=auction.getWorkInAuction(work))==null) {
 			
 			throw new NoSuchWorkInAuctionException();
 			
@@ -194,10 +197,8 @@ if(age<MIN_AGE) {
 			
 		}
 		Bid bid= new BidClass(collector, work, value,auction);
-//		Bid bid2= new BidClass(collector, work, value,auction);
 		collector.addBid(bid);
 		workInAuction.addBid(bid);
-//		auction.getWork(workInAuction.getId()).addBid(bid);;
 		
 		
 	}
@@ -211,30 +212,12 @@ if(age<MIN_AGE) {
 		return ((UserClass)collector).printUser();
 		
 	}
-//	@Override
-//	public void sellAuctionWork(Work currWork,String auctionId) {
-//		if(soldworks.find(currWork)!=null) {
-//			
-//			soldworks.remove(currWork);
-//		}
-//		
-//		IteratorEntries<Bid,Bid> currBidIt= currWork.bids();
-//		while(currBidIt.hasNext()) {
-//			Bid currBid=currBidIt.next().getValue();
-//			if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
-//				
-//				currWork.setMaxBid(currBid);
-//			}
-//			
-//		}
-//		soldworks.insert(currWork,currWork);
-//	}
 	@Override
-	public void sellAuctionWork(Work currWork,String auctionId) {
+	public void sellAuctionWork(WorkReadonly currWork,String auctionId) {
 		Work workInSystem= works.find(currWork.getId());
 		WorkInAuction analyzed=null;
 		
-		Iterator<Bid> currBidIt= (analyzed=getWorkInAuction(auctions.find(auctionId),currWork)).bids();
+		Iterator<Bid> currBidIt= (analyzed=auctions.find(auctionId).getWorkInAuction(currWork)).bids();
 		while(currBidIt.hasNext()) {
 			Bid currBid=currBidIt.next();
 
@@ -249,8 +232,6 @@ if(age<MIN_AGE) {
 					soldworks.remove(workInSystem);
 
 
-//					System.out.println("Work in sold!!!!!\n"+workInSystem.getId()+ " "+workInSystem.getName()+ " "+workInSystem.getYear()+" "+workInSystem.getMaxBid().getBidAmmount()+" "+workInSystem.getAuthor().getLogin()+" "+currWork.getAuthor().getName());
-					
 					
 				}
 				workInSystem.setMaxBid(currBid);
@@ -275,21 +256,6 @@ if(age<MIN_AGE) {
 	
 	
 	@Override
-	public String users() {
-		return users.toString();
-	}
-	public String toString() {
-		String result ="Informaçao sobre este manager:\n";
-		result+="\nWorks: "+works;
-		result+="\nUsers: "+users;
-		result+="\nArtists: "+artists;
-		result+="\nAuctions: "+auctions;
-		result+="\n";
-		return result;
-		
-		
-	}
-	@Override
 
 	public void addWorkToAuction(String auctionid, String workid,int minValue) throws NoSuchAuctionException, WorkExistsInAuctionException, NoSuchWorkException {
 		Work work=works.find(workid);
@@ -308,14 +274,12 @@ if(age<MIN_AGE) {
 			throw new NoSuchWorkException();
 			
 		}
-		if(getWorkInAuction(auction,work)!=null) {
+		if(auction.getWorkInAuction(work)!=null) {
 			
 			throw new WorkExistsInAuctionException();
 			
 		}
 		work.setMinAmmount(minValue);
-//		Work copyForAuction= new WorkClass(work.getId(),work.getAuthor(),work.getYear(),work.getName());
-//		copyForAuction.setMinAmmount(minValue);
 		auction.addWork(work);
 		
 	}
@@ -339,7 +303,7 @@ if(age<MIN_AGE) {
 			throw new NoSuchWorkInAuctionException();
 			
 		}
-		if((workinauction=getWorkInAuction(auction,work))==null) {
+		if((workinauction=auction.getWorkInAuction(work))==null) {
 			
 			throw new NoSuchWorkInAuctionException();
 			
@@ -351,26 +315,12 @@ if(age<MIN_AGE) {
 		return workinauction.bids();
 		
 	}
-	private static WorkInAuction getWorkInAuction(Auction auction,WorkGeneric work) {
-		
-		Iterator<WorkInAuction> auctionWorkIt= auction.listWorks();
-		WorkInAuction curr= null;
-		while(auctionWorkIt.hasNext()) {
-			curr=auctionWorkIt.next();
-			
-			if(work.equals(curr.getWork())) {
-				
-				return curr;
-			}
-		}
-		return null;
-	}
 	private void removeArtistWorks(Artist artist) {
 		
-		IteratorEntries<WorkGeneric,WorkGeneric> artistWorksIt=artist.works();
+		Iterator<Entry<WorkReadonly,WorkReadonly>> artistWorksIt=artist.works();
 
 		while(artistWorksIt.hasNext()) {
-			Entry<WorkGeneric,WorkGeneric> currArtistWork= artistWorksIt.next();
+			Entry<WorkReadonly,WorkReadonly> currArtistWork= artistWorksIt.next();
 			works.remove(currArtistWork.getValue().getId());
 			soldworks.remove(currArtistWork.getValue());
 			}
@@ -380,12 +330,12 @@ if(age<MIN_AGE) {
 	private boolean artistHasWorksInAuction(Artist artist) {
 		
 		boolean result=false;
-		IteratorEntries<String,Auction> auctionIt= auctions.iterator();
+		Iterator<Entry<String,Auction>> auctionIt= auctions.iterator();
 		while(auctionIt.hasNext()) {
 			Auction currAuction= auctionIt.next().getValue();
 			Iterator<WorkInAuction> currAuctionWorksIt= currAuction.listWorks();
 			while(currAuctionWorksIt.hasNext()) {
-				WorkGeneric currWorkInCurrAuction= currAuctionWorksIt.next().getWork();
+				WorkReadonly currWorkInCurrAuction= currAuctionWorksIt.next().getWork();
 				if(currWorkInCurrAuction.getAuthor().equals(artist)) {
 					if(!currAuction.isClosed()) {
 						return true;
@@ -395,18 +345,6 @@ if(age<MIN_AGE) {
 			}
 			
 			
-		}
-		return result;
-	}
-private boolean userHasBidsInOpenAuction(UserGeneric user) {
-		
-		boolean result=false;
-		Iterator<Bid> bidit= user.bids();
-		while(bidit.hasNext()) {
-		
-			if(!bidit.next().getAuction().isClosed()) {
-				result=true;
-			}
 		}
 		return result;
 	}
@@ -431,14 +369,14 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 	}
 
 	@Override
-	public IteratorEntries<WorkGeneric,WorkGeneric> listWorksByValue() throws NoSoldWorksException  {
+	public Iterator<Entry<WorkReadonly,WorkReadonly>> listWorksByValue() throws NoSoldWorksException  {
 		if(soldworks.isEmpty()) {
 			throw new NoSoldWorksException();
 		}
 		return soldworks.iterator();
 	}
 	@Override
-	public IteratorEntries<WorkGeneric,WorkGeneric> getArtistWorks(String artistLogin) throws NoSuchUserException, NoSuchArtistException, ArtistHasNoWorksException{
+	public Iterator<Entry<WorkReadonly,WorkReadonly>> getArtistWorks(String artistLogin) throws NoSuchUserException, NoSuchArtistException, ArtistHasNoWorksException{
 		Artist targetedArtist= artists.find(artistLogin);
 		User targetedUser= users.find(artistLogin);
 		if(targetedUser==null) {
@@ -467,7 +405,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		
 		if(artist==null) {
 		
-			if(userHasBidsInOpenAuction(user)) {
+			if(user.userHasBidsInOpenAuction()) {
 				
 				throw new UserHasBidsException();
 			}
@@ -475,7 +413,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		}
 		else {
 			
-			if(userHasBidsInOpenAuction(user)) {
+			if(user.userHasBidsInOpenAuction()) {
 				
 				throw new UserHasBidsException();
 			}
@@ -491,7 +429,7 @@ private boolean userHasBidsInOpenAuction(UserGeneric user) {
 		}
 	}
 	@Override
-	public AuctionGeneric closeAuction(String auctionid) throws NoSuchAuctionException {
+	public AuctionReadonly closeAuction(String auctionid) throws NoSuchAuctionException {
 		Auction removed=auctions.find(auctionid);
 		if(removed==null) {
 			

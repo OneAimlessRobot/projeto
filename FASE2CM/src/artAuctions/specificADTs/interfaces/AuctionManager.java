@@ -1,8 +1,9 @@
-package artAuctions.specificADTs.interfaces;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
+
+package artAuctions.specificADTs.interfaces;
 
 
 import java.io.Serializable;
@@ -24,8 +25,8 @@ import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
+import dataStructure.Entry;
 import dataStructure.Iterator;
-import dataStructure.IteratorEntries;
 
 
 /**
@@ -33,8 +34,6 @@ import dataStructure.IteratorEntries;
 */
 public interface AuctionManager extends Serializable{
 
-	
-	String users();
 	
 	void addArtist(String login, String name, String artsyName,int age, String email) throws UserExistsException, TooYoungException;
 
@@ -48,8 +47,6 @@ public interface AuctionManager extends Serializable{
 	
 	Iterator<WorkInAuction> getAuctionWorks(String auctionid) throws NoSuchAuctionException, AuctionEmptyException;
 
-//	IteratorEntries<Bid,Bid> getBidsFromWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
-	
 	Iterator<Bid> getBidsFromWork(String auctionid,String workid) throws NoSuchWorkException,  NoSuchAuctionException, NoSuchWorkInAuctionException, WorkHasNoBidsInAuctionException;
 
 	void addUser(String login, String name, int age, String email) throws UserExistsException, TooYoungException;
@@ -62,12 +59,12 @@ public interface AuctionManager extends Serializable{
 
 	void addBidToWork(String auctionid,String workid,String collectorlogin,int value) throws NoSuchUserException, NoSuchWorkInAuctionException, NoSuchWorkException, NoSuchAuctionException, WeakBidException;
 	
-	AuctionGeneric closeAuction(String auctionid) throws NoSuchAuctionException;
+	AuctionReadonly closeAuction(String auctionid) throws NoSuchAuctionException;
 
 
-	void sellAuctionWork(Work currWork, String auctionId);
+	Iterator<Entry<WorkReadonly, WorkReadonly>> getArtistWorks(String artistLogin) throws NoSuchUserException, NoSuchArtistException, ArtistHasNoWorksException;
 
-	IteratorEntries<WorkGeneric, WorkGeneric> getArtistWorks(String artistLogin) throws NoSuchUserException, NoSuchArtistException, ArtistHasNoWorksException;
+	Iterator<Entry<WorkReadonly, WorkReadonly>> listWorksByValue() throws NoSoldWorksException;
 
-	IteratorEntries<WorkGeneric, WorkGeneric> listWorksByValue() throws NoSoldWorksException;
+	void sellAuctionWork(WorkReadonly currWork, String auctionId);
 }

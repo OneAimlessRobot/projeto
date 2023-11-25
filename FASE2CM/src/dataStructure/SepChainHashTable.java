@@ -15,11 +15,11 @@ public class SepChainHashTable<K extends Comparable<K>, V>
     extends HashTable<K,V> 
 { 
 
-	private static class HashSetIterator<K extends Comparable<K>,V> implements IteratorEntries<K,V>,Serializable{
+	private static class HashSetIterator<K extends Comparable<K>,V> implements Iterator<Entry<K,V>>,Serializable{
 		
 		private static final long serialVersionUID = 1L;
 		private int mainPos,last;
-		private IteratorEntries<K,V> current;
+		private Iterator<Entry<K,V>> current;
 		private Dictionary<K,V>[] entries;
 		private SepChainHashTable<K,V> set;
 		public HashSetIterator(SepChainHashTable<K,V> set){
@@ -165,7 +165,7 @@ public class SepChainHashTable<K extends Comparable<K>, V>
     }
 
     @Override
-    public IteratorEntries<K,V> iterator( )
+    public Iterator<Entry<K,V>> iterator( )
     {
         return new HashSetIterator<>(this);
     } 
@@ -174,7 +174,7 @@ public class SepChainHashTable<K extends Comparable<K>, V>
     	int newSize=(int)(maxSize*2);
     	this.maxSize=newSize;
     	SepChainHashTable<K,V> newdict = new SepChainHashTable<>(newSize);
-    	IteratorEntries<K,V> it= iterator();
+    	Iterator<Entry<K,V>> it= iterator();
     	while(it.hasNext()) {
     		Entry<K,V> curr= it.next();
     		newdict.insert(curr.getKey(), curr.getValue());

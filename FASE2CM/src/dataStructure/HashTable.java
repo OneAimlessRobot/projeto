@@ -102,7 +102,7 @@ public abstract class HashTable<K,V> implements Dictionary<K,V>
     	if(isEmpty()) {
     		return "[ ]";
     	}
-    	IteratorEntries<K,V> it= iterator();
+    	Iterator<Entry<K,V>> it= iterator();
     	String result="[";
     	while(it.hasNext()) {
     		result+=" "+it.next()+" ";    		
@@ -132,7 +132,7 @@ public abstract class HashTable<K,V> implements Dictionary<K,V>
     public abstract V remove( K key );
 
     @Override
-    public abstract IteratorEntries<K,V> iterator( );
+    public abstract Iterator<Entry<K,V>> iterator( );
 
 
     //

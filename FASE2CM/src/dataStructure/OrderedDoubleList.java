@@ -159,7 +159,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V>
 	}
 
     @Override
-	public TwoWayIteratorEntries<K, V> iterator() {
+	public TwoWayIterator<Entry<K, V>> iterator() {
 		return new DoubleListIteratorEntries<K,V>(head,tail);
 	}
 
@@ -237,7 +237,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V>
 
     public String toString() {
     	
-    	TwoWayIteratorEntries<K,V> entries= iterator();
+    	TwoWayIterator<Entry<K,V>> entries= iterator();
     	String result="[";
     	while(entries.hasNext()) {
     		result+=" " +entries.next()+ " ";

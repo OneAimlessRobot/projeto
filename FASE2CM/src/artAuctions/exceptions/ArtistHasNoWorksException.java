@@ -1,3 +1,5 @@
+
+
 package artAuctions.exceptions;
 
 public class ArtistHasNoWorksException extends Exception {

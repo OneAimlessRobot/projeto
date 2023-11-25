@@ -7,7 +7,7 @@ package dataStructure;
  * @param <E> Generic Element
  * 
  */
-class DoubleListIteratorEntries<K,V> implements TwoWayIteratorEntries<K,V>
+class DoubleListIteratorEntries<K,V> implements TwoWayIterator<Entry<K,V>>
 {
 
 	/**

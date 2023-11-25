@@ -1,11 +1,12 @@
-package artAuctions.specificADTs.implem;
-import java.io.Serializable;
-
-import artAuctions.specificADTs.interfaces.*;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
+
+package artAuctions.specificADTs.implem;
+import java.io.Serializable;
+
+import artAuctions.specificADTs.interfaces.*;
 import dataStructure.*;
 
 
@@ -16,8 +17,17 @@ public class AuctionClass implements Serializable, Auction {
 
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Key for an auction in collections that store them
+	 */
 	private String id;
+	/**
+	 * Collection of connections between works and the bids made in them in this auction
+	 */
 	private List<WorkInAuction> works;
+	/**
+	 * Is the bid closed? (To exclude them from operations in the main system class)
+	 */
 	private boolean isClosed;
 
 	public AuctionClass(String id) {
@@ -25,6 +35,22 @@ public class AuctionClass implements Serializable, Auction {
 		this.id=id;
 		isClosed=false;
 		works= new DoubleList<>();
+	}
+
+	@Override
+	public WorkInAuction getWorkInAuction(WorkReadonly work) {
+		
+		Iterator<WorkInAuction> auctionWorkIt= listWorks();
+		WorkInAuction curr= null;
+		while(auctionWorkIt.hasNext()) {
+			curr=auctionWorkIt.next();
+			
+			if(work.equals(curr.getWork())) {
+				
+				return curr;
+			}
+		}
+		return null;
 	}
 
 	@Override

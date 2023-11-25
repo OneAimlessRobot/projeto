@@ -1,8 +1,9 @@
-package artAuctions.specificADTs.implem;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
+
+package artAuctions.specificADTs.implem;
 
 
 import java.io.Serializable;
@@ -122,6 +123,19 @@ public class UserClass implements User, Serializable {
 	public Iterator<Bid> bids(){
 		
 		return collectorBids.iterator();
+	}
+
+	@Override
+	public boolean userHasBidsInOpenAuction() {
+		boolean result=false;
+		Iterator<Bid> bidit= bids();
+		while(bidit.hasNext()) {
+		
+			if(!bidit.next().getAuction().isClosed()) {
+				result=true;
+			}
+		}
+		return result;
 	}
 
 

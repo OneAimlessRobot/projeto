@@ -1,18 +1,19 @@
-package artAuctions.specificADTs.implem;
 /**
 * @author Adriano Antonio Campos Valente (62411) aa.valente@campus.fct.unl.pt
 * @author Pedro Miguel Martinho Assuncao (68840) pedroassuncao@gmail.com
 */
+
+package artAuctions.specificADTs.implem;
 
 
 
 
 import java.io.Serializable;
 
-import artAuctions.specificADTs.interfaces.AuctionGeneric;
+import artAuctions.specificADTs.interfaces.AuctionReadonly;
 import artAuctions.specificADTs.interfaces.Bid;
-import artAuctions.specificADTs.interfaces.UserGeneric;
-import artAuctions.specificADTs.interfaces.WorkGeneric;
+import artAuctions.specificADTs.interfaces.UserReadonly;
+import artAuctions.specificADTs.interfaces.WorkReadonly;
 
 /**
 * Implements interface Bid. Describes a Bid.
@@ -21,11 +22,11 @@ public class BidClass implements Serializable, Bid {
 
 	private static final long serialVersionUID = 1L;
 	
-	private UserGeneric collector;
-	private WorkGeneric work;
+	private UserReadonly collector;
+	private WorkReadonly work;
 	private int bidAmmount;
-	private AuctionGeneric auction;
-	public BidClass(UserGeneric collector,WorkGeneric work,int bidAmmount,AuctionGeneric auction) {
+	private AuctionReadonly auction;
+	public BidClass(UserReadonly collector,WorkReadonly work,int bidAmmount,AuctionReadonly auction) {
 		
 		this.collector=collector;
 		this.work=work;
@@ -33,14 +34,14 @@ public class BidClass implements Serializable, Bid {
 		this.auction=auction;
 	}
 	@Override
-	public UserGeneric getCollector() {
+	public UserReadonly getCollector() {
 		
 		return collector;
 	}
 	
 
 	@Override
-	public WorkGeneric getWork() {
+	public WorkReadonly getWork() {
 		
 		return work;
 	}
@@ -53,7 +54,7 @@ public class BidClass implements Serializable, Bid {
 		return bidAmmount;
 	}
 	@Override
-	public AuctionGeneric getAuction() {
+	public AuctionReadonly getAuction() {
 		return auction;
 	}
 
