@@ -28,7 +28,7 @@ class WorkInAuctionClass implements Serializable, WorkInAuction {
 	
 	
 	public WorkInAuctionClass(WorkReadonly work,int minAmmount) {
-		
+
 		workBids= new DoubleList<>();
 		this.work=work;
 		this.minAmmount=minAmmount;

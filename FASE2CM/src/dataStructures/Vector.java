@@ -6,7 +6,7 @@ package dataStructures;
 
 import java.io.Serializable;
 
-
+import dataStructures.exceptions.*;
 public class Vector<T> implements List<T>,Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -53,112 +53,8 @@ private static class VectorIterator<T> implements TwoWayIterator<T>{
 		
 }
 
-private static class VectorFilteredIterator<T> implements FilteredIterator<T>{
-		
-		private static final long serialVersionUID = 1L;
-		private Vector<T> support;
-		private int currPos;
-		private T filter;
-		public VectorFilteredIterator(Vector<T> support,T filter) {
-			this.support=support;
-			this.filter=filter;
-			rewind();
-			
-		}
-		@Override
-		public T next() {
-	        if ( !this.hasNext() )
-	            throw new NoSuchElementException();
-
-	        T result= support.get(currPos);
-	        advance();
-			nextEquals(filter);
-			return result;
-		}
-		
-		private void advance() {
-	        if ( !this.hasNext() )
-	            throw new NoSuchElementException();
-
-	        currPos++;
-			
-		}
-		@Override
-		public boolean hasNext() {
-			return this.currPos!=support.size();
-		}
-		@Override
-		public void rewind() {
-			this.currPos=0;
-			nextEquals(filter);
-		}
-		@Override
-		public void nextEquals(T elem) {
-
-			while(hasNext()){
-		
-				if(support.get(currPos).equals(elem)) {
-					return;
-				}
-				advance();
-			}
-			
-}
-}
-private static class VectorFilteredIteratorWithPredicate<T> implements FilteredIteratorWithPredicate<T> {
-	
-	private static final long serialVersionUID = 1L;
-	private Vector<T> support;
-	private int currPos;
-	private FilterPredicate<T> filterP;
-	public VectorFilteredIteratorWithPredicate(Vector<T> support,FilterPredicate<T> predicate) {
-		this.support=support;
-		filterP=predicate;
-		rewind();
-		
-	}
-	@Override
-	public T next() {
-        if ( !this.hasNext() )
-            throw new NoSuchElementException();
-
-        T result= support.get(currPos);
-        advance();
-		nextEquals();
-		return result;
-	}
-	
-	private void advance() {
-        if ( !this.hasNext() )
-            throw new NoSuchElementException();
-
-        currPos++;
-		
-	}
-	@Override
-	public boolean hasNext() {
-		return this.currPos!=support.size();
-	}
-	@Override
-	public void rewind() {
-		this.currPos=0;
-		nextEquals();
-	}
-	@Override
-	public void nextEquals() {
-
-		while(hasNext()){
-	
-			if(filterP.execute(support.get(currPos))) {
-				return;
-			}
-			advance();
-		}
-		
-}
-}
 	private T[] arr;
-	private static final int INIT_SIZE=100;
+	private static final int INIT_SIZE=7;
 	private int currPos,size;
 	//Constroi uma stack vazia
 	public Vector() {
@@ -237,13 +133,13 @@ private static class VectorFilteredIteratorWithPredicate<T> implements FilteredI
     }
 	@Override
 	public void add(int index,T elem) {
+		currPos++;
 		if(index<0||index>currPos+1) {
 			throw new InvalidPositionException();
 		}
 		if(isFull()) {
 			grow();
 		}
-		currPos++;
 		int i=this.currPos;
 		for(;i>=index;i--) {
 			
@@ -332,13 +228,5 @@ private static class VectorFilteredIteratorWithPredicate<T> implements FilteredI
 	public void append(List<T> list) {
 		// TODO Auto-generated method stub
 		
-	}
-	@Override
-	public FilteredIterator<T> filteredIterator(T elem) {
-		return new VectorFilteredIterator<T>(this,elem);
-	}
-	@Override
-	public FilteredIteratorWithPredicate<T> filteredIteratorWithPredicate( FilterPredicate<T> filter) {
-		return new VectorFilteredIteratorWithPredicate<>(this,filter);
 	}
 }

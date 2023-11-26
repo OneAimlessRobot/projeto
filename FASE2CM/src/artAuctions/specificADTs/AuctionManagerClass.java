@@ -343,7 +343,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		Iterator<Entry<String,Auction>> auctionIt= auctions.iterator();
 		while(auctionIt.hasNext()) {
 			Auction currAuction= auctionIt.next().getValue();
-			if(!currAuction.isClosed()) {
+			if(currAuction.isClosed()) {
 				continue;
 			}
 			Iterator<WorkInAuctionReadonly> currAuctionWorksIt= currAuction.listWorks();

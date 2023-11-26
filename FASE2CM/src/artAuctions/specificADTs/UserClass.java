@@ -11,7 +11,6 @@ import java.io.Serializable;
 import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
-
 /**
 * Implements interface User. Describes a User (Utilizador\coleccionador).
 */
@@ -26,7 +25,7 @@ class UserClass implements User, Serializable {
 		this.email=email;
 		this.age=age;
 		this.name=name;
-		collectorBids=new DoubleList<>();
+		collectorBids= new DoubleList<>();
 		
 	}
 
