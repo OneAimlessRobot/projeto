@@ -24,15 +24,15 @@ import artAuctions.exceptions.WeakBidException;
 import artAuctions.exceptions.WorkExistsException;
 import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
-import artAuctions.specificADTs.implem.AuctionManagerClass;
-import artAuctions.specificADTs.interfaces.AuctionReadonly;
-import artAuctions.specificADTs.interfaces.AuctionManager;
-import artAuctions.specificADTs.interfaces.Bid;
-import artAuctions.specificADTs.interfaces.WorkReadonly;
-import dataStructures.implem.ObjectSaverLoader;
-import dataStructures.interfaces.Entry;
-import dataStructures.interfaces.Iterator;
-import artAuctions.specificADTs.interfaces.WorkInAuctionReadonly;
+import artAuctions.specificADTs.AuctionManagerClass;
+import artAuctions.specificADTs.AuctionReadonly;
+import artAuctions.specificADTs.AuctionManager;
+import artAuctions.specificADTs.Bid;
+import artAuctions.specificADTs.WorkReadonly;
+import dataStructures.ObjectSaverLoader;
+import dataStructures.Entry;
+import dataStructures.Iterator;
+import artAuctions.specificADTs.WorkInAuctionReadonly;
 
 import java.io.*;
 /**
@@ -181,11 +181,14 @@ public class Main {
 
 		
 	}
+	
+	//Comando addUser
 	private static void addUser(Scanner input,AuctionManager mgr) {
-		String login= input.next(),name=input.nextLine().trim();
+		String login= input.next(), name=input.nextLine().trim();
 		int age= input.nextInt();
 		String email=input.next();
 		input.nextLine();
+		
 		try {
 			mgr.addUser(login, name, age, email);
 			System.out.println("\n"+CommandResponse.ADDUSERSUCCEESS.getResponse()+"\n");
@@ -200,15 +203,17 @@ public class Main {
 			
 			System.out.println("\n"+CommandResponse.USEREXISTS.getResponse()+"\n");
 			
-			
 		}
 	}
+	
+	//Comando addArtist
 	private static void addArtist(Scanner input,AuctionManager mgr) {
-		String login= input.next(),name=input.nextLine().trim();
+		String login= input.next(), name=input.nextLine().trim();
 		String artsyName= input.nextLine().trim();
 		int age= input.nextInt();
 		String email=input.next();
 		input.nextLine();
+		
 		try {
 			mgr.addArtist(login, name,artsyName, age, email);
 			System.out.println("\n"+CommandResponse.ADDARTISTSUCCESS.getResponse()+"\n");
@@ -222,8 +227,7 @@ public class Main {
 		catch(UserExistsException e) {
 			
 			System.out.println("\n"+CommandResponse.USEREXISTS.getResponse()+"\n");
-			
-			
+
 		}
 		
 	}
