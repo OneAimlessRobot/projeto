@@ -50,7 +50,6 @@ public interface AuctionReadonly extends Serializable{
 	
 	WorkInAuctionReadonly getWorkInAuction(WorkReadonly work);
 
-
 	
 
 }

@@ -8,9 +8,6 @@ package artAuctions.specificADTs;
 
 import java.io.Serializable;
 
-import dataStructures.DoubleList;
-import dataStructures.Iterator;
-import dataStructures.List;
 /**
 * Implements interface User. Describes a User (Utilizador\coleccionador).
 */
@@ -19,38 +16,15 @@ class UserClass implements User, Serializable {
 	private static final long serialVersionUID = 1L;
 	protected String login,email,name;
 	protected int age;
-	protected List<Bid> collectorBids;
+	protected int numOfBids;
 	public UserClass(String login,String name,int age,String email) {
 		this.login=login;
 		this.email=email;
 		this.age=age;
 		this.name=name;
-		collectorBids= new DoubleList<>();
-		
+		numOfBids=0;
 	}
 
-	public String toString() {
-		
-		if((this instanceof ArtistClass)) {
-
-			return ((Artist)this).printArtist();
-			/*
-			Artist c=new UserClass("","",0,"");
-			User d=new UserClass("","",0,"");
-			c=d__;*/
-			
-		}
-		return printUser();
-
-		
-	}
-	@Override
-	public String printUser() {
-		
-		return getLogin()+" "+ getName()+ " "+ getAge()+" "+getEmail();
-		
-		
-}
 	@Override
 	public String getName() {
 		
@@ -69,6 +43,14 @@ class UserClass implements User, Serializable {
 		
 		return email;
 		
+	}
+	@Override
+	public void addBid() {
+		numOfBids++;
+	}
+	@Override
+	public void removeBid() {
+		numOfBids--;
 	}
 	@Override
 	public int getAge() {
@@ -102,37 +84,12 @@ class UserClass implements User, Serializable {
 		
 		
 	}
-	@Override
-	public int numOfBids() {
-		
-		
-		return collectorBids.size();
-	}
-	@Override
-	public void addBid(Bid addedBid) {
-		
-		collectorBids.addLast(addedBid);
-		
-	}
-	
-	@Override 
-	public Iterator<Bid> bids(){
-		
-		return collectorBids.iterator();
-	}
 
 	@Override
-	public boolean userHasBidsInOpenAuction() {
-		boolean result=false;
-		Iterator<Bid> bidit= bids();
-		while(bidit.hasNext()) {
-		
-			if(!bidit.next().getAuction().isClosed()) {
-				result=true;
-			}
-		}
-		return result;
+	public int numOfBids() {
+		return numOfBids;
 	}
+
 
 
 

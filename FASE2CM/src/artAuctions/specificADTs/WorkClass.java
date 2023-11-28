@@ -49,10 +49,6 @@ class WorkClass implements Serializable, Work {
 	public String getName() {
 		return name;
 	}
-	public String toString() {
-		return ""+getId()+" "+getName()+ " "+getYear()+" "+currMaxBid.getBidAmmount()+" "+getAuthor().getLogin()+ " "+getAuthor().getName();
-		
-	}
 	public boolean equals(Object work) {
 		boolean result=false;
 

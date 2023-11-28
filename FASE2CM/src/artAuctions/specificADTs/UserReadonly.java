@@ -48,21 +48,4 @@ public interface UserReadonly extends Serializable {
 	 * @return
 	 */
 	int numOfBids();
-	
-	/**
-	 * For a specific User, returns a string consisting of: Login Name Age Email
-	 * 
-	 * @return
-	 */
-	String printUser();
-	/**
-	 * Checks if the user can still be profitable.
-	 * @return
-	 */
-	boolean userHasBidsInOpenAuction();
-	/**
-	 * Returns the bids made by this user
-	 * @return
-	 */
-	Iterator<Bid> bids();
 }

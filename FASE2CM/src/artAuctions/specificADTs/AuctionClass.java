@@ -5,11 +5,10 @@
 
 package artAuctions.specificADTs;
 import java.io.Serializable;
-
+ 
 import dataStructures.DoubleList;
 import dataStructures.Iterator;
 import dataStructures.List;
-
 
 /**
 * Implements interface Auction. Describes an Auction.
@@ -30,7 +29,7 @@ class AuctionClass implements Serializable, Auction {
 	 * Is the auction closed? (To exclude them from operations in the main system class)
 	 */
 	private boolean isClosed;
-
+	
 	public AuctionClass(String id) {
 		
 		this.id=id;
@@ -89,11 +88,6 @@ class AuctionClass implements Serializable, Auction {
 	public void addWork(Work addedWork,int minAmmount) {
 		works.addLast(new WorkInAuctionClass(addedWork,minAmmount));
 	}
-
-	public String toString() {
-		
-		return getId()+"\nWorks: "+works.toString();
-	}
 	
 	@Override
 	public String getId() {
@@ -113,7 +107,15 @@ class AuctionClass implements Serializable, Auction {
 	@Override
 	public void close() {
 		isClosed=true;
-		
+		Iterator<WorkInAuctionReadonly> it= works.iterator();
+		while(it.hasNext()) {
+			WorkInAuction next= (WorkInAuction) it.next();
+			Iterator<Bid> it2= next.bids();
+			while(it2.hasNext()) {
+				Bid next2=it2.next();
+				((User)next2.getCollector()).removeBid();
+			}
+		}
 	}
 
 }

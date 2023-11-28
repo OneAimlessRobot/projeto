@@ -19,12 +19,13 @@ interface Auction extends AuctionReadonly{
 
 	void addWork(Work addedWork, int minAmmount);
 
-	
 	/**
 	 * 
 	 * closes the auction
 	 */
 	void close();
+
+
 
 	
 }

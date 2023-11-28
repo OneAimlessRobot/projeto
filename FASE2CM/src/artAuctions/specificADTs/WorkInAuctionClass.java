@@ -44,6 +44,14 @@ class WorkInAuctionClass implements Serializable, WorkInAuction {
 			
 			
 		}
+	public boolean equals(Object anotherWorkInAuction) {
+		
+		if(anotherWorkInAuction instanceof WorkInAuctionClass) {
+			return ((WorkInAuctionClass)anotherWorkInAuction).getWork().equals(getWork());
+			
+		}
+		return false;
+	}
 		@Override
 	public int getNumOfBids() {
 		return workBids.size();
@@ -66,5 +74,10 @@ class WorkInAuctionClass implements Serializable, WorkInAuction {
 	@Override
 	public int getMinBidAmmount() {
 		return minAmmount;
+	}
+	@Override
+	public void removeBid(Bid removedBid) {
+		workBids.remove(removedBid);
+		
 	}
 }

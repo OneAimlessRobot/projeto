@@ -26,8 +26,10 @@ import artAuctions.exceptions.WorkExistsInAuctionException;
 import artAuctions.exceptions.WorkHasNoBidsInAuctionException;
 import artAuctions.specificADTs.AuctionManagerClass;
 import artAuctions.specificADTs.AuctionReadonly;
+import artAuctions.specificADTs.ArtistReadonly;
 import artAuctions.specificADTs.AuctionManager;
 import artAuctions.specificADTs.Bid;
+import artAuctions.specificADTs.UserReadonly;
 import artAuctions.specificADTs.WorkReadonly;
 import dataStructures.ObjectSaverLoader;
 import dataStructures.Entry;
@@ -263,7 +265,9 @@ public class Main {
 		String userLogin=input.next();
 		input.nextLine();
 		try {
-			System.out.println("\n"+mgr.getArtistInfo(userLogin)+"\n");
+			ArtistReadonly artist=mgr.getArtistInfo(userLogin);
+			System.out.println("\n"+artist.getLogin()+" "+artist. getName()+ " "+ artist.getArtsyName()+ " "+ artist.getAge()+" "+artist.getEmail()+"\n");
+			
 		} catch (NoSuchUserException e) {
 			
 			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
@@ -278,7 +282,9 @@ public class Main {
 		String userLogin=input.next();
 		input.nextLine();
 		try {
-			System.out.println("\n"+mgr.getUserInfo(userLogin)+"\n");
+			UserReadonly user=mgr.getUserInfo(userLogin);
+			System.out.println("\n"+user.getLogin()+" "+user. getName()+ " "+ user.getAge()+" "+user.getEmail()+"\n");
+			
 		} catch (NoSuchUserException e) {
 			
 			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
@@ -290,8 +296,8 @@ public class Main {
 		String id=input.next();
 		input.nextLine();
 		try {
-			
-			System.out.println("\n"+mgr.getWorkInfo(id)+"\n");
+			WorkReadonly work= mgr.getWorkInfo(id);
+			System.out.println("\n"+work.getId()+" "+work.getName()+ " "+work.getYear()+" "+work.getMaxBid().getBidAmmount()+" "+work.getAuthor().getLogin()+ " "+work.getAuthor().getName()+"\n");
 		} 
 		catch(NoSuchWorkException e) {
 			
@@ -362,7 +368,7 @@ public class Main {
 		input.nextLine();
 		try {
 		
-			AuctionReadonly defunct=mgr.closeAuction(auctionid);
+			AuctionReadonly defunct=mgr.getAuction(auctionid);
 			System.out.println("\n"+CommandResponse.AUCTIONOVER.getResponse());
 			Iterator<WorkInAuctionReadonly> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
@@ -389,6 +395,7 @@ public class Main {
 				}
 				
 			}
+			mgr.removeAuction(auctionid);
 			System.out.println();
 		} catch (NoSuchAuctionException e) {
 
@@ -421,6 +428,7 @@ public class Main {
 		input.nextLine();
 		try {
 			Iterator<Entry<WorkReadonly,WorkReadonly>> it= mgr.getArtistWorks(artistid);
+			System.out.println();
 			while(it.hasNext()) {
 				Entry<WorkReadonly,WorkReadonly> curr= it.next();
 				WorkReadonly currWork= curr.getValue();
@@ -429,11 +437,11 @@ public class Main {
 			}
 			System.out.println();
 		} catch (NoSuchUserException e) {
-			System.out.println(CommandResponse.NOSUCHUSER.getResponse()+"\n");
+			System.out.println("\n"+CommandResponse.NOSUCHUSER.getResponse()+"\n");
 		} catch (NoSuchArtistException e) {
-			System.out.println(CommandResponse.NOSUCHARTIST.getResponse()+"\n");
+			System.out.println("\n"+CommandResponse.NOSUCHARTIST.getResponse()+"\n");
 		} catch (ArtistHasNoWorksException e) {
-			System.out.println(CommandResponse.NOWORKSFROMARTIST.getResponse()+"\n");
+			System.out.println("\n"+CommandResponse.NOWORKSFROMARTIST.getResponse()+"\n");
 		}
 			
 			
@@ -448,7 +456,9 @@ public class Main {
 				while(workIt.hasNext()) {
 
 				WorkInAuctionReadonly curr= workIt.next();
-				System.out.println(curr.getWork());
+				WorkReadonly work= curr.getWork();	
+				System.out.println(work.getId()+" "+work.getName()+ " "+work.getYear()+" "+work.getMaxBid().getBidAmmount()+" "+work.getAuthor().getLogin()+ " "+work.getAuthor().getName());
+				
 				
 			}
 		System.out.println();
@@ -467,8 +477,10 @@ public class Main {
 			Iterator<Bid> workBids=mgr.getBidsFromWork(auctionid, workid);
 			System.out.printf("\n");
 			while(workBids.hasNext()) {
+				
 				Bid curr= workBids.next();
-				System.out.println(curr);
+				System.out.println(curr.getCollector().getLogin()+ " "+ curr.getCollector().getName()+ " "+ curr.getBidAmmount());
+	
 				
 			}
 			System.out.printf("\n");
@@ -499,6 +511,7 @@ public class Main {
 			
 			try {
 				Iterator<Entry<WorkReadonly, WorkReadonly>> it= mgr.listWorksByValue();
+				System.out.println();
 				while(it.hasNext()) {
 					Entry<WorkReadonly,WorkReadonly> curr= it.next();
 					WorkReadonly currWork=curr.getValue();
@@ -508,7 +521,7 @@ public class Main {
 				}
 				System.out.println();
 			} catch (NoSoldWorksException e) {
-				System.out.println(CommandResponse.NOSOLDWORKSINSYSTEM.getResponse()+"\n");
+				System.out.println("\n"+CommandResponse.NOSOLDWORKSINSYSTEM.getResponse()+"\n");
 			}
 			
 		}

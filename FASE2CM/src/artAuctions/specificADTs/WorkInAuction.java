@@ -19,6 +19,8 @@ interface WorkInAuction extends WorkInAuctionReadonly{
 	 * @param addedBid
 	 */
 	void addBid(Bid addedBid);
+	
+	void removeBid(Bid removedBid);
 
 
 }

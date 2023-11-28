@@ -149,7 +149,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	}
 
 	@Override
-	public String getArtistInfo(String login) throws NoSuchArtistException, NoSuchUserException  {
+	public ArtistReadonly getArtistInfo(String login) throws NoSuchArtistException, NoSuchUserException  {
 		User analyzedUser=users.find(login);
 		Artist analyzedArtist=artists.find(login);
 				
@@ -163,7 +163,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 				throw new NoSuchArtistException();
 				
 			}
-		return analyzedArtist.printArtist();
+		return analyzedArtist;
 		
 	}
 	
@@ -203,19 +203,19 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 			
 		}
 		Bid bid= new BidClass(collector, work, value,auction);
-		collector.addBid(bid);
+		collector.addBid();
 		workInAuction.addBid(bid);
 		
 		
 	}
 	@Override
-	public String getUserInfo(String login) throws NoSuchUserException  {
+	public UserReadonly getUserInfo(String login) throws NoSuchUserException  {
 		User collector= users.find(login);
 			if(collector==null) {
 
 				throw new NoSuchUserException();
 			}
-		return collector.printUser();
+		return collector;
 		
 	}
 	@Override
@@ -250,13 +250,13 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 
 	}
 	@Override
-	public String getWorkInfo(String id) throws NoSuchWorkException {
+	public WorkReadonly getWorkInfo(String id) throws NoSuchWorkException {
 		Work result=works.find(id);
 			if(result==null) {
 
 				throw new NoSuchWorkException();
 			}
-		return result.toString();
+		return result;
 			
 	}
 	
@@ -395,7 +395,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 			throw new NoSuchUserException();
 		}if(targetedArtist==null) {
 			
-			throw new NoSuchUserException();
+			throw new NoSuchArtistException();
 		}if(targetedArtist.getNumOfWorks()==0) {
 			
 			throw new ArtistHasNoWorksException();
@@ -416,7 +416,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		
 		if(artist==null) {
 		
-			if(user.userHasBidsInOpenAuction()) {
+			if(user.numOfBids()>0) {
 				
 				throw new UserHasBidsException();
 			}
@@ -424,7 +424,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		}
 		else {
 			
-			if(user.userHasBidsInOpenAuction()) {
+			if(user.numOfBids()>0) {
 				
 				throw new UserHasBidsException();
 			}
@@ -440,7 +440,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		}
 	}
 	@Override
-	public AuctionReadonly closeAuction(String auctionid) throws NoSuchAuctionException {
+	public AuctionReadonly getAuction(String auctionid) throws NoSuchAuctionException {
 		Auction removed=auctions.find(auctionid);
 		if(removed==null) {
 			
@@ -454,5 +454,11 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		return removed;
 		
 	}
+	@Override
+	public void removeAuction(String auctionid){
+		auctions.remove(auctionid);
+		
+	}
+
 
 }

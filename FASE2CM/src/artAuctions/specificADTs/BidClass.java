@@ -40,10 +40,6 @@ class BidClass implements Serializable, Bid {
 		
 		return work;
 	}
-	public String toString() {
-		return collector.getLogin()+ " "+ collector.getName()+ " "+ bidAmmount;
-		
-	}
 	@Override
 	public int getBidAmmount() {
 		return bidAmmount;

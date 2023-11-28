@@ -27,15 +27,6 @@ class ArtistClass extends UserClass implements Serializable, Artist {
 		works=new AVLBSTComparable<>(new CompareWorkByName());
 	}
 	@Override
-	public String printArtist() {
-		
-		return getLogin()+" "+ getName()+ " "+ getArtsyName()+ " "+ getAge()+" "+getEmail();
-		
-		
-		
-		
-}
-	@Override
 	public void setArtsyName(String newName) {
 		
 		

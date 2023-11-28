@@ -84,7 +84,7 @@ public interface AuctionManager extends Serializable{
 	 * @throws NoSuchArtistException
 	 * @throws NoSuchUserException
 	 */
-	String getArtistInfo(String login) throws NoSuchArtistException, NoSuchUserException;
+	ArtistReadonly getArtistInfo(String login) throws NoSuchArtistException, NoSuchUserException;
 	
 	/**
 	 * Searches for the User with the specific login in the User collection
@@ -93,7 +93,7 @@ public interface AuctionManager extends Serializable{
 	 * @return A string consisting of: Login Name Age Email
 	 * @throws NoSuchUserException
 	 */
-	String getUserInfo(String login) throws NoSuchUserException;
+	UserReadonly getUserInfo(String login) throws NoSuchUserException;
 
 	/**
 	 * Searches for a Work by id in the collections of Works.
@@ -102,7 +102,7 @@ public interface AuctionManager extends Serializable{
 	 * @return IdOfWork Name Year CurrentMaxBidAmmount AuthorLogin AuthorName
 	 * @throws NoSuchWorkException
 	 */
-	String getWorkInfo(String id) throws NoSuchWorkException;
+	WorkReadonly getWorkInfo(String id) throws NoSuchWorkException;
 
 	/**
 	 * addWork command.
@@ -210,8 +210,18 @@ public interface AuctionManager extends Serializable{
 	 * @return AuctionReadonly
 	 * @throws NoSuchAuctionException
 	 */
-	AuctionReadonly closeAuction(String auctionid) throws NoSuchAuctionException;
+	AuctionReadonly getAuction(String auctionid) throws NoSuchAuctionException;
 
+	/**
+	 * closeAuction command.
+	 * Find the auction in the collection of Auctions and closes it.
+	 * Then removes the Auction from the collection of Auctions of the system.
+	 * 
+	 * @param auctionid
+	 * @return AuctionReadonly
+	 * @throws NoSuchAuctionException
+	 */
+	void removeAuction(String auctionid);
 	/**
 	 * Returns a iterator of Works sorted by value and name.
 	 * @param artistLogin
