@@ -1,6 +1,6 @@
 package dataStructures;
 import java.io.*;
-
+@SuppressWarnings("unchecked")
 public class ObjectSaverLoader<E> {
 
 	
