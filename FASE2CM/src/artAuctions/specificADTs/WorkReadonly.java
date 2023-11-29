@@ -47,13 +47,6 @@ public interface WorkReadonly extends Comparable<WorkReadonly>{
 	 */
 	String getName();
 	
-	/**
-	 * Returns the buyer (User) of a Work.
-	 * 
-	 * @return 
-	 */
-	UserReadonly getBuyer();
-	
 	
 	
 	

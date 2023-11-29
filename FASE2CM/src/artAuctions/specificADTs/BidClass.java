@@ -18,15 +18,11 @@ class BidClass implements Serializable, Bid {
 	private static final long serialVersionUID = 1L;
 	
 	private UserReadonly collector;
-	private WorkReadonly work;
 	private int bidAmmount;
-	private AuctionReadonly auction;
-	public BidClass(UserReadonly collector,WorkReadonly work,int bidAmmount,AuctionReadonly auction) {
+	public BidClass(UserReadonly collector,int bidAmmount) {
 		
 		this.collector=collector;
-		this.work=work;
 		this.bidAmmount=bidAmmount;
-		this.auction=auction;
 	}
 	@Override
 	public UserReadonly getCollector() {
@@ -34,19 +30,9 @@ class BidClass implements Serializable, Bid {
 		return collector;
 	}
 	
-
-	@Override
-	public WorkReadonly getWork() {
-		
-		return work;
-	}
 	@Override
 	public int getBidAmmount() {
 		return bidAmmount;
-	}
-	@Override
-	public AuctionReadonly getAuction() {
-		return auction;
 	}
 
 }

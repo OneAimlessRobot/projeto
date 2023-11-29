@@ -24,7 +24,6 @@ public interface Bid extends Serializable{
 	 * 
 	 * @return
 	 */
-	WorkReadonly getWork();
 
 	
 	/**
@@ -33,12 +32,5 @@ public interface Bid extends Serializable{
 	 * @return
 	 */
 	int getBidAmmount();
-	
-	/**
-	 * Returns the Auction where the Bid was made.
-	 * 
-	 * @return
-	 */
-	AuctionReadonly getAuction();
 
 }

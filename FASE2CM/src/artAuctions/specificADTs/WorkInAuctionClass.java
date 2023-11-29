@@ -32,7 +32,7 @@ class WorkInAuctionClass implements Serializable, WorkInAuction {
 		workBids= new DoubleList<>();
 		this.work=work;
 		this.minAmmount=minAmmount;
-		currMaxBid= new BidClass(null,null,0,null);
+		currMaxBid= new BidClass(null,0);
 	}
 		@Override
 	public Iterator<Bid> bids() {

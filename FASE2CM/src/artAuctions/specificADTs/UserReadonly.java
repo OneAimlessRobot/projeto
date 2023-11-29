@@ -6,9 +6,6 @@ package artAuctions.specificADTs;
 
 import java.io.Serializable;
 
-import dataStructures.Iterator;
-
-
 
 /**
  * Describes a Generic Work. This interface is used for the 'getters' of the interface Work, essentially.

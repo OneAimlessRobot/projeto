@@ -16,7 +16,6 @@ class WorkClass implements Serializable, Work {
 	private static final long serialVersionUID = 1L;
 	private int year;
 	private ArtistReadonly author;
-	private UserReadonly buyer;
 	private String name,id;
 	
 	
@@ -28,8 +27,7 @@ class WorkClass implements Serializable, Work {
 		this.author=author;
 		this.year=year;
 		this.name=name;
-		buyer=null;
-		currMaxBid= new BidClass(null,null,0,null);
+		currMaxBid= new BidClass(null,0);
 		
 		
 	}
@@ -74,10 +72,6 @@ class WorkClass implements Serializable, Work {
 		return result;
 		
 		
-	}
-	@Override
-	public UserReadonly getBuyer() {
-		return buyer;
 	}
 	@Override
 	public Bid getMaxBid() {

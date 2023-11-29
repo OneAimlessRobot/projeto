@@ -202,7 +202,7 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 			throw new WeakBidException();
 			
 		}
-		Bid bid= new BidClass(collector, work, value,auction);
+		Bid bid= new BidClass(collector, value);
 		collector.addBid();
 		workInAuction.addBid(bid);
 		
