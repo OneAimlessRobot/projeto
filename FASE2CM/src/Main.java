@@ -380,7 +380,7 @@ public class Main {
 					
 				}
 				else {
-					mgr.sellAuctionWork(actualWork, auctionid);
+					mgr.sellAuctionWork(actualWork, defunct);
 					System.out.print(actualWork.getId());
 					System.out.print(" ");
 					System.out.print(actualWork.getName());
