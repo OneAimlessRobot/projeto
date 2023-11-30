@@ -19,7 +19,6 @@ class WorkInAuctionClass implements Serializable, WorkInAuction {
 	private static final long serialVersionUID = 1L;
 	
 	private WorkReadonly work;
-	private AuctionReadonly auction;
 	
 	
 	private List<Bid> workBids;
@@ -59,9 +58,6 @@ class WorkInAuctionClass implements Serializable, WorkInAuction {
 		@Override
 		public WorkReadonly getWork() {
 			return work;
-		}@Override
-		public AuctionReadonly getAuction() {
-			return auction;
 		}
 	@Override
 	public Bid getMaxBid() {

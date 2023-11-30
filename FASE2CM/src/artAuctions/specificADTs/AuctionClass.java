@@ -25,15 +25,10 @@ class AuctionClass implements Serializable, Auction {
 	 * Collection of connections between works and the bids made in them in this auction
 	 */
 	private List<WorkInAuctionReadonly> works;
-	/**
-	 * Is the auction closed? (To exclude them from operations in the main system class)
-	 */
-	private boolean isClosed;
 	
 	public AuctionClass(String id) {
 		
 		this.id=id;
-		isClosed=false;
 		works= new DoubleList<>();
 	}
 
@@ -99,14 +94,9 @@ class AuctionClass implements Serializable, Auction {
 	}
 	
 
-	@Override
-	public boolean isClosed() {
-		return isClosed;
-	}
 
 	@Override
 	public void close() {
-		isClosed=true;
 		Iterator<WorkInAuctionReadonly> it= works.iterator();
 		while(it.hasNext()) {
 			WorkInAuction next= (WorkInAuction) it.next();

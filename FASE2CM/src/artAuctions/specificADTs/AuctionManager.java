@@ -202,9 +202,8 @@ public interface AuctionManager extends Serializable{
 	void addBidToWork(String auctionid,String workid,String collectorlogin,int value) throws NoSuchUserException, NoSuchWorkInAuctionException, NoSuchWorkException, NoSuchAuctionException, WeakBidException;
 	
 	/**
-	 * closeAuction command.
-	 * Find the auction in the collection of Auctions and closes it.
-	 * Then removes the Auction from the collection of Auctions of the system.
+	 * part closeAuction command.
+	 * Find the auction in the collection of Auctions and returns it.
 	 * 
 	 * @param auctionid
 	 * @return AuctionReadonly
@@ -213,10 +212,8 @@ public interface AuctionManager extends Serializable{
 	AuctionReadonly getAuction(String auctionid) throws NoSuchAuctionException;
 
 	/**
-	 * closeAuction command.
-	 * Find the auction in the collection of Auctions and closes it.
-	 * Then removes the Auction from the collection of Auctions of the system.
-	 * 
+	 * part of closeAuction command.
+	 * Removes the auction from the system auction collection
 	 * @param auctionid
 	 * @return AuctionReadonly
 	 * @throws NoSuchAuctionException

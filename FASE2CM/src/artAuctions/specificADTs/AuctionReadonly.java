@@ -28,13 +28,6 @@ public interface AuctionReadonly extends Serializable{
 	 * @return
 	 */
 	String getId();
-
-	/**
-	 * Returns True if the auction is closed.
-	 * 
-	 * @return
-	 */
-	boolean isClosed();
 	
 	/**
 	 * Returns an iterator of the collection of Works of a specific Auction

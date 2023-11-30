@@ -182,10 +182,6 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 			
 			throw new NoSuchAuctionException();
 		}
-		if(auction.isClosed()) {
-			
-			throw new NoSuchAuctionException();
-		}
 		if(work==null) {
 			
 			throw new NoSuchWorkInAuctionException();  //Se a Obra n existe no vector de Obras, então tb não vai existir no Leilão.
@@ -271,10 +267,6 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 			
 			throw new NoSuchAuctionException();
 		}
-		if(auction.isClosed()) {
-			
-			throw new NoSuchAuctionException();
-		}
 		if(work==null) {
 			
 			throw new NoSuchWorkException();
@@ -296,10 +288,6 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		WorkInAuctionReadonly workinauction=null;
 
 		if(auction==null) {
-			
-			throw new NoSuchAuctionException();
-		}
-		if(auction.isClosed()) {
 			
 			throw new NoSuchAuctionException();
 		}
@@ -343,9 +331,6 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		Iterator<Entry<String,Auction>> auctionIt= auctions.iterator();
 		while(auctionIt.hasNext()) {
 			Auction currAuction= auctionIt.next().getValue();
-			if(currAuction.isClosed()) {
-				continue;
-			}
 			Iterator<WorkInAuctionReadonly> currAuctionWorksIt= currAuction.listWorks();
 			while(currAuctionWorksIt.hasNext()) {
 				WorkReadonly currWorkInCurrAuction= currAuctionWorksIt.next().getWork();
@@ -364,10 +349,6 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		Auction auction=auctions.find(auctionid);
 		
 		if(auction==null) {
-			
-			throw new NoSuchAuctionException();
-		}
-		if(auction.isClosed()) {
 			
 			throw new NoSuchAuctionException();
 		}
@@ -443,10 +424,6 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 	public AuctionReadonly getAuction(String auctionid) throws NoSuchAuctionException {
 		Auction removed=auctions.find(auctionid);
 		if(removed==null) {
-			
-			throw new NoSuchAuctionException();
-		}
-		if(removed.isClosed()) {
 			
 			throw new NoSuchAuctionException();
 		}

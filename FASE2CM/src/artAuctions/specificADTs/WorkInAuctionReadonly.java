@@ -30,11 +30,6 @@ public interface WorkInAuctionReadonly {
 	WorkReadonly getWork();
 
 	/**
-	 * Returns the Auction where the Work is getting auctioned
-	 * @return
-	 */
-	AuctionReadonly getAuction();
-	/**
 	 * The minBidammount of a work in the auction this is connected to
 	 * @return
 	 */
