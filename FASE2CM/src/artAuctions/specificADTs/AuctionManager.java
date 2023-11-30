@@ -239,5 +239,5 @@ public interface AuctionManager extends Serializable{
  */
 	Iterator<Entry<WorkReadonly, WorkReadonly>> listWorksByValue() throws NoSoldWorksException;
 
-	void sellAuctionWork(WorkReadonly currWork, AuctionReadonly auction);
+	void sellAuctionWork(WorkInAuctionReadonly currWork, AuctionReadonly auction);
 }

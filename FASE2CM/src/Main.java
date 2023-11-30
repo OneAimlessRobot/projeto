@@ -373,17 +373,16 @@ public class Main {
 			Iterator<WorkInAuctionReadonly> workIt= defunct.listWorks();
 			while(workIt.hasNext()) {
 				WorkInAuctionReadonly currWork= workIt.next();
-				WorkReadonly actualWork= currWork.getWork();
 				if(currWork.getNumOfBids()==0) {
 					
-					System.out.println(actualWork.getId()+" "+ actualWork.getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
+					System.out.println(currWork.getWork().getId()+" "+ currWork.getWork().getName()+" "+CommandResponse.HERENOUSERWANTSTHIS.getResponse());
 					
 				}
 				else {
-					mgr.sellAuctionWork(actualWork, defunct);
-					System.out.print(actualWork.getId());
+					mgr.sellAuctionWork(currWork, defunct);
+					System.out.print(currWork.getWork().getId());
 					System.out.print(" ");
-					System.out.print(actualWork.getName());
+					System.out.print(currWork.getWork().getName());
 					System.out.print(" ");
 					System.out.print(currWork.getMaxBid().getCollector().getLogin());
 					System.out.print(" ");

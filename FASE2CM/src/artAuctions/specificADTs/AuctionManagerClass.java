@@ -219,34 +219,33 @@ public class AuctionManagerClass implements Serializable, AuctionManager {
 		
 	}
 	@Override
-	public void sellAuctionWork(WorkReadonly currWork,AuctionReadonly auction) {
+	public void sellAuctionWork(WorkInAuctionReadonly currWork,AuctionReadonly auction) {
 		//Gets the Work from the system's hashtable works, instead of the Auction's list of Works
 		
-		WorkInAuction workInAuction=(WorkInAuction) auction.getWorkInAuction(currWork);
-		Iterator<Bid> currBidIt=workInAuction.bids();
+		Iterator<Bid> currBidIt=currWork.bids();
 		
 		while(currBidIt.hasNext()) {
 			Bid currBid=currBidIt.next();
 
-			if(currBid.getBidAmmount()>workInAuction.getMaxBid().getBidAmmount()) {
+			if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
 				
-				workInAuction.setMaxBid(currBid);
+				((WorkInAuction) currWork).setMaxBid(currBid);
 				
 			}
-			if(currBid.getBidAmmount()>currWork.getMaxBid().getBidAmmount()) {
-				if(soldworks.find(currWork)!=null ){
+			if(currBid.getBidAmmount()>currWork.getWork().getMaxBid().getBidAmmount()) {
+				if(soldworks.find(currWork.getWork())!=null ){
 					
-					soldworks.remove(currWork);
+					soldworks.remove(currWork.getWork());
 
 
 					
 				}
-				((Work) currWork).setMaxBid(currBid);
+				((Work)(currWork.getWork())).setMaxBid(currBid);
 				
 			}
 			
 		}
-			soldworks.insert(((Work) currWork),((Work) currWork));
+			soldworks.insert(((Work)(currWork.getWork())),((Work)(currWork.getWork())));
 			
 
 	}
