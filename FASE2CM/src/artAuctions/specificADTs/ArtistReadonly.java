@@ -34,5 +34,10 @@ public interface ArtistReadonly extends UserReadonly {
 	 * @return
 	 */
 	Iterator<Entry<WorkReadonly,WorkReadonly>> works();
+/**
+ * Returns the number of works the artist has in open auctions
+ * @return
+ */
+	int getNumOfWorksInAuction();
 	
 }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 import dataStructures.AVLBSTComparable;
 import dataStructures.Entry;
 import dataStructures.Iterator;
-import dataStructures.OrderedDictionary;
+import dataStructures.OrderedDictionaryCleanable;
 
 /**
 * Implements interface Artist. An Artist is a specific type of User. It can author Works.
@@ -20,11 +20,12 @@ class ArtistClass extends UserClass implements Serializable, Artist {
 	private static final long serialVersionUID = 1L;
 
 	private String artsyName;			//Nome artístico
-	private OrderedDictionary<WorkReadonly,WorkReadonly> works;	//Lista de obras de arte autoradas pelo Artist
-	
+	private OrderedDictionaryCleanable<WorkReadonly,WorkReadonly> works;	//Lista de obras de arte autoradas pelo Artist
+	private int numOfWorksInAuction;
 	public ArtistClass(String login, String name, int age, String email) {
 		super(login, name, age, email);
 		works=new AVLBSTComparable<>(new CompareWorkByName());
+		numOfWorksInAuction=0;
 	}
 	@Override
 	public void setArtsyName(String newName) {
@@ -37,6 +38,11 @@ class ArtistClass extends UserClass implements Serializable, Artist {
 	public int getNumOfWorks() {
 		
 		return works.size();
+	}
+	@Override
+	public int getNumOfWorksInAuction() {
+		
+		return numOfWorksInAuction;
 	}
 	@Override
 	public void addWork(Work work) {
@@ -54,10 +60,15 @@ class ArtistClass extends UserClass implements Serializable, Artist {
 	@Override
 	public void clearWorks() {
 		
-		while(!works.isEmpty()) {
-			
-			works.remove(works.maxEntry().getKey());
-		}
+		works.clean();
+	}
+	@Override
+	public void addWorkInAuction() {
+		numOfWorksInAuction++;
+	}
+	@Override
+	public void removeWorkInAuction() {
+		numOfWorksInAuction--;
 	}
 	
 

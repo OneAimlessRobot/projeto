@@ -30,6 +30,18 @@ interface Artist extends ArtistReadonly {
 	 * Remove todas as Obras de Arte da lista de Obras de Arte de um Artista
 	 */
 	void clearWorks();
+
+
+/**
+ * Increments the number of works the artist has in open auctions by 1
+ * @return
+ */
+	void addWorkInAuction();
+	/**
+	 * decrements the number of works the artist has in open auctions by 1
+	 * @return
+	 */
+	void removeWorkInAuction();
 	
 	
 

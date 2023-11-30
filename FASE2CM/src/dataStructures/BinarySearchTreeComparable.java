@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @param <V> Generic type Value 
  */
 public abstract class BinarySearchTreeComparable<K extends Comparable<K>, V> 
-     extends BinarySearchTree<K,V> implements OrderedDictionary<K,V>, Serializable
+     extends BinarySearchTreeCleanable<K,V> implements OrderedDictionaryCleanable<K,V>, Serializable
 {       
     private static final long serialVersionUID = 1L;
 	protected Comparator<K> comparator;

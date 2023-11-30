@@ -235,6 +235,10 @@ public interface AuctionManager extends Serializable{
  * @throws NoSoldWorksException
  */
 	Iterator<Entry<WorkReadonly, WorkReadonly>> listWorksByValue() throws NoSoldWorksException;
-
+/**
+ * Sells a work in an auction and updates the works in the adequate collections
+ * @param currWork
+ * @param auction
+ */
 	void sellAuctionWork(WorkInAuctionReadonly currWork, AuctionReadonly auction);
 }

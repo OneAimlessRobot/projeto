@@ -105,6 +105,8 @@ class AuctionClass implements Serializable, Auction {
 				Bid next2=it2.next();
 				((User)next2.getCollector()).removeBid();
 			}
+
+			((Artist)next.getWork().getAuthor()).removeWorkInAuction();
 		}
 	}
 

@@ -281,6 +281,6 @@ public class OrderedDoubleList<K extends Comparable<K>, V>
 	public int size() {
 		return currentSize;
 	}
-	
+
 	
 }

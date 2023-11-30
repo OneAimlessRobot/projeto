@@ -7,7 +7,7 @@ package dataStructures;
 import java.io.Serializable;
 
 import dataStructures.AVLBSTNode.NodeType;
-public class AVLBST<K extends Comparable<K>,V> extends BinarySearchTree<K, V> implements Dictionary<K, V>, Serializable {
+public class AVLBST<K extends Comparable<K>,V> extends BinarySearchTreeCleanable<K, V> implements Dictionary<K, V>, Serializable {
 
 	/**
 	 * Serial Version UID of the Class.
